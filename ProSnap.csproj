@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E7B29DB8-5D30-4A36-809C-4462E3F56865}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProSnap</RootNamespace>
+    <AssemblyName>ProSnap</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>ftp://factormystic.net/prosnap/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://factormystic.net/deploy/prosnap/</InstallUrl>
+    <ProductName>ProSnap</ProductName>
+    <PublisherName>factormystic.net</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>index.html</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>85</ApplicationRevision>
+    <ApplicationVersion>1.0.265.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\ProSnap.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\ProSnap.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\ProSnap.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\ProSnap.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>473F5F781B87A4C5A431474F8AB9CB1B26A4B84A</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ProSnap_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>Internet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>ProSnap.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\ActionItemExtensions.cs" />
+    <Compile Include="Actions\ApplyEditAction.cs" />
+    <Compile Include="Actions\BeginScrollingScreenshotAction.cs" />
+    <Compile Include="Actions\ContinueScrollingScreenshotAction.cs" />
+    <Compile Include="Actions\DeleteAction.cs" />
+    <Compile Include="Actions\EndScrollingScreenshotAction.cs" />
+    <Compile Include="Actions\HidePreviewAction.cs" />
+    <Compile Include="Actions\IActionItem.cs" />
+    <Compile Include="Actions\ISaveableActionConfiguration.cs" />
+    <Compile Include="Actions\NoneAction.cs" />
+    <Compile Include="Actions\RunAction.cs" />
+    <Compile Include="Actions\SaveAction.cs" />
+    <Compile Include="Actions\ShowPreviewAction.cs" />
+    <Compile Include="Actions\HeartAction.cs" />
+    <Compile Include="Actions\TakeRegionScreenshotAction.cs" />
+    <Compile Include="Actions\UploadAction.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Crash.cs" />
+    <Compile Include="CrashReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrashReportForm.designer.cs">
+      <DependentUpon>CrashReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\ShortcutActionProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Options\ShortcutActionProperties.Designer.cs">
+      <DependentUpon>ShortcutActionProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options\UploadServiceProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Options\UploadServiceProperties.Designer.cs">
+      <DependentUpon>UploadServiceProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreviewEventArgs.cs" />
+    <Compile Include="Preview\DragDropThumb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preview\DragDropThumb.Designer.cs">
+      <DependentUpon>DragDropThumb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper.cs" />
+    <Compile Include="RegionSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegionSelector.Designer.cs">
+      <DependentUpon>RegionSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Shortcuts\KeyCombo.cs" />
+    <Compile Include="ExtendedScreenshot.cs" />
+    <Compile Include="Controls\ListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Options\Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Options\Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Actions\TakeForegroundScreenshotAction.cs" />
+    <Compile Include="Preview\PeekPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preview\PeekPreview.Designer.cs">
+      <DependentUpon>PeekPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Preview\PostProcessing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preview\PostProcessing.Designer.cs">
+      <DependentUpon>PostProcessing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Shortcuts\ProgramActionChain.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Options\ShortcutItemOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Options\ShortcutItemOptions.Designer.cs">
+      <DependentUpon>ShortcutItemOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportListener.cs" />
+    <Compile Include="Shortcuts\ShortcutItem.cs" />
+    <Compile Include="Shortcuts\ShortcutProfile.cs" />
+    <Compile Include="Controls\TablessControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Update.cs" />
+    <Compile Include="Preview\UploadedFileDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preview\UploadedFileDetails.Designer.cs">
+      <DependentUpon>UploadedFileDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uploading\FormsUploader.cs" />
+    <Compile Include="Uploading\ImageUploader.cs" />
+    <Compile Include="Uploading\UploaderEndedEventArgs.cs" />
+    <Compile Include="Uploading\UploaderProgressEventArgs.cs" />
+    <Compile Include="Uploading\UploadService.cs" />
+    <EmbeddedResource Include="CrashReportForm.resx">
+      <DependentUpon>CrashReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\ShortcutActionProperties.resx">
+      <DependentUpon>ShortcutActionProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\UploadServiceProperties.resx">
+      <DependentUpon>UploadServiceProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preview\DragDropThumb.resx">
+      <DependentUpon>DragDropThumb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preview\PeekPreview.resx">
+      <DependentUpon>PeekPreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preview\PostProcessing.resx">
+      <DependentUpon>PostProcessing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Options\ShortcutItemOptions.resx">
+      <DependentUpon>ShortcutItemOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preview\UploadedFileDetails.resx">
+      <DependentUpon>UploadedFileDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegionSelector.resx">
+      <DependentUpon>RegionSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\HighDPIAware.manifest" />
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Utilities\GongShell\Shell\Shell.csproj">
+      <Project>{711CCF1F-6B8F-4E97-8D84-0EE679C83B41}</Project>
+      <Name>Shell</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\Utilities.WinApi\Utilities.WinApi.csproj">
+      <Project>{1F68C533-41DB-4EBC-BA13-142AAEBE5ACA}</Project>
+      <Name>Utilities.WinApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\Utilities.KeyboardHook\Utilities.KeyboardHook.csproj">
+      <Project>{32C9D946-D68A-4BEC-9FFF-D978215A5E1D}</Project>
+      <Name>Utilities.KeyboardHook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\Utilities.Screenshot\Utilities.Screenshot.csproj">
+      <Project>{C145E67F-C823-4A3E-AB96-F0EB49CA4AB4}</Project>
+      <Name>Utilities.Screenshot</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="notes.txt" />
+    <None Include="ProSnap_TemporaryKey.pfx" />
+    <None Include="Resources\works-on-my-machine-starburst.png" />
+    <None Include="Resources\chart_36x36.png" />
+    <None Include="ProSnap.snk" />
+    <None Include="Resources\UpArrow_48x48.png" />
+    <None Include="Resources\backward_18x32_white.png" />
+    <None Include="Resources\backward_18x32_backward.png" />
+    <None Include="Resources\backward_empty_18x32_black.png" />
+    <None Include="Resources\backward_empty_18x32_white.png" />
+    <None Include="Resources\at_32x32.png" />
+    <None Include="Resources\check_32x26.png" />
+    <None Include="Resources\camera_36x36.png" />
+    <None Include="Resources\camera_36x36_icon.ico" />
+    <None Include="Resources\camera_16x16_icon.ico" />
+    <None Include="Resources\camera_16x16_flash_large_icon.ico" />
+    <None Include="Resources\camera_16x16_flash_small_icon.ico" />
+    <None Include="Resources\cloud_upload_32x32_white.png" />
+    <None Include="Resources\forward_18x32_white.png" />
+    <None Include="Resources\forward_18x32_black.png" />
+    <None Include="Resources\forward_empty_18x32_black.png" />
+    <None Include="Resources\forward_empty_18x32_white.png" />
+    <None Include="Resources\cloud_upload_link_black_32x32.png" />
+    <None Include="Resources\cloud_upload_link_white_32x32.png" />
+    <None Include="Resources\heart_fill_black_32x38.png" />
+    <None Include="Resources\heart_stroke_black_32x28.png" />
+    <None Include="Resources\heart_fill_white_32x38.png" />
+    <None Include="Resources\heart_stroke_white_32x28.png" />
+    <None Include="Resources\heart_fill_12x11.png" />
+    <None Include="Resources\heart_fill_8x7.png" />
+    <None Include="Resources\cog_alt_32x32.png" />
+    <None Include="Resources\image_32x32_white.png" />
+    <None Include="Resources\image_32x32_black.png" />
+    <None Include="Resources\pen_32x32_white.png" />
+    <None Include="Resources\pen_32x32_black.png" />
+    <None Include="Resources\x_28x28_red.png" />
+    <None Include="Resources\x_28x28_white.png" />
+    <None Include="Resources\x_28x28_black.png" />
+    <None Include="Resources\cloud_upload_32x32_black.png" />
+    <None Include="Resources\document_stroke_32x32_white.png" />
+    <None Include="Resources\document_stroke_32x32_black.png" />
+    <None Include="Resources\Flag_Yellow_16x16.png" />
+    <None Include="Resources\Flag_Red_48x48.png" />
+    <None Include="Resources\Flag_Red_16x16.png" />
+    <None Include="Resources\Flag_Yellow_48x48.png" />
+    <None Include="Resources\Flag_Purple_16x16.png" />
+    <None Include="Resources\Flag_Purple_48x48.png" />
+    <None Include="Resources\Flag_Green_48x48.png" />
+    <None Include="Resources\Flag_Green_16x16.png" />
+    <None Include="Resources\Flag_Blue_48x48.png" />
+    <None Include="Resources\Flag_Empty_48x48.png" />
+    <None Include="Resources\Flag_Blue_16x16.png" />
+    <None Include="Resources\Camera.ico" />
+    <None Include="Resources\arrow_down.png" />
+    <None Include="Resources\arrow_up.png" />
+    <None Include="Resources\FlashBulb.wav" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\PencilPicture.png" />
+    <None Include="Resources\GlobeFloppy.png" />
+    <None Include="Resources\FloppyDisk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="notes.txt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
