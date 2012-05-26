@@ -377,25 +377,8 @@
     <None Include="Resources\cloud_upload_32x32_black.png" />
     <None Include="Resources\document_stroke_32x32_white.png" />
     <None Include="Resources\document_stroke_32x32_black.png" />
-    <None Include="Resources\Flag_Yellow_16x16.png" />
-    <None Include="Resources\Flag_Red_48x48.png" />
-    <None Include="Resources\Flag_Red_16x16.png" />
-    <None Include="Resources\Flag_Yellow_48x48.png" />
-    <None Include="Resources\Flag_Purple_16x16.png" />
-    <None Include="Resources\Flag_Purple_48x48.png" />
-    <None Include="Resources\Flag_Green_48x48.png" />
-    <None Include="Resources\Flag_Green_16x16.png" />
-    <None Include="Resources\Flag_Blue_48x48.png" />
-    <None Include="Resources\Flag_Empty_48x48.png" />
-    <None Include="Resources\Flag_Blue_16x16.png" />
-    <None Include="Resources\Camera.ico" />
     <None Include="Resources\arrow_down.png" />
     <None Include="Resources\arrow_up.png" />
-    <None Include="Resources\FlashBulb.wav" />
-    <None Include="Resources\delete.png" />
-    <None Include="Resources\PencilPicture.png" />
-    <None Include="Resources\GlobeFloppy.png" />
-    <None Include="Resources\FloppyDisk.png" />
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="notes.txt">
