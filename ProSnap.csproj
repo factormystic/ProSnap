@@ -318,21 +318,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Utilities\GongShell\Shell\Shell.csproj">
-      <Project>{711CCF1F-6B8F-4E97-8D84-0EE679C83B41}</Project>
-      <Name>Shell</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Utilities.WinApi\FMUtils.WinApi.csproj">
-      <Project>{1F68C533-41DB-4EBC-BA13-142AAEBE5ACA}</Project>
-      <Name>FMUtils.WinApi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Utilities.KeyboardHook\FMUtils.KeyboardHook.csproj">
+    <ProjectReference Include="..\..\Utilities\FMUtils.KeyboardHook\FMUtils.KeyboardHook.csproj">
       <Project>{32C9D946-D68A-4BEC-9FFF-D978215A5E1D}</Project>
       <Name>FMUtils.KeyboardHook</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Utilities.Screenshot\FMUtils.Screenshot.csproj">
+    <ProjectReference Include="..\..\Utilities\FMUtils.Screenshot\FMUtils.Screenshot.csproj">
       <Project>{C145E67F-C823-4A3E-AB96-F0EB49CA4AB4}</Project>
       <Name>FMUtils.Screenshot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\FMUtils.WinApi\FMUtils.WinApi.csproj">
+      <Project>{1F68C533-41DB-4EBC-BA13-142AAEBE5ACA}</Project>
+      <Name>FMUtils.WinApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\GongShell\Shell\Shell.csproj">
+      <Project>{711CCF1F-6B8F-4E97-8D84-0EE679C83B41}</Project>
+      <Name>Shell</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -383,12 +383,12 @@
   <ItemGroup>
     <PublishFile Include="notes.txt">
       <Visible>False</Visible>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
@@ -413,6 +413,9 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
