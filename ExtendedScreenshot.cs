@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing.Imaging;
 using System.IO;
-using Utilities.Screenshot;
+using FMUtils.Screenshot;
 using System.Drawing;
 
 namespace ProSnap

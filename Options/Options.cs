@@ -7,8 +7,8 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using ProSnap.ActionItems;
 using ProSnap.Uploading;
-using Utilities.Screenshot;
-using Utilities.WinApi;
+using FMUtils.Screenshot;
+using FMUtils.WinApi;
 
 namespace ProSnap.Options
 {
@@ -38,11 +38,11 @@ namespace ProSnap.Options
             nudDelayTime.Value = Configuration.PreviewDelayTime;
             cbDefaultFileType.SelectedIndex = Configuration.DefaultFilterIndex;
 
-            cbPreviewCenter.Checked = Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.Center;
-            cbPreviewUpperLeft.Checked = Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.UpperLeft;
-            cbPreviewUpperRight.Checked = Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.UpperRight;
-            cbPreviewLowerLeft.Checked = Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.LowerLeft;
-            cbPreviewLowerRight.Checked = Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.LowerRight;
+            cbPreviewCenter.Checked = Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.Center;
+            cbPreviewUpperLeft.Checked = Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.UpperLeft;
+            cbPreviewUpperRight.Checked = Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.UpperRight;
+            cbPreviewLowerLeft.Checked = Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.LowerLeft;
+            cbPreviewLowerRight.Checked = Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.LowerRight;
 
             lvShortcuts.Items.Clear();
             lvShortcuts.Items.AddRange(Configuration.Shortcuts.Select(s => new ListViewItem(new string[] { s.KeyCombo.ToString(), string.Join(", ", s.ActionChain.ActionItems.Select(ai => ai.ActionType.DisplayText())) })
@@ -141,7 +141,7 @@ namespace ProSnap.Options
                     composite.DrawImage(DesktopWallpaper, new Rectangle(0, 0, CompositedDesktop.Width, CompositedDesktop.Height), new Rectangle(0, 0, DesktopWallpaper.Width, DesktopWallpaper.Height), GraphicsUnit.Pixel);
                 }
 
-                switch (Utilities.WinApi.Helper.GetTaskbarEdge())
+                switch (FMUtils.WinApi.Helper.GetTaskbarEdge())
                 {
                     case DockStyle.Top:
                     case DockStyle.Left: composite.DrawImageUnscaled(TaskBar.BaseScreenshotImage, 0, 0); break;
@@ -157,21 +157,21 @@ namespace ProSnap.Options
             pnPreviewLocationChooser.Left = (int)((float)this.Width / 2.0 - (float)pnPreviewLocationChooser.Width / 2.0);
         }
 
-        private Utilities.WinApi.Helper.WindowLocation ChecksToEdge()
+        private FMUtils.WinApi.Helper.WindowLocation ChecksToEdge()
         {
             if (cbPreviewUpperLeft.Checked)
-                return Utilities.WinApi.Helper.WindowLocation.UpperLeft;
+                return FMUtils.WinApi.Helper.WindowLocation.UpperLeft;
 
             if (cbPreviewUpperRight.Checked)
-                return Utilities.WinApi.Helper.WindowLocation.UpperRight;
+                return FMUtils.WinApi.Helper.WindowLocation.UpperRight;
 
             if (cbPreviewLowerLeft.Checked)
-                return Utilities.WinApi.Helper.WindowLocation.LowerLeft;
+                return FMUtils.WinApi.Helper.WindowLocation.LowerLeft;
 
             if (cbPreviewLowerRight.Checked)
-                return Utilities.WinApi.Helper.WindowLocation.LowerRight;
+                return FMUtils.WinApi.Helper.WindowLocation.LowerRight;
 
-            return Utilities.WinApi.Helper.WindowLocation.Center;
+            return FMUtils.WinApi.Helper.WindowLocation.Center;
         }
 
         private void cbPreviewLocationCheckbox_Click(object sender, EventArgs e)
@@ -198,7 +198,7 @@ namespace ProSnap.Options
                 return;
 
             Configuration.PreviewLocation = ChecksToEdge();
-            Configuration.ButtonPanelLocation = Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.UpperLeft || Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.UpperRight ? DockStyle.Top : DockStyle.Bottom;
+            Configuration.ButtonPanelLocation = Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.UpperLeft || Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.UpperRight ? DockStyle.Top : DockStyle.Bottom;
         }
 
         private void nudDelayTime_ValueChanged(object sender, EventArgs e)

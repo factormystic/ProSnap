@@ -11,8 +11,8 @@ using System.Threading;
 using System.Windows.Forms;
 using ProSnap.ActionItems;
 using ProSnap.Properties;
-using Utilities.KeyboardHook;
-using Utilities.WinApi;
+using FMUtils.KeyboardHook;
+using FMUtils.WinApi;
 
 namespace ProSnap
 {
@@ -542,7 +542,7 @@ namespace ProSnap
 
                             switch (CurrentActionConfig.DefaultBorderRounding)
                             {
-                                case ApplyEditsAction.ApplicationMode.Automatic: LatestScreenshot.withBorderRounding = !LatestScreenshot.isMaximized && LatestScreenshot.isRounded && !(Utilities.WinApi.Helper.OperatingSystem == Utilities.WinApi.Helper.OperatingSystems.Win8); break;
+                                case ApplyEditsAction.ApplicationMode.Automatic: LatestScreenshot.withBorderRounding = !LatestScreenshot.isMaximized && LatestScreenshot.isRounded && !(FMUtils.WinApi.Helper.OperatingSystem == FMUtils.WinApi.Helper.OperatingSystems.Win8); break;
                                 case ApplyEditsAction.ApplicationMode.On: LatestScreenshot.withBorderRounding = true; break;
                                 case ApplyEditsAction.ApplicationMode.Off: LatestScreenshot.withBorderRounding = false; break;
                             }

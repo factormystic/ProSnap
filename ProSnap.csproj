@@ -322,17 +322,17 @@
       <Project>{711CCF1F-6B8F-4E97-8D84-0EE679C83B41}</Project>
       <Name>Shell</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Utilities.WinApi\Utilities.WinApi.csproj">
+    <ProjectReference Include="..\..\Utilities\Utilities.WinApi\FMUtils.WinApi.csproj">
       <Project>{1F68C533-41DB-4EBC-BA13-142AAEBE5ACA}</Project>
-      <Name>Utilities.WinApi</Name>
+      <Name>FMUtils.WinApi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Utilities.KeyboardHook\Utilities.KeyboardHook.csproj">
+    <ProjectReference Include="..\..\Utilities\Utilities.KeyboardHook\FMUtils.KeyboardHook.csproj">
       <Project>{32C9D946-D68A-4BEC-9FFF-D978215A5E1D}</Project>
-      <Name>Utilities.KeyboardHook</Name>
+      <Name>FMUtils.KeyboardHook</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utilities\Utilities.Screenshot\Utilities.Screenshot.csproj">
+    <ProjectReference Include="..\..\Utilities\Utilities.Screenshot\FMUtils.Screenshot.csproj">
       <Project>{C145E67F-C823-4A3E-AB96-F0EB49CA4AB4}</Project>
-      <Name>Utilities.Screenshot</Name>
+      <Name>FMUtils.Screenshot</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -417,7 +417,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

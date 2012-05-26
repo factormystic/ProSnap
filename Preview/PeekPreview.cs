@@ -8,8 +8,8 @@ using System.Linq;
 using System.Windows.Forms;
 using ProSnap.Properties;
 using ProSnap.Uploading;
-using Utilities;
-using Utilities.WinApi;
+using FMUtils;
+using FMUtils.WinApi;
 
 namespace ProSnap
 {
@@ -186,9 +186,9 @@ namespace ProSnap
             FadeCloseCountdown.Enabled = false;
 
             int SlideFactor = 0;
-            if (Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.UpperLeft || Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.UpperRight)
+            if (Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.UpperLeft || Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.UpperRight)
                 SlideFactor = -1;
-            else if (Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.LowerLeft || Configuration.PreviewLocation == Utilities.WinApi.Helper.WindowLocation.LowerRight)
+            else if (Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.LowerLeft || Configuration.PreviewLocation == FMUtils.WinApi.Helper.WindowLocation.LowerRight)
                 SlideFactor = 1;
 
             Timer FadeOut = new Timer();
@@ -221,7 +221,7 @@ namespace ProSnap
         {
             Trace.WriteLine("Window frame configuration", string.Format("PeekPreview.SetupWindowArea [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-            if (Utilities.WinApi.Helper.VisualStyle == Utilities.WinApi.Helper.VisualStyles.Aero)
+            if (FMUtils.WinApi.Helper.VisualStyle == FMUtils.WinApi.Helper.VisualStyles.Aero)
             {
                 this.BackColor = Color.Black;
 
@@ -246,27 +246,27 @@ namespace ProSnap
         {
             switch (Configuration.PreviewLocation)
             {
-                case Utilities.WinApi.Helper.WindowLocation.LowerRight:
+                case FMUtils.WinApi.Helper.WindowLocation.LowerRight:
                     {
                         Left = Screen.PrimaryScreen.WorkingArea.Right - Width - 10;
                         Top = Screen.PrimaryScreen.WorkingArea.Bottom - Height - 10;
                     } break;
-                case Utilities.WinApi.Helper.WindowLocation.LowerLeft:
+                case FMUtils.WinApi.Helper.WindowLocation.LowerLeft:
                     {
                         Left = Screen.PrimaryScreen.WorkingArea.Left + 10;
                         Top = Screen.PrimaryScreen.WorkingArea.Bottom - Height - 10;
                     } break;
-                case Utilities.WinApi.Helper.WindowLocation.UpperLeft:
+                case FMUtils.WinApi.Helper.WindowLocation.UpperLeft:
                     {
                         Left = Screen.PrimaryScreen.WorkingArea.Left + 10;
                         Top = Screen.PrimaryScreen.WorkingArea.Top + 10;
                     } break;
-                case Utilities.WinApi.Helper.WindowLocation.UpperRight:
+                case FMUtils.WinApi.Helper.WindowLocation.UpperRight:
                     {
                         Top = Screen.PrimaryScreen.WorkingArea.Top + 10;
                         Left = Screen.PrimaryScreen.WorkingArea.Right - Width - 10;
                     } break;
-                case Utilities.WinApi.Helper.WindowLocation.Center:
+                case FMUtils.WinApi.Helper.WindowLocation.Center:
                     {
                         Left = Screen.PrimaryScreen.WorkingArea.Width / 2 - Width / 2;
                         Top = Screen.PrimaryScreen.WorkingArea.Height / 2 - Height / 2;
@@ -309,7 +309,7 @@ namespace ProSnap
             if (mea != null && mea.Button == MouseButtons.Right && File.Exists(LatestScreenshot.SavedFileName))
             {
                 Trace.WriteLine("Right clicked preview...", string.Format("PeekPreview.pbPreview_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
-                new GongSolutions.Shell.ShellContextMenu(new GongSolutions.Shell.ShellItem(LatestScreenshot.SavedFileName)).ShowContextMenu(pbPreview, mea.Location, Utilities.WinApi.Helper.isShiftKeyDown() ? GongSolutions.Shell.Interop.CMF.EXTENDEDVERBS : GongSolutions.Shell.Interop.CMF.EXPLORE);
+                new GongSolutions.Shell.ShellContextMenu(new GongSolutions.Shell.ShellItem(LatestScreenshot.SavedFileName)).ShowContextMenu(pbPreview, mea.Location, FMUtils.WinApi.Helper.isShiftKeyDown() ? GongSolutions.Shell.Interop.CMF.EXTENDEDVERBS : GongSolutions.Shell.Interop.CMF.EXPLORE);
             }
         }
 
@@ -413,7 +413,7 @@ namespace ProSnap
                         if (File.Exists(LatestScreenshot.SavedFileName))
                         {
                             Trace.WriteLine("Opening file context menu...", string.Format("PeekPreview.btSave_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
-                            new GongSolutions.Shell.ShellContextMenu(new GongSolutions.Shell.ShellItem(LatestScreenshot.SavedFileName)).ShowContextMenu(pnSave, mea.Location, Utilities.WinApi.Helper.isShiftKeyDown() ? GongSolutions.Shell.Interop.CMF.EXTENDEDVERBS : GongSolutions.Shell.Interop.CMF.EXPLORE);
+                            new GongSolutions.Shell.ShellContextMenu(new GongSolutions.Shell.ShellItem(LatestScreenshot.SavedFileName)).ShowContextMenu(pnSave, mea.Location, FMUtils.WinApi.Helper.isShiftKeyDown() ? GongSolutions.Shell.Interop.CMF.EXTENDEDVERBS : GongSolutions.Shell.Interop.CMF.EXPLORE);
                         }
                     } break;
             }
@@ -826,13 +826,13 @@ namespace ProSnap
             FadeCloseCountdown.Enabled = false;
             MousePositionCheck.Enabled = true;
 
-            if (Utilities.WinApi.Helper.VisualStyle != Utilities.WinApi.Helper.VisualStyles.Aero)
+            if (FMUtils.WinApi.Helper.VisualStyle != FMUtils.WinApi.Helper.VisualStyles.Aero)
                 this.BackColor = SystemColors.GradientActiveCaption;
         }
 
         private void PeekPreview_Deactivate(object sender, EventArgs e)
         {
-            if (Utilities.WinApi.Helper.VisualStyle != Utilities.WinApi.Helper.VisualStyles.Aero)
+            if (FMUtils.WinApi.Helper.VisualStyle != FMUtils.WinApi.Helper.VisualStyles.Aero)
                 this.BackColor = SystemColors.GradientInactiveCaption;
         }
 

@@ -63,7 +63,7 @@ namespace ProSnap
             return new KeyCombo(e.KeyCode == Keys.Alt || e.KeyCode == Keys.ControlKey || e.KeyCode == Keys.ShiftKey || e.KeyCode == Keys.LWin || e.KeyCode == Keys.RWin ? Keys.None : e.KeyCode, e.Alt, e.Control, e.Shift, (GetAsyncKeyState(Keys.LWin) & 0x8000) != 0 || (GetAsyncKeyState(Keys.RWin) & 0x8000) != 0);
         }
 
-        internal static KeyCombo FromKeyboardHookEventArgs(Utilities.KeyboardHook.KeyboardHookEventArgs e)
+        internal static KeyCombo FromKeyboardHookEventArgs(FMUtils.KeyboardHook.KeyboardHookEventArgs e)
         {
             return new KeyCombo(e.Key == Keys.LMenu || e.Key == Keys.RMenu || e.Key == Keys.LControlKey || e.Key == Keys.RControlKey || e.Key == Keys.LShiftKey || e.Key == Keys.RShiftKey || e.Key == Keys.LWin || e.Key == Keys.RWin ? Keys.None : e.Key, e.isAltPressed, e.isCtrlPressed, e.isShiftPressed, e.isWinPressed);
         }

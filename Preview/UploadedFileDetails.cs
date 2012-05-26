@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-using Utilities.Screenshot;
+using FMUtils.Screenshot;
 
 namespace ProSnap
 {

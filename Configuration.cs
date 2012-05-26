@@ -50,7 +50,7 @@ namespace ProSnap
 
         public static int PreviewDelayTime { get; set; }
 
-        public static Utilities.WinApi.Helper.WindowLocation PreviewLocation { get; set; }
+        public static FMUtils.WinApi.Helper.WindowLocation PreviewLocation { get; set; }
         
         public static DockStyle ButtonPanelLocation { get; set; }
 
@@ -123,7 +123,7 @@ namespace ProSnap
         private static void LoadDefaultProperties()
         {
             PreviewDelayTime = 5;
-            PreviewLocation = Utilities.WinApi.Helper.WindowLocation.LowerRight;
+            PreviewLocation = FMUtils.WinApi.Helper.WindowLocation.LowerRight;
             ButtonPanelLocation = DockStyle.Bottom;
             ShowPreviewWithoutActivation = false;
 
