@@ -30,5 +30,6 @@ While funtional and useful in its current form, ProSnap is currently deficient i
 - I need to figure out how to implement OAuth consumption in a desktop app, which would allow uploading to Tumblr, and private Imgur accounts
 - FTP upload support, and a general revamp of the upload config UI
 - The `IActionItem` structure is functional but less than ideal. It'd be cool to devolve the logic that lives in `DoActionItem` into each separate `IActionItem` implementation. Then that would open the potential to load in `IActionItem`s at runtime, possibly via a plugin architecture.
+- Scrolling screenshot implementation is weak and needs to be rewritten with a less dumb (faster/more successful) algorithm
 
 Feel free to fork this repository and start cracking on any of these issues
