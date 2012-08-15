@@ -16,7 +16,7 @@
 - Core application lives in `Program.cs`, including the root action dispatcher `DoActionItem`
 - `IActionItem` implementations live in `\Action`. Look here for a rough assessment of what ProSnap can do. This is also where functionality build-out will take place.
 
-### Usage
+### Compiling
 - Requires **[FMUtils.Screenshot](https://github.com/factormystic/FMUtils.Screenshot#readme)**, **[FMUtils.KeyboardHook](https://github.com/factormystic/FMUtils.KeyboardHook#readme)**, **[FMUtils.WinApi](https://github.com/factormystic/FMUtils.WinApi#readme)**
 - Also requires **[GongShell](http://gong-shell.sourceforge.net)**, a neat third party library I use to show the Windows context menu
 
