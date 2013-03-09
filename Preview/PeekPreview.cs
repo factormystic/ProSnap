@@ -6,10 +6,10 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using ProSnap.Properties;
-using ProSnap.Uploading;
 using FMUtils;
 using FMUtils.WinApi;
+using ProSnap.Properties;
+using ProSnap.Uploading;
 
 namespace ProSnap
 {

@@ -29,7 +29,7 @@ namespace ProSnap.ActionItems
         #region IActionItem Members
 
         [Browsable(false)]
-		public ActionTypes ActionType
+        public ActionTypes ActionType
         {
             get { return ActionTypes.Run; }
         }

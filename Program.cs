@@ -9,10 +9,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using ProSnap.ActionItems;
-using ProSnap.Properties;
 using FMUtils.KeyboardHook;
 using FMUtils.WinApi;
+using ProSnap.ActionItems;
+using ProSnap.Properties;
 
 namespace ProSnap
 {
@@ -589,7 +589,8 @@ namespace ProSnap
                                     } break;
                                 case RunAction.Modes.FilePath:
                                     {
-                                        var psi = new ProcessStartInfo(Environment.ExpandEnvironmentVariables(Helper.ExpandParameters(Run.ApplicationPath, LatestScreenshot)), parameters) {
+                                        var psi = new ProcessStartInfo(Environment.ExpandEnvironmentVariables(Helper.ExpandParameters(Run.ApplicationPath, LatestScreenshot)), parameters)
+                                        {
                                             UseShellExecute = false,
                                             WorkingDirectory = working,
                                             CreateNoWindow = Run.HideCommandPrompt,

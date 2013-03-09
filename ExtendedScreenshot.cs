@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using FMUtils.Screenshot;
-using System.Drawing;
 
 namespace ProSnap
 {
@@ -15,7 +15,7 @@ namespace ProSnap
 
         internal MemoryStream GetEditedScreenshotPNGImageThumbnailStream()
         {
-           return ComposedScreenshotThumbnail.ToMemoryStream(ImageFormat.Png);
+            return ComposedScreenshotThumbnail.ToMemoryStream(ImageFormat.Png);
         }
 
         public string InternalFileName
