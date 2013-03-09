@@ -155,13 +155,17 @@ namespace ProSnap
                 }
             }));
 
+            var OpenInBrowser = ActionTypes.Run.ToInstance() as RunAction;
+            OpenInBrowser.ApplicationPath = "cmd.exe";
+            OpenInBrowser.Parameters = "/c start \"\" \":url?DELETE_URL=:delete\"";
+
             Shortcuts.Add(new ShortcutItem(true, false, new KeyCombo(Keys.PrintScreen, ctrl: true, shift: true), new ProgramActionChain("Create & Upload Screenshot")
             {
                 ActionItems = { 
                    ActionTypes.TakeForegroundScreenshot.ToInstance(),
                    ActionTypes.ApplyEdits.ToInstance(),
                    ActionTypes.Upload.ToInstance(),
-                   ActionTypes.ShowPreview.ToInstance(),
+                   OpenInBrowser,
                 }
             }));
 
