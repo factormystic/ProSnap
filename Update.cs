@@ -97,6 +97,7 @@ namespace ProSnap
             {
                 using (var wc = new WebClient())
                 {
+                    //If you get an IOException about a registry key here, while debugging, check this: http://stackoverflow.com/a/13470833/1569
                     string result = wc.DownloadString(new Uri(@"http://factormystic.net/prosnap/version?v=" + Application.ProductVersion));
 
                     if (string.IsNullOrEmpty(result))
