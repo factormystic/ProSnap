@@ -589,9 +589,11 @@ namespace ProSnap
                                     } break;
                                 case RunAction.Modes.FilePath:
                                     {
-                                        var psi = new ProcessStartInfo(Environment.ExpandEnvironmentVariables(Helper.ExpandParameters(Run.ApplicationPath, LatestScreenshot)), parameters) { UseShellExecute = false };
-                                        if (!string.IsNullOrEmpty(working))
-                                            psi.WorkingDirectory = working;
+                                        var psi = new ProcessStartInfo(Environment.ExpandEnvironmentVariables(Helper.ExpandParameters(Run.ApplicationPath, LatestScreenshot)), parameters) {
+                                            UseShellExecute = false,
+                                            WorkingDirectory = working,
+                                            CreateNoWindow = Run.HideCommandPrompt,
+                                        };
 
                                         Process.Start(psi);
                                     } break;

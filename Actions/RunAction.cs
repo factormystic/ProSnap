@@ -22,6 +22,10 @@ namespace ProSnap.ActionItems
         [DescriptionAttribute("If provided, specifices the working directory for the new process. See documentation for available path variables.")]
         public string WorkingDirectory { get; set; }
 
+        [DescriptionAttribute("If the Application Path is 'cmd.exe', specifies if the command prompt window should be hidden while the command is running.")]
+        [DefaultValueAttribute(true)]
+        public bool HideCommandPrompt { get; set; }
+
         #region IActionItem Members
 
         [Browsable(false)]
@@ -39,7 +43,8 @@ namespace ProSnap.ActionItems
                 ShellVerb = this.ShellVerb,
                 ApplicationPath = this.ApplicationPath,
                 Parameters = this.Parameters,
-                WorkingDirectory = this.WorkingDirectory
+                WorkingDirectory = this.WorkingDirectory,
+                HideCommandPrompt = this.HideCommandPrompt,
             };
         }
 
@@ -48,6 +53,7 @@ namespace ProSnap.ActionItems
         public RunAction()
         {
             this.Mode = Modes.FilePath;
+            this.HideCommandPrompt = true;
         }
     }
 }
