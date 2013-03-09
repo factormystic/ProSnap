@@ -1,4 +1,6 @@
-﻿using System.Drawing.Imaging;
+﻿using System;
+using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace ProSnap
@@ -10,37 +12,24 @@ namespace ProSnap
             if (string.IsNullOrEmpty(p))
                 return string.Empty;
 
-            p = p.Replace(":yyyy", ss.Date.ToString("yyyy"));
-            p = p.Replace(":yy", ss.Date.ToString("yy"));
-
-            p = p.Replace(":MMMM", ss.Date.ToString("MMMM"));
-            p = p.Replace(":MMM", ss.Date.ToString("MMM"));
-            p = p.Replace(":MM", ss.Date.ToString("MM"));
-            p = p.Replace(":M", ss.Date.ToString("M"));
-
-            p = p.Replace(":dddd", ss.Date.ToString("dddd"));
-            p = p.Replace(":ddd", ss.Date.ToString("ddd"));
-            p = p.Replace(":dd", ss.Date.ToString("dd"));
-            p = p.Replace(":d", ss.Date.ToString("d"));
-
-            p = p.Replace(":hh", ss.Date.ToString("hh"));
-            p = p.Replace(":HH", ss.Date.ToString("HH"));
-
-            p = p.Replace(":mm", ss.Date.ToString("mm"));
-            p = p.Replace(":m", ss.Date.ToString("m"));
-
-            p = p.Replace(":ss", ss.Date.ToString("ss"));
-            p = p.Replace(":s", ss.Date.ToString("s"));
-
-            p = p.Replace(":tt", ss.Date.ToString("tt"));
-            p = p.Replace(":t", ss.Date.ToString("t"));
-
-            p = p.Replace(":zzz", ss.Date.ToString("zzz"));
-            p = p.Replace(":zz", ss.Date.ToString("zz"));
-
-            p = p.Replace(":w", ss.WindowTitle);
-            
-            return p;
+            return Regex.Replace(p, @":[a-z]+", new MatchEvaluator(m =>
+            {
+                try
+                {
+                    switch (m.Value)
+                    {
+                        case ":w": return ss.WindowTitle;
+                        case ":url": return ss.Remote.ImageLink;
+                        case ":delete": return ss.Remote.DeleteLink;
+                        case ":file": return string.IsNullOrEmpty(ss.SavedFileName) ? ss.InternalFileName : ss.SavedFileName;
+                        default: return ss.Date.ToString(m.Value.TrimStart(':'));
+                    }
+                }
+                catch (FormatException fe)
+                {
+                    return m.Value;
+                }
+            }), RegexOptions.IgnoreCase);
         }
 
         internal static ImageFormat ExtToImageFormat(string p)

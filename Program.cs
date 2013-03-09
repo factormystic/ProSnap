@@ -578,7 +578,7 @@ namespace ProSnap
                                 LatestScreenshot.ComposedScreenshotImage.Save(LatestScreenshot.InternalFileName, ImageFormat.Png);
                             }
 
-                            var parameters = Helper.ExpandParameters(Run.Parameters, LatestScreenshot).Replace(":file", LatestScreenshot.InternalFileName);
+                            var parameters = Helper.ExpandParameters(Run.Parameters, LatestScreenshot);
                             var working = Environment.ExpandEnvironmentVariables(Helper.ExpandParameters(Run.WorkingDirectory, LatestScreenshot));
 
                             switch (Run.Mode)

@@ -22,9 +22,13 @@ namespace ProSnap
         {
             get
             {
-                return Path.Combine(Configuration.LocalPath, "screenshots", Helper.ExpandParameters(Configuration.DefaultFileName, this));
+                if (string.IsNullOrEmpty(_internalfilename))
+                    _internalfilename = Path.Combine(Configuration.LocalPath, "screenshots", Helper.ExpandParameters(Configuration.DefaultFileName, this));
+
+                return _internalfilename;
             }
         }
+        string _internalfilename;
 
         public string SavedFileName { get; set; }
         public bool isFlagged { get; set; }
