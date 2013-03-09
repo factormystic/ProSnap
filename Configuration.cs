@@ -85,6 +85,12 @@ namespace ProSnap
                             foreach (var ss in dir.EnumerateDirectories("screenshots", SearchOption.TopDirectoryOnly))
                                 Directory.Move(ss.FullName, Path.Combine(Configuration.LocalPath, "screenshots"));
 
+                            var TempProductPath = Path.Combine(Environment.ExpandEnvironmentVariables("%temp%"), Application.ProductName);
+
+                            //Directory.Move requires the parent of the last directory part exist, which in this case is the product name directory
+                            if (!Directory.Exists(TempProductPath))
+                                Directory.CreateDirectory(TempProductPath);
+
                             Directory.Move(dir.FullName, Path.Combine(Environment.ExpandEnvironmentVariables("%temp%"), Application.ProductName, dir.Name));
                         }
                     }
