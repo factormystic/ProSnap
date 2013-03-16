@@ -21,15 +21,15 @@
 - Also requires **[GongShell](http://gong-shell.sourceforge.net)**, a neat third party library I use to show the Windows context menu
 
 ### Where you can help
-While funtional and useful in its current form, ProSnap is currently deficient in several ways:
-- Configuration save/load is not yet implemented, so all configuration changes reset when the app is closed
-- Screenshot metadata isn't persisted across app restarts
-- All session screenshots are kept in memory, so memory useage only grows during use
-- Graphics mode changes (I think) sometimes cause the preview form to be solid black instead of glassy (such as after a Remote Desktop session)
-- The region screenshot chooser UI is too minimalist, and needs some UI love
-- I need to figure out how to implement OAuth consumption in a desktop app, which would allow uploading to Tumblr, and private Imgur accounts
-- FTP upload support, and a general revamp of the upload config UI
-- The `IActionItem` structure is functional but less than ideal. It'd be cool to devolve the logic that lives in `DoActionItem` into each separate `IActionItem` implementation. Then that would open the potential to load in `IActionItem`s at runtime, possibly via a plugin architecture.
-- Scrolling screenshot implementation is weak and needs to be rewritten with a less dumb (faster/more successful) algorithm
+While funtional and useful in its current form, ProSnap is currently deficient in several ways (no particular order):
+- [[#8](https://github.com/factormystic/ProSnap/issues/8)] Configuration save/load is not yet implemented, so all configuration changes reset when the app is closed
+- [[#9] (https://github.com/factormystic/ProSnap/issues/9)] Screenshot metadata isn't persisted across app restarts
+- [[#10] (https://github.com/factormystic/ProSnap/issues/10)] All session screenshots are kept in memory, so memory useage only grows during use
+- [[#11] (https://github.com/factormystic/ProSnap/issues/11)] Graphics mode changes (I think) sometimes cause the preview form to be solid black instead of glassy (such as after a Remote Desktop session)
+- [[#2] (https://github.com/factormystic/ProSnap/issues/2)] The region screenshot chooser UI is too minimalist, and needs some UI love
+- [[#12] (https://github.com/factormystic/ProSnap/issues/12)] I need to figure out how to implement OAuth consumption in a desktop app, which would allow uploading to Tumblr, and private Imgur accounts
+- [[#13] (https://github.com/factormystic/ProSnap/issues/13)] FTP upload support, and [[#14] (https://github.com/factormystic/ProSnap/issues/14)] a general revamp of the upload config UI
+- [[branch: action-devolvement] (https://github.com/factormystic/ProSnap/tree/action-devolvement)] The `IActionItem` structure is functional but less than ideal. It'd be cool to devolve the logic that lives in `DoActionItem` into each separate `IActionItem` implementation. Then that would open the potential to load in `IActionItem`s at runtime, possibly via a plugin architecture.
+- [[#15] (https://github.com/factormystic/ProSnap/issues/15)] Scrolling screenshot implementation is weak and needs to be rewritten with a less dumb (faster/more successful) algorithm
 
 Feel free to fork this repository and start cracking on any of these issues
