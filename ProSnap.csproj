@@ -283,7 +283,6 @@
     <Compile Include="Preview\UploadedFileDetails.Designer.cs">
       <DependentUpon>UploadedFileDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uploading\ImageUploader.cs" />
     <Compile Include="IUploadService.cs" />
     <Compile Include="Uploading\UploaderEndedEventArgs.cs" />
     <Compile Include="Uploading\UploaderProgressEventArgs.cs" />

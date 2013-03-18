@@ -22,6 +22,8 @@ namespace ProSnap
         internal static List<ExtendedScreenshot> History;
 
         internal static PeekPreview Preview;
+        internal static RegionSelector Selector;
+
         public static ExtendedScreenshot CurrentHistoryItem { get; set; }
 
         internal static bool isTakingScrollingScreenshot = false;
@@ -56,7 +58,8 @@ namespace ProSnap
             History = new List<ExtendedScreenshot>();
 
             Preview = new PeekPreview();
-            Trace.WriteLine("Forcing the creation of PeekPreview by accessing its handle on the Main UI thread: " + Preview.Handle, string.Format("Program [{0}]", Thread.CurrentThread.Name));
+            Selector = new RegionSelector();
+            Trace.WriteLine(string.Format("Forcing the creation of windows by accessing their handles on the Main UI thread: {0}, {1}", Preview.Handle, Selector.Handle), string.Format("Program [{0}]", Thread.CurrentThread.Name));
 
             KeyboardHook = new Hook("Global Action Hook");
             KeyboardHook.KeyDownEvent += KeyDown;
@@ -87,10 +90,13 @@ namespace ProSnap
             IconAnimation.WorkerSupportsCancellation = true;
             IconAnimation.DoWork += IconAnimation_DoWork;
 
-            AppDomain.CurrentDomain.ProcessExit += (o, e) => KeyboardHook.isPaused = true;
-            Application.Run();
+            AppDomain.CurrentDomain.ProcessExit += (o, e) =>
+            {
+                KeyboardHook.isPaused = true;
+                TrayIcon.Visible = false;
+            };
 
-            TrayIcon.Visible = false;
+            Application.Run();
         }
 
         private static void IconAnimation_DoWork(object sender, DoWorkEventArgs e)
@@ -190,94 +196,6 @@ namespace ProSnap
                 Trace.WriteLine("Showing preview...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
                 Preview.Show();
             }
-
-            //if (e.ActionItem is HeartAction)
-            //{
-            //    Trace.WriteLine("Applying HeartAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
-
-            //    lock (_actionlock)
-            //    {
-            //        switch ((e.ActionItem as HeartAction).HeartMode)
-            //        {
-            //            case HeartAction.Modes.Toggle: s.isFlagged = !s.isFlagged; break;
-            //            case HeartAction.Modes.On: s.isFlagged = true; break;
-            //            case HeartAction.Modes.Off: s.isFlagged = false; break;
-            //        }
-
-            //        Preview.UpdateHeart();
-            //        Monitor.Pulse(_actionlock);
-            //    }
-            //}
-
-            //if (e.ActionItem is SaveAction)
-            //{
-            //    Trace.WriteLine("Applying SaveAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
-
-            //    Preview.SaveComplete += (ss, se) =>
-            //        {
-            //            lock (_actionlock)
-            //                Monitor.Pulse(_actionlock);
-            //        };
-
-            //    lock (_actionlock)
-            //        Preview.Save();
-            //}
-
-            //if (e.ActionItem is UploadAction)
-            //{
-            //    Trace.WriteLine("Applying UploadAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
-
-            //    Preview.UploadComplete += (us, ue) =>
-            //        {
-            //            lock (_actionlock)
-            //                Monitor.Pulse(_actionlock);
-            //        };
-
-            //    lock (_actionlock)
-            //        Preview.Upload();
-            //}
-
-            //if (e.ActionItem is DeleteAction)
-            //{
-            //    Trace.WriteLine("Applying DeleteAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
-
-            //    lock (_actionlock)
-            //    {
-            //        Preview.Delete();
-            //        Monitor.Pulse(_actionlock);
-            //    }
-            //}
-
-            //if (e.ActionItem is HidePreviewAction)
-            //{
-            //    Trace.WriteLine("Applying HidePreviewAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
-
-            //    lock (_actionlock)
-            //    {
-            //        Preview.FadeClose();
-            //        Monitor.Pulse(_actionlock);
-            //    }
-            //}
-
-            //if (e.ActionItem is TakeRegionScreenshotAction)
-            //{
-            //    Trace.WriteLine("Opening region selector...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
-
-            //    var rs = new RegionSelector();
-            //    rs.FormClosed += (ss, se) =>
-            //    {
-            //        Trace.WriteLine("Closed region selector.", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
-
-            //        lock (_actionlock)
-            //        {
-            //            e.Result = rs.DialogResult == DialogResult.OK ? rs.SnapshotRectangle : Rectangle.Empty;
-            //            Monitor.Pulse(_actionlock);
-            //        }
-            //    };
-
-            //    lock (_actionlock)
-            //        rs.Show();
-            //}
 
             Trace.WriteLine("Done.", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
         }

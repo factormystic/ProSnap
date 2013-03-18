@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ProSnap.ActionItems
 {
@@ -55,28 +56,30 @@ namespace ProSnap.ActionItems
 
             Trace.WriteLine("Opening region selector...", string.Format("TakeRegionScreenshotAction.Invoke [{0}]", Thread.CurrentThread.Name));
 
-            Task.WaitAll(Task.Factory.StartNew(() =>
+            var t = new TaskCompletionSource<object>();
+
+            var fceh = new FormClosedEventHandler((s, e) =>
             {
-                var t = new TaskCompletionSource<object>();
+                Trace.WriteLine("Closed region selector.", string.Format("TakeRegionScreenshotAction.Invoke.FormClosed [{0}]", Thread.CurrentThread.Name));
 
-                var rs = new RegionSelector();
-                rs.FormClosed += (ss, se) =>
-                {
-                    Trace.WriteLine("Closed region selector.", string.Format("TakeRegionScreenshotAction.Invoke.FormClosed [{0}]", Thread.CurrentThread.Name));
+                if (Program.Selector.SnapshotRectangle.IsEmpty)
+                    return;
 
-                    if (rs.SnapshotRectangle.IsEmpty)
-                        return;
+                LatestScreenshot = new ExtendedScreenshot(Program.Selector.SnapshotRectangle);
+                Program.History.Add(LatestScreenshot);
 
-                    LatestScreenshot = new ExtendedScreenshot(rs.SnapshotRectangle);
-                    Program.History.Add(LatestScreenshot);
+                t.SetResult(null);
+            });
 
-                    t.SetResult(null);
-                };
+            Program.Selector.FormClosed += fceh;
+            Program.Selector.BeginInvoke(new MethodInvoker(() => Program.Selector.Show()));
 
-                return t.Task;
-            }));
+            Task.WaitAll(t.Task);
+
+            Program.Selector.FormClosed -= fceh;
 
             return LatestScreenshot;
         }
+
     }
 }
