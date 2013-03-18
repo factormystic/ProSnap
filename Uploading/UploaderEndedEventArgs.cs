@@ -2,7 +2,7 @@
 
 namespace ProSnap.Uploading
 {
-    public class UploaderEndedEventArgs
+    public class UploaderEndedEventArgs : EventArgs
     {
         public string ImageLinkUrl { get; private set; }
         public string DeleteLinkUrl { get; private set; }

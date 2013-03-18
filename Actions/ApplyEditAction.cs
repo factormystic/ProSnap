@@ -60,5 +60,31 @@ namespace ProSnap.ActionItems
         }
 
         #endregion
+
+        public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
+        {
+            switch (this.DefaultBorderRounding)
+            {
+                case ApplyEditsAction.ApplicationMode.Automatic: LatestScreenshot.withBorderRounding = !LatestScreenshot.isMaximized && LatestScreenshot.isRounded && !(FMUtils.WinApi.Helper.OperatingSystem == FMUtils.WinApi.Helper.OperatingSystems.Win8); break;
+                case ApplyEditsAction.ApplicationMode.On: LatestScreenshot.withBorderRounding = true; break;
+                case ApplyEditsAction.ApplicationMode.Off: LatestScreenshot.withBorderRounding = false; break;
+            }
+
+            switch (this.DefaultBorderShadow)
+            {
+                case ApplyEditsAction.ApplicationMode.Automatic: LatestScreenshot.withBorderShadow = !LatestScreenshot.isMaximized; break;
+                case ApplyEditsAction.ApplicationMode.On: LatestScreenshot.withBorderShadow = true; break;
+                case ApplyEditsAction.ApplicationMode.Off: LatestScreenshot.withBorderShadow = false; break;
+            }
+
+            switch (this.ShowMouseCursor)
+            {
+                case ApplyEditsAction.ApplicationMode.Automatic: LatestScreenshot.withCursor = LatestScreenshot.CompositionRect.Contains(LatestScreenshot.CursorLocation); break;
+                case ApplyEditsAction.ApplicationMode.On: LatestScreenshot.withCursor = true; break;
+                case ApplyEditsAction.ApplicationMode.Off: LatestScreenshot.withCursor = false; break;
+            }
+
+            return LatestScreenshot;
+        }
     }
 }

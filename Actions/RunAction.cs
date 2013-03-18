@@ -1,4 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing.Imaging;
+using System.IO;
+using FMUtils.WinApi;
 
 namespace ProSnap.ActionItems
 {
@@ -54,6 +59,39 @@ namespace ProSnap.ActionItems
         {
             this.Mode = Modes.FilePath;
             this.HideCommandPrompt = true;
+        }
+
+        public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
+        {
+            if (!File.Exists(LatestScreenshot.InternalFileName))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(LatestScreenshot.InternalFileName));
+                LatestScreenshot.ComposedScreenshotImage.Save(LatestScreenshot.InternalFileName, ImageFormat.Png);
+            }
+
+            var parameters = Helper.ExpandParameters(this.Parameters, LatestScreenshot);
+            var working = Environment.ExpandEnvironmentVariables(Helper.ExpandParameters(this.WorkingDirectory, LatestScreenshot));
+
+            switch (this.Mode)
+            {
+                case RunAction.Modes.ShellVerb:
+                    {
+                        Windowing.ShellExecute(IntPtr.Zero, this.ShellVerb, LatestScreenshot.InternalFileName, parameters, working, Windowing.ShowCommands.SW_NORMAL);
+                    } break;
+                case RunAction.Modes.FilePath:
+                    {
+                        var psi = new ProcessStartInfo(Environment.ExpandEnvironmentVariables(Helper.ExpandParameters(this.ApplicationPath, LatestScreenshot)), parameters)
+                        {
+                            UseShellExecute = false,
+                            WorkingDirectory = working,
+                            CreateNoWindow = this.HideCommandPrompt,
+                        };
+
+                        Process.Start(psi);
+                    } break;
+            }
+
+            return LatestScreenshot;
         }
     }
 }

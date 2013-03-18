@@ -37,8 +37,6 @@ namespace ProSnap
 
         public event EventHandler UploadComplete = delegate { };
         public event EventHandler SaveComplete = delegate { };
-
-        ImageUploader Uploader;
         #endregion
 
         protected override bool ShowWithoutActivation
@@ -65,11 +63,6 @@ namespace ProSnap
             Trace.WriteLine("Creating preview window...", string.Format("PeekPreview.ctor [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             InitializeComponent();
-
-            Uploader = new FormsUploader();
-            Uploader.UploadStarted += Uploader_UploadStarted;
-            Uploader.UploadProgress += Uploader_UploadProgress;
-            Uploader.UploadEnded += Uploader_UploadEnded;
 
             FadeCloseCountdown.Tick += (s, e) =>
             {
@@ -106,6 +99,14 @@ namespace ProSnap
         public void LoadScreenshot(ExtendedScreenshot targetWindow)
         {
             Trace.WriteLine("Loading image...", string.Format("PeekPreview.LoadScreenshot [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.LoadScreenshot [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => LoadScreenshot(targetWindow)));
+                return;
+            }
 
             Program.CurrentHistoryItem = targetWindow;
             pbPreview.Image = null;
@@ -175,7 +176,16 @@ namespace ProSnap
         {
             Trace.WriteLine("Close attempt...", string.Format("PeekPreview.FadeClose [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-            if ((Uploader.InProgress || isSaveDialogOpen || Configuration.PreviewDelayTime == 0) && this.Opacity == 1)
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.FadeClose [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => FadeClose()));
+                return;
+            }
+            
+            //Program.Uploader.InProgress ||
+            if ((isSaveDialogOpen || Configuration.PreviewDelayTime == 0) && this.Opacity == 1)
             {
                 Trace.WriteLine("Close attempt blocked", string.Format("PeekPreview.FadeClose [{0}]", System.Threading.Thread.CurrentThread.Name));
                 return;
@@ -453,7 +463,16 @@ namespace ProSnap
                     return;
                 }
 
-                Uploader.Upload(ActiveService, this.LatestScreenshot);
+                ActiveService.UploadStarted += Uploader_UploadStarted;
+                ActiveService.UploadProgress += Uploader_UploadProgress;
+                ActiveService.UploadEnded += Uploader_UploadEnded;
+
+                ActiveService.Upload(this.LatestScreenshot).ContinueWith(t =>
+                {
+                    ActiveService.UploadStarted -= Uploader_UploadStarted;
+                    ActiveService.UploadProgress -= Uploader_UploadProgress;
+                    ActiveService.UploadEnded -= Uploader_UploadEnded;
+                });
             }
         }
 
@@ -513,7 +532,7 @@ namespace ProSnap
 
         private void tsmiUploadImage_Click(object sender, EventArgs e)
         {
-            Uploader.Upload(Configuration.UploadServices.FirstOrDefault(P => P.isActive), this.LatestScreenshot);
+            Configuration.UploadServices.FirstOrDefault(P => P.isActive).Upload(this.LatestScreenshot);
         }
 
         private void GroomUploadMenuItemStyles()
@@ -930,12 +949,7 @@ namespace ProSnap
         {
             pnSave_Click(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
         }
-
-        internal void Upload()
-        {
-            pnUpload_Click(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
-        }
-
+        
         internal void Delete()
         {
             pnDelete_Click(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));

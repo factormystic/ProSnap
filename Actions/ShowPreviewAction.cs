@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.ComponentModel;
 
 namespace ProSnap.ActionItems
@@ -34,6 +35,14 @@ namespace ProSnap.ActionItems
         {
             //MonitorType = PreviewMonitors.Default;
             //Delay = 5;
+        }
+
+        public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
+        {
+            if (Configuration.PreviewDelayTime != 0 && Program.History.Count > 0)
+                Program.InvokeShowPreviewEvent(LatestScreenshot, new PreviewEventArgs());
+
+            return LatestScreenshot;
         }
 
     }

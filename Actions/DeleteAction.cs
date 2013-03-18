@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
 
 namespace ProSnap.ActionItems
 {
@@ -7,7 +9,7 @@ namespace ProSnap.ActionItems
         #region IActionItem Members
 
         [Browsable(false)]
-		public ActionTypes ActionType
+        public ActionTypes ActionType
         {
             get { return ActionTypes.Delete; }
         }
@@ -19,5 +21,15 @@ namespace ProSnap.ActionItems
         }
 
         #endregion
+
+        public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
+        {
+            Trace.WriteLine("Applying DeleteAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
+
+            //todo: if LatestScreenshot == Preview Active Screenshot?
+            Program.Preview.Delete();
+
+            return LatestScreenshot;
+        }
     }
 }

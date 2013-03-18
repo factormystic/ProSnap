@@ -19,5 +19,10 @@ namespace ProSnap.ActionItems
         }
 
         #endregion
+
+        public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
+        {
+            return LatestScreenshot;
+        }
     }
 }

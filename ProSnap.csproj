@@ -162,21 +162,47 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\ActionItemExtensions.cs" />
-    <Compile Include="Actions\ApplyEditAction.cs" />
-    <Compile Include="Actions\BeginScrollingScreenshotAction.cs" />
-    <Compile Include="Actions\ContinueScrollingScreenshotAction.cs" />
-    <Compile Include="Actions\DeleteAction.cs" />
-    <Compile Include="Actions\EndScrollingScreenshotAction.cs" />
-    <Compile Include="Actions\HidePreviewAction.cs" />
-    <Compile Include="Actions\IActionItem.cs" />
-    <Compile Include="Actions\ISaveableActionConfiguration.cs" />
-    <Compile Include="Actions\NoneAction.cs" />
-    <Compile Include="Actions\RunAction.cs" />
-    <Compile Include="Actions\SaveAction.cs" />
-    <Compile Include="Actions\ShowPreviewAction.cs" />
-    <Compile Include="Actions\HeartAction.cs" />
-    <Compile Include="Actions\TakeRegionScreenshotAction.cs" />
-    <Compile Include="Actions\UploadAction.cs" />
+    <Compile Include="Actions\ApplyEditAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\BeginScrollingScreenshotAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\ContinueScrollingScreenshotAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\DeleteAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\EndScrollingScreenshotAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\HeartAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\HidePreviewAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\NoneAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\RunAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\SaveAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\ShowPreviewAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\TakeRegionScreenshotAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\UploadAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IActionItem.cs" />
+    <Compile Include="ISaveableActionConfiguration.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Crash.cs" />
     <Compile Include="CrashReportForm.cs">
@@ -257,11 +283,11 @@
     <Compile Include="Preview\UploadedFileDetails.Designer.cs">
       <DependentUpon>UploadedFileDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uploading\FormsUploader.cs" />
     <Compile Include="Uploading\ImageUploader.cs" />
+    <Compile Include="IUploadService.cs" />
     <Compile Include="Uploading\UploaderEndedEventArgs.cs" />
     <Compile Include="Uploading\UploaderProgressEventArgs.cs" />
-    <Compile Include="Uploading\UploadService.cs" />
+    <Compile Include="Uploading\MultipartFormDataUploadService.cs" />
     <EmbeddedResource Include="CrashReportForm.resx">
       <DependentUpon>CrashReportForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -383,12 +409,12 @@
   <ItemGroup>
     <PublishFile Include="notes.txt">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
@@ -420,7 +446,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" />
+      <UserProperties BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
