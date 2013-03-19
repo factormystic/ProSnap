@@ -1,11 +1,9 @@
-﻿using System.Linq;
+﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Diagnostics;
-using System.Threading;
-using System;
-using System.Windows.Forms;
+using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ProSnap.ActionItems
 {
@@ -45,22 +43,45 @@ namespace ProSnap.ActionItems
 
         public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
         {
-            Trace.WriteLine("Applying SaveAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
+            Trace.WriteLine("Applying SaveAction...", string.Format("SaveAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             if (this.Prompt)
             {
-                Trace.WriteLine(string.Format("Prompting for save: {0}", this.Prompt), string.Format("Program.DoActionItem Save [{0}]", Thread.CurrentThread.Name));
+                Trace.WriteLine(string.Format("Prompting for save: {0}", this.Prompt), string.Format("SaveAction.Invoke Save [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-                Task.WaitAll(Task.Factory.StartNew(() =>
+                var t = new TaskCompletionSource<object>();
+                Program.Preview.BeginInvoke(new MethodInvoker(() =>
                 {
-                    var t = new TaskCompletionSource<object>();
+                    Program.Preview.isSaveDialogOpen = true;
 
-                    Program.Preview.SaveComplete += (ss, se) => t.SetResult(null);
-                    Program.Preview.Save();
+                    var SaveDialog = new SaveFileDialog()
+                    {
+                        Filter = Configuration.FileDialogFilter,
+                        FilterIndex = Configuration.DefaultFilterIndex + 1,
+                    };
 
-                    return t.Task;
+                    if (string.IsNullOrEmpty(LatestScreenshot.SavedFileName))
+                    {
+                        SaveDialog.FileName = Environment.ExpandEnvironmentVariables(Helper.ExpandParameters(Configuration.DefaultFileName, LatestScreenshot));
+                    }
+                    else
+                    {
+                        SaveDialog.FileName = Path.GetFileName(LatestScreenshot.SavedFileName);
+                        SaveDialog.InitialDirectory = Path.GetDirectoryName(LatestScreenshot.SavedFileName);
+                    }
+
+                    if (SaveDialog.ShowDialog(Program.Preview) == DialogResult.OK)
+                    {
+                        LatestScreenshot.ComposedScreenshotImage.Save(SaveDialog.FileName, Helper.ExtToImageFormat(Path.GetExtension(SaveDialog.FileName)));
+                        LatestScreenshot.SavedFileName = SaveDialog.FileName;
+                    }
+
+                    Program.Preview.isSaveDialogOpen = false;
+
+                    t.SetResult(null);
                 }));
 
+                Task.WaitAll(t.Task);
                 return LatestScreenshot;
             }
 
@@ -73,7 +94,7 @@ namespace ProSnap.ActionItems
                 var dir = Path.GetDirectoryName(FileName);
                 if (!Directory.Exists(dir))
                 {
-                    Trace.WriteLine("Attempting to create directory...", string.Format("Program.DoActionItem Save [{0}]", Thread.CurrentThread.Name));
+                    Trace.WriteLine("Attempting to create directory...", string.Format("Program.DoActionItem Save [{0}]", System.Threading.Thread.CurrentThread.Name));
                     Directory.CreateDirectory(dir);
                 }
 

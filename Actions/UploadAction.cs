@@ -26,7 +26,7 @@ namespace ProSnap.ActionItems
 
         public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
         {
-            Trace.WriteLine("Applying UploadAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
+            Trace.WriteLine("Applying UploadAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             var ActiveService = Configuration.UploadServices.FirstOrDefault(u => u.isActive);
             if (ActiveService == null)

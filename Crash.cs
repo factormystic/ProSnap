@@ -34,7 +34,7 @@ namespace ProSnap
 
         private static byte[] Gzip(string data)
         {
-            Trace.WriteLine("Staring gzip...", string.Format("Crash.Gzip [{0}]", Thread.CurrentThread.Name));
+            Trace.WriteLine("Staring gzip...", string.Format("Crash.Gzip [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             using (var ms = new MemoryStream())
             {
@@ -42,14 +42,14 @@ namespace ProSnap
                 gzip.Write(UTF8Encoding.UTF8.GetBytes(data), 0, UTF8Encoding.UTF8.GetBytes(data).Length);
                 gzip.Close();
 
-                Trace.WriteLine("Done.", string.Format("Crash.Gzip [{0}]", Thread.CurrentThread.Name));
+                Trace.WriteLine("Done.", string.Format("Crash.Gzip [{0}]", System.Threading.Thread.CurrentThread.Name));
                 return ms.ToArray();
             }
         }
 
         private static void UploadReport(string url, byte[] data)
         {
-            Trace.WriteLine("Starting UploadReport...", string.Format("Crash.UploadReport [{0}]", Thread.CurrentThread.Name));
+            Trace.WriteLine("Starting UploadReport...", string.Format("Crash.UploadReport [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             string result = string.Empty;
             try
@@ -65,10 +65,10 @@ namespace ProSnap
             }
             catch (WebException e)
             {
-                Trace.WriteLine(string.Format("UploadReport WebException: '{0}'", e.GetBaseException()), string.Format("Crash.UploadReport [{0}]", Thread.CurrentThread.Name));
+                Trace.WriteLine(string.Format("UploadReport WebException: '{0}'", e.GetBaseException()), string.Format("Crash.UploadReport [{0}]", System.Threading.Thread.CurrentThread.Name));
             }
 
-            Trace.WriteLine(string.Format("UploadReport complete: '{0}'", result), string.Format("Crash.UploadReport [{0}]", Thread.CurrentThread.Name));
+            Trace.WriteLine(string.Format("UploadReport complete: '{0}'", result), string.Format("Crash.UploadReport [{0}]", System.Threading.Thread.CurrentThread.Name));
         }
 
         private static bool UACEnabled

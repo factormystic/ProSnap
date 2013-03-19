@@ -24,13 +24,10 @@ namespace ProSnap
         internal static PeekPreview Preview;
         internal static RegionSelector Selector;
 
-        public static ExtendedScreenshot CurrentHistoryItem { get; set; }
-
         internal static bool isTakingScrollingScreenshot = false;
         internal static List<ExtendedScreenshot> timelapse = new List<ExtendedScreenshot>();
 
         public delegate void PreviewEventHandler(ExtendedScreenshot s, PreviewEventArgs e);
-        public static event PreviewEventHandler ShowPreviewEvent = delegate { };
 
         private static BackgroundWorker IconAnimation = new BackgroundWorker();
         private static int CurrentIcon = 0;
@@ -52,14 +49,14 @@ namespace ProSnap
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Thread.CurrentThread.Name = "Main UI " + Thread.CurrentThread.ManagedThreadId;
+            System.Threading.Thread.CurrentThread.Name = "Main UI " + System.Threading.Thread.CurrentThread.ManagedThreadId;
             Update.CheckForUpdate();
 
             History = new List<ExtendedScreenshot>();
 
             Preview = new PeekPreview();
             Selector = new RegionSelector();
-            Trace.WriteLine(string.Format("Forcing the creation of windows by accessing their handles on the Main UI thread: {0}, {1}", Preview.Handle, Selector.Handle), string.Format("Program [{0}]", Thread.CurrentThread.Name));
+            Trace.WriteLine(string.Format("Forcing the creation of windows by accessing their handles on the Main UI thread: {0}, {1}", Preview.Handle, Selector.Handle), string.Format("Program [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             KeyboardHook = new Hook("Global Action Hook");
             KeyboardHook.KeyDownEvent += KeyDown;
@@ -78,25 +75,20 @@ namespace ProSnap
             TrayIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("History", null, (o, e) => (o as ToolStripMenuItem).ShowDropDown()) { Name = "tsmiHistory" });
             TrayIcon.ContextMenuStrip.Items.Add("Options", null, (o, e) => Options.Options.ShowOrActivate());
             TrayIcon.ContextMenuStrip.Items.Add("Exit", null, (o, e) =>
-                {
-                    Application.Exit();
-                    DumpTraceReport();
-                });
+            {
+                Application.Exit();
+                DumpTraceReport();
+            });
 
             TrayIcon.MouseDown += TrayIcon_MouseDown;
-
-            ShowPreviewEvent += Program_ShowPreviewEvent;
 
             IconAnimation.WorkerSupportsCancellation = true;
             IconAnimation.DoWork += IconAnimation_DoWork;
 
-            AppDomain.CurrentDomain.ProcessExit += (o, e) =>
-            {
-                KeyboardHook.isPaused = true;
-                TrayIcon.Visible = false;
-            };
-
             Application.Run();
+
+            KeyboardHook.isPaused = true;
+            TrayIcon.Visible = false;
         }
 
         private static void IconAnimation_DoWork(object sender, DoWorkEventArgs e)
@@ -118,86 +110,38 @@ namespace ProSnap
 
         private static void TrayIcon_MouseDown(object sender, MouseEventArgs e)
         {
+            Trace.WriteLine(string.Format("{0} Button", e.Button), string.Format("TrayIcon.MouseDown [{0}]", System.Threading.Thread.CurrentThread.Name));
+
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    {
-                        Trace.WriteLine("Left Button", string.Format("TrayIcon.MouseDown [{0}]", Thread.CurrentThread.Name));
+                    Trace.WriteLine("Show & activate preview...", string.Format("TrayIcon.MouseDown [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-                        if (Preview.Visible && Preview.Opacity == 1)
-                        {
-                            Trace.WriteLine("Activating preview...", string.Format("TrayIcon.MouseDown [{0}]", Thread.CurrentThread.Name));
-                            Preview.Activate();
-                        }
-                        else
-                        {
-                            var ToShow = CurrentHistoryItem ?? History.LastOrDefault();
-                            if (ToShow != null)
-                            {
-                                Trace.WriteLine("Showing preview with image...", string.Format("TrayIcon.MouseDown [{0}]", Thread.CurrentThread.Name));
-                                ShowPreviewEvent(ToShow, new PreviewEventArgs());
-                                Preview.Activate();
-                            }
-                        }
-                    } break;
+                    Preview.Show();
+                    Preview.Activate();
+                    break;
 
                 case MouseButtons.Right:
+                    if (Configuration.UpdateRestartRequired && TrayIcon.ContextMenuStrip.Items[0].Name != "tsmiRestart")
                     {
-                        Trace.WriteLine("Right Button", string.Format("TrayIcon.MouseDown [{0}]", Thread.CurrentThread.Name));
+                        TrayIcon.ContextMenuStrip.Items.Insert(0, new ToolStripMenuItem("Relaunch for update", null, (o, a) => Application.Restart()) { Name = "tsmiRestart" });
+                        TrayIcon.ContextMenuStrip.Items.Insert(1, new ToolStripSeparator());
+                    }
 
-                        if (Configuration.UpdateRestartRequired && TrayIcon.ContextMenuStrip.Items[0].Name != "tsmiRestart")
-                        {
-                            TrayIcon.ContextMenuStrip.Items.Insert(0, new ToolStripMenuItem("Relaunch for update", null, (o, a) => Application.Restart()) { Name = "tsmiRestart" });
-                            TrayIcon.ContextMenuStrip.Items.Insert(1, new ToolStripSeparator());
-                        }
+                    var DefaultFont = new ToolStripMenuItem().Font;
 
-                        var DefaultFont = new ToolStripMenuItem().Font;
+                    ToolStripMenuItem HistoryItem = TrayIcon.ContextMenuStrip.Items.Cast<ToolStripItem>().Where(tsi => tsi.Name == "tsmiHistory").FirstOrDefault() as ToolStripMenuItem;
+                    HistoryItem.DropDownItems.Clear();
+                    HistoryItem.DropDownItems.AddRange(History.Select(ess => new ToolStripMenuItem(ess.WindowTitle, null, (mi, e_mi) => Program.Preview.Show(ess))
+                    {
+                        Tag = ess,
+                        Image = ess.isFlagged ? Resources.heart_fill_12x11 : null,
+                        Font = Preview.CurrentScreenshot == ess ? new Font(DefaultFont, FontStyle.Bold) : DefaultFont
+                    }).ToArray());
 
-                        ToolStripMenuItem HistoryItem = TrayIcon.ContextMenuStrip.Items.Cast<ToolStripItem>().Where(tsi => tsi.Name == "tsmiHistory").FirstOrDefault() as ToolStripMenuItem;
-                        HistoryItem.DropDownItems.Clear();
-                        HistoryItem.DropDownItems.AddRange(History.Select(ess => new ToolStripMenuItem(ess.WindowTitle, null, (mi, e_mi) => ShowPreviewEvent(ess, new PreviewEventArgs()))
-                        {
-                            Tag = ess,
-                            Image = ess.isFlagged ? Resources.heart_fill_12x11 : null,
-                            Font = ess == CurrentHistoryItem ? new Font(DefaultFont, FontStyle.Bold) : DefaultFont
-                        }).ToArray());
-
-                        HistoryItem.Enabled = HistoryItem.DropDownItems.Count > 0;
-
-                    } break;
+                    HistoryItem.Enabled = HistoryItem.DropDownItems.Count > 0;
+                    break;
             }
-        }
-
-        private static void Program_ShowPreviewEvent(ExtendedScreenshot s, PreviewEventArgs e)
-        {
-            if (Preview.InvokeRequired)
-            {
-                Trace.WriteLine("Self invoking...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
-
-                Preview.BeginInvoke(new MethodInvoker(() => Program_ShowPreviewEvent(s, e)));
-                return;
-            }
-
-            //It is much easier to simply invoke onto the preview thread for actions which have UI ramification, rather than managing cross thread status updates
-            //Currently there are only a couple actions this really makes sense for: Heart, Save, Upload, Delete (because it potentially also hides the form)
-            //Save doesn't really have a UI change, but doing it on the UI thread means the SFD is positioned correctly
-
-            //The locking scheme is so that dispatched operations block the action thread until complete
-            //So for example, an action chain with Upload followed by Run can use the uploaded image url as a parameter for itself
-
-            if (s != null)
-            {
-                Trace.WriteLine("Loading preview screenshot...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
-                Preview.LoadScreenshot(s);
-            }
-
-            if (e.ActionItem == null)
-            {
-                Trace.WriteLine("Showing preview...", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
-                Preview.Show();
-            }
-
-            Trace.WriteLine("Done.", string.Format("Program.Program_ShowPreviewEvent [{0}]", Thread.CurrentThread.Name));
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -205,7 +149,7 @@ namespace ProSnap
             try
             {
                 var InnermostException = e.ExceptionObject as Exception;
-                Trace.WriteLine(string.Format("Unhandled Exception at '{0}':\n{1}", InnermostException.TargetSite, InnermostException), string.Format("Program.CurrentDomain_UnhandledException [{0}]", Thread.CurrentThread.Name));
+                Trace.WriteLine(string.Format("Unhandled Exception at '{0}':\n{1}", InnermostException.TargetSite, InnermostException), string.Format("Program.CurrentDomain_UnhandledException [{0}]", System.Threading.Thread.CurrentThread.Name));
 
                 DumpTraceReport();
                 Crash.SubmitCrashReport();
@@ -215,7 +159,7 @@ namespace ProSnap
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(string.Format("Unhandled Exception... Exception:\n{0}", ex), string.Format("Program.CurrentDomain_UnhandledException [{0}]", Thread.CurrentThread.Name));
+                Trace.WriteLine(string.Format("Unhandled Exception... Exception:\n{0}", ex), string.Format("Program.CurrentDomain_UnhandledException [{0}]", System.Threading.Thread.CurrentThread.Name));
             }
         }
 
@@ -268,12 +212,12 @@ namespace ProSnap
 
         private static void SpawnActionChain(ShortcutItem CurrentShortcutItem)
         {
-            Trace.WriteLine("Beginning action chain for " + CurrentShortcutItem, string.Format("Program.SpawnActionChain [{0}]", Thread.CurrentThread.Name));
+            Trace.WriteLine("Beginning action chain for " + CurrentShortcutItem, string.Format("Program.SpawnActionChain [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             //Creating a STA thread manually here, because in order for SaveFileDialog to work it must be created on a STA thread. BackgroundWorker/ThreadPool is MTA.
             //todo: Is the above still relevant now that we safely invoke to the UI thread?
 
-            var HookAction = new Thread(new ThreadStart(() => DoActionItem(CurrentShortcutItem, 0, CurrentHistoryItem ?? History.LastOrDefault())));
+            var HookAction = new Thread(new ThreadStart(() => DoActionItem(CurrentShortcutItem, 0, Preview.CurrentScreenshot ?? History.LastOrDefault())));
             HookAction.Name = "Hook Action " + HookAction.ManagedThreadId;
             HookAction.SetApartmentState(ApartmentState.STA);
             HookAction.Start();
@@ -283,7 +227,7 @@ namespace ProSnap
         {
             if (ActiveShortcutItem == null || itemIndex >= ActiveShortcutItem.ActionChain.ActionItems.Count)
             {
-                Trace.WriteLine("No more action items to execute", string.Format("Program.DoActionItem [{0}]", Thread.CurrentThread.Name));
+                Trace.WriteLine("No more action items to execute", string.Format("Program.DoActionItem [{0}]", System.Threading.Thread.CurrentThread.Name));
 
                 //todo: Why can't the hook be reinstated on the action thread?
                 Preview.BeginInvoke(new MethodInvoker(() => KeyboardHook.isPaused = false));
@@ -295,25 +239,15 @@ namespace ProSnap
             KeyboardHook.isPaused = true;
 
             IActionItem CurrentActionItem = ActiveShortcutItem.ActionChain.ActionItems[itemIndex];
-            Trace.WriteLine(CurrentActionItem.ActionType, string.Format("Program.DoActionItem [{0}]", Thread.CurrentThread.Name));
+            Trace.WriteLine(CurrentActionItem.ActionType, string.Format("Program.DoActionItem [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             //todo: figure out a better way to do these exclusions rather than harcoding behavior for scrolling screenshots
             if (!IconAnimation.IsBusy)
                 if ((new[] { ActionTypes.ContinueScrollingScreenshot, ActionTypes.EndScrollingScreenshot }.Contains(CurrentActionItem.ActionType) && isTakingScrollingScreenshot) || !new[] { ActionTypes.ContinueScrollingScreenshot, ActionTypes.EndScrollingScreenshot }.Contains(CurrentActionItem.ActionType))
                     IconAnimation.RunWorkerAsync();
 
-            //todo: on first action, capture and pass through the continuations the current screenshot item
-            //this should then mean that no action looks up history.last(). That's flawed anyway, since the active item may not always be last
-            //esp if a chain is called from the preview window, but a screenshot from the middle of the history is open
-            //or if an action is long running and another shot has been taken in that time
-            //can't rely on the global variable for that reason, as well. pass it along as a parameter
             Task.Factory.StartNew<ExtendedScreenshot>(() => CurrentActionItem.Invoke(ActionItemScreenshot))
                 .ContinueWith(t => DoActionItem(ActiveShortcutItem, itemIndex + 1, t.Result));
-        }
-
-        internal static void InvokeShowPreviewEvent(ExtendedScreenshot extendedScreenshot, PreviewEventArgs previewEventArgs)
-        {
-            ShowPreviewEvent(extendedScreenshot, previewEventArgs);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace ProSnap.ActionItems
             }
             catch (Exception e)
             {
-                Trace.WriteLine(string.Format("Exception in TakeForegroundScreenshot: {0}", e.GetBaseException()), string.Format("Program.DoActionItem [{0}]", Thread.CurrentThread.Name));
+                Trace.WriteLine(string.Format("Exception in TakeForegroundScreenshot: {0}", e.GetBaseException()), string.Format("Program.DoActionItem [{0}]", System.Threading.Thread.CurrentThread.Name));
 
                 ReportListener reporter = Trace.Listeners.Cast<TraceListener>().Where(tl => tl is ReportListener).FirstOrDefault() as ReportListener;
                 File.WriteAllText(Path.Combine(Configuration.LocalPath, "report.txt"), string.Join("\n", reporter.Messages.Select(m => string.Format("{0} {1}: {2}", m.Timestamp, m.Category, m.Message)).ToArray()));

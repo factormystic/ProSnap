@@ -54,13 +54,13 @@ namespace ProSnap.ActionItems
                 return LatestScreenshot;
             }
 
-            Trace.WriteLine("Opening region selector...", string.Format("TakeRegionScreenshotAction.Invoke [{0}]", Thread.CurrentThread.Name));
+            Trace.WriteLine("Opening region selector...", string.Format("TakeRegionScreenshotAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             var t = new TaskCompletionSource<object>();
 
             var fceh = new FormClosedEventHandler((s, e) =>
             {
-                Trace.WriteLine("Closed region selector.", string.Format("TakeRegionScreenshotAction.Invoke.FormClosed [{0}]", Thread.CurrentThread.Name));
+                Trace.WriteLine("Closed region selector.", string.Format("TakeRegionScreenshotAction.Invoke.FormClosed [{0}]", System.Threading.Thread.CurrentThread.Name));
 
                 if (Program.Selector.SnapshotRectangle.IsEmpty)
                     return;
