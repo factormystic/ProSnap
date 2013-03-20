@@ -176,15 +176,8 @@ namespace ProSnap
                 return;
             }
 
-            if (targetWindow == null && !Program.History.Contains(this.CurrentScreenshot))
-            {
-                this.CurrentScreenshot = null;
-            }
-            else
-            {
-                this.LoadScreenshot(targetWindow ?? this.CurrentScreenshot);
-                base.Show();
-            }
+            this.LoadScreenshot(targetWindow ?? this.CurrentScreenshot ?? Program.History.LastOrDefault());
+            base.Show();
         }
 
         public void FadeClose()
