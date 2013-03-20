@@ -108,13 +108,12 @@ namespace ProSnap
             tsmiWindowShadow.Checked = targetWindow.withBorderShadow;
             tsmiMouseCursor.Checked = targetWindow.withCursor;
 
-            pnHeart.BackgroundImage = targetWindow.isFlagged ? Resources.heart_fill_black_32x38 : Resources.heart_stroke_black_32x28;
-
             CurrentScreenshot = targetWindow;
             ReloadPreviewImage();
 
             ResetFadeCloseCountdown();
             GroomBackForwardIcons();
+            GroomHeartIcon();
 
             pnUpload.BackgroundImage = CurrentScreenshot == null || string.IsNullOrEmpty(CurrentScreenshot.Remote.ImageLink) ? Resources.cloud_upload_32x32_black : Resources.cloud_upload_link_black_32x32;
 
@@ -383,7 +382,7 @@ namespace ProSnap
             if ((e as MouseEventArgs).Button == MouseButtons.Left)
             {
                 CurrentScreenshot.isFlagged = !CurrentScreenshot.isFlagged;
-                pnHeart.BackgroundImage = CurrentScreenshot.isFlagged ? Resources.heart_fill_white_32x38 : Resources.heart_stroke_white_32x28;
+                GroomHeartIcon();
             }
         }
 
@@ -898,10 +897,11 @@ namespace ProSnap
         #endregion
 
         #region External actions
-        internal void UpdateHeart()
+        internal void GroomHeartIcon()
         {
-            var flag = CurrentScreenshot.isFlagged;
-            var hover = this.Visible && pnHeart.Bounds.Contains(Cursor.Position);
+            var flag = CurrentScreenshot != null && CurrentScreenshot.isFlagged;
+            var p = Cursor.Position;
+            var hover = this.Visible && pnHeart.Bounds.Contains(pnHeart.PointToClient(p));
 
             if (flag)
                 pnHeart.BackgroundImage = hover ? Resources.heart_fill_white_32x38 : Resources.heart_fill_black_32x38;

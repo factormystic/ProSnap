@@ -47,8 +47,7 @@ namespace ProSnap.ActionItems
                 case HeartAction.Modes.Off: LatestScreenshot.isFlagged = false; break;
             }
 
-            //todo: if LatestScreenshot == Preview Active Screenshot?
-            Program.Preview.UpdateHeart();
+            Program.Preview.GroomHeartIcon();
             
             return LatestScreenshot;
         }
