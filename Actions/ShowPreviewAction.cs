@@ -39,7 +39,7 @@ namespace ProSnap.ActionItems
 
         public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
         {
-            if (Configuration.PreviewDelayTime != 0 && Program.History.Count > 0)
+            if (Configuration.PreviewDelayTime != 0 && Program.History.Count > 0 && LatestScreenshot != null)
                 Program.Preview.Show(LatestScreenshot);
 
             return LatestScreenshot;

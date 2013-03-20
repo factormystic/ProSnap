@@ -30,7 +30,7 @@ namespace ProSnap.ActionItems
         public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
         {
             if (!Program.isTakingScrollingScreenshot)
-                return LatestScreenshot;
+                return null;
 
             Program.isTakingScrollingScreenshot = false;
 
