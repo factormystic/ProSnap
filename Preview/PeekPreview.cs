@@ -720,8 +720,7 @@ namespace ProSnap
             switch ((e as MouseEventArgs).Button)
             {
                 case MouseButtons.Left:
-                    ActionTypes.Delete.ToInstance().Invoke(CurrentScreenshot);
-                    this.CurrentScreenshot = null;
+                    this.CurrentScreenshot = ActionTypes.Delete.ToInstance().Invoke(CurrentScreenshot);
                     break;
             }
         }
