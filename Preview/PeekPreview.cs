@@ -94,14 +94,6 @@ namespace ProSnap
         {
             Trace.WriteLine("Loading image...", string.Format("PeekPreview.LoadScreenshot [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-            //if (this.InvokeRequired)
-            //{
-            //    Trace.WriteLine("Self invoking...", string.Format("PeekPreview.LoadScreenshot [{0}]", System.Threading.Thread.CurrentThread.Name));
-
-            //    this.BeginInvoke(new MethodInvoker(() => LoadScreenshot(targetWindow)));
-            //    return;
-            //}
-
             pbPreview.Image = null;
 
             tsmiRoundCorners.Checked = targetWindow.withBorderRounding;

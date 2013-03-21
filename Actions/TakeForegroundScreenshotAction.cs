@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using FMUtils.Screenshot;
 
 namespace ProSnap.ActionItems
@@ -63,7 +61,6 @@ namespace ProSnap.ActionItems
             {
                 LatestScreenshot = new ExtendedScreenshot(this.Method, this.SolidGlass);
                 Program.History.Add(LatestScreenshot);
-                //Program.CurrentHistoryItem = Program.History.Last()
             }
             catch (Exception e)
             {

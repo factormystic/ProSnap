@@ -27,12 +27,8 @@ namespace ProSnap
         internal static bool isTakingScrollingScreenshot = false;
         internal static List<ExtendedScreenshot> timelapse = new List<ExtendedScreenshot>();
 
-        public delegate void PreviewEventHandler(ExtendedScreenshot s, PreviewEventArgs e);
-
         private static BackgroundWorker IconAnimation = new BackgroundWorker();
         private static int CurrentIcon = 0;
-
-        private static object _actionlock = new object();
 
         [STAThread]
         private static void Main()
