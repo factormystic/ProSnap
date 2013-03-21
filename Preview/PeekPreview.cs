@@ -168,7 +168,14 @@ namespace ProSnap
                 return;
             }
 
-            this.LoadScreenshot(targetWindow ?? this.CurrentScreenshot ?? Program.History.LastOrDefault());
+            targetWindow = targetWindow ?? this.CurrentScreenshot ?? Program.History.LastOrDefault();
+            if (targetWindow == null)
+            {
+                Trace.WriteLine("No screenshot to show", string.Format("PeekPreview.Show [{0}]", System.Threading.Thread.CurrentThread.Name));
+                return;
+            }
+
+            this.LoadScreenshot(targetWindow);
             base.Show();
         }
 
