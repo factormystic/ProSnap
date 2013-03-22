@@ -62,18 +62,10 @@ namespace ProSnap.Uploading
                         ResponseDoc.Load(new MemoryStream(e.Result));
                         ResponseDoc.Save(Configuration.LocalPath + @"\response.txt");
 
-                        string ImageLinkUrl = null;
-                        string DeleteLinkUrl = null;
-
                         XmlNodeList ImageLink = ResponseDoc.SelectNodes(this.ImageLinkXPath);
-                        if (ImageLink.Count > 0)
-                            ImageLinkUrl = ImageLink[0].InnerText;
-
                         XmlNodeList DeleteLink = ResponseDoc.SelectNodes(this.DeleteLinkXPath);
-                        if (DeleteLink.Count > 0)
-                            DeleteLinkUrl = DeleteLink[0].InnerText;
 
-                        var result = new UploaderEndedEventArgs(ImageLinkUrl, DeleteLinkUrl);
+                        var result = new UploaderEndedEventArgs(ImageLink.Count > 0 ? ImageLink[0].InnerText : null, DeleteLink.Count > 0 ? DeleteLink[0].InnerText : null);
                         this.UploadEnded(this, result);
                         t.SetResult(result);
                     };
