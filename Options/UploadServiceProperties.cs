@@ -6,9 +6,9 @@ namespace ProSnap.Options
 {
     public partial class UploadServiceProperties : Form
     {
-        UploadService SelectedUploadService;
+        IUploadService SelectedUploadService;
 
-        public UploadServiceProperties(UploadService selectedUploadService)
+        public UploadServiceProperties(IUploadService selectedUploadService)
         {
             InitializeComponent();
 
@@ -27,9 +27,9 @@ namespace ProSnap.Options
             tbDeleteLinkXPath.Text = SelectedUploadService.DeleteLinkXPath;
         }
 
-        public UploadService GetResultUploadService()
+        public IUploadService GetResultUploadService()
         {
-            return new UploadService(tbUploadServiceName.Text)
+            return new MultipartFormDataUploadService(tbUploadServiceName.Text)
             {
                 EndpointUrl = tbUploadServiceUrl.Text,
                 UploadValues = GetUploadValues(),

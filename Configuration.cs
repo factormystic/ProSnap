@@ -33,7 +33,7 @@ namespace ProSnap
 
         public static List<ShortcutItem> Shortcuts;
 
-        public static List<UploadService> UploadServices;
+        public static List<IUploadService> UploadServices;
 
         public static bool IgnoreAllKeyHooks
         {
@@ -91,7 +91,8 @@ namespace ProSnap
                             if (!Directory.Exists(TempProductPath))
                                 Directory.CreateDirectory(TempProductPath);
 
-                            Directory.Move(dir.FullName, Path.Combine(Environment.ExpandEnvironmentVariables("%temp%"), Application.ProductName, dir.Name));
+                            var Destination = Path.Combine(Environment.ExpandEnvironmentVariables("%temp%"), Application.ProductName, dir.Name);
+                            Directory.Move(dir.FullName, Destination);
                         }
                     }
                 }
@@ -240,8 +241,8 @@ namespace ProSnap
 
         private static void LoadDefaultUploadServices()
         {
-            UploadServices = new List<UploadService>();
-            UploadServices.Add(new UploadService("Imgur Public")
+            UploadServices = new List<IUploadService>();
+            UploadServices.Add(new MultipartFormDataUploadService("Imgur Public")
             {
                 isActive = true,
                 EndpointUrl = "http://imgur.com/api/upload.xml",
