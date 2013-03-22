@@ -66,6 +66,7 @@ namespace ProSnap.ActionItems
 
                 LatestScreenshot = new ExtendedScreenshot(Program.Selector.SnapshotRectangle);
                 Program.History.Add(LatestScreenshot);
+                Program.Preview.GroomBackForwardIcons();
 
                 t.SetResult(null);
             });

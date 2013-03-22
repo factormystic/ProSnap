@@ -96,6 +96,7 @@ namespace ProSnap.ActionItems
 
             Program.timelapse.First().ReplaceWithBitmap(final);
             Program.History.Add(Program.timelapse.First());
+            Program.Preview.GroomBackForwardIcons();
 
             return Program.timelapse.First();
         }

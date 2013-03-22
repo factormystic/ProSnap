@@ -727,16 +727,6 @@ namespace ProSnap
         {
             pnForward.BackgroundImage = ForwardsEnd ? Resources.forward_empty_18x32_black : Resources.forward_18x32_black;
         }
-
-        private void GroomBackForwardIcons()
-        {
-            var i = Program.History.IndexOf(CurrentScreenshot);
-            BackwardsEnd = i == 0;
-            ForwardsEnd = Program.History.Count - 1 == i;
-
-            pnForward.BackgroundImage = pnForward.isMouseOver() ? (ForwardsEnd ? Resources.forward_empty_18x32_white : Resources.forward_18x32_white) : (ForwardsEnd ? Resources.forward_empty_18x32_black : Resources.forward_18x32_black);
-            pnBackward.BackgroundImage = pnBackward.isMouseOver() ? (BackwardsEnd ? Resources.backward_empty_18x32_white : Resources.backward_18x32_white) : (BackwardsEnd ? Resources.backward_empty_18x32_black : Resources.backward_18x32_backward);
-        }
         #endregion
 
         #region Window Events
@@ -841,6 +831,24 @@ namespace ProSnap
         #endregion
 
         #region External actions
+        internal void GroomBackForwardIcons()
+        {
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.GroomBackForwardIcons [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => GroomBackForwardIcons()));
+                return;
+            }
+
+            var i = Program.History.IndexOf(CurrentScreenshot);
+            BackwardsEnd = i == 0;
+            ForwardsEnd = Program.History.Count - 1 == i;
+
+            pnForward.BackgroundImage = pnForward.isMouseOver() ? (ForwardsEnd ? Resources.forward_empty_18x32_white : Resources.forward_18x32_white) : (ForwardsEnd ? Resources.forward_empty_18x32_black : Resources.forward_18x32_black);
+            pnBackward.BackgroundImage = pnBackward.isMouseOver() ? (BackwardsEnd ? Resources.backward_empty_18x32_white : Resources.backward_18x32_white) : (BackwardsEnd ? Resources.backward_empty_18x32_black : Resources.backward_18x32_backward);
+        }
+
         internal void GroomHeartIcon()
         {
             if (this.InvokeRequired)

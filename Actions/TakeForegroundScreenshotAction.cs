@@ -61,6 +61,7 @@ namespace ProSnap.ActionItems
             {
                 LatestScreenshot = new ExtendedScreenshot(this.Method, this.SolidGlass);
                 Program.History.Add(LatestScreenshot);
+                Program.Preview.GroomBackForwardIcons();
             }
             catch (Exception e)
             {
