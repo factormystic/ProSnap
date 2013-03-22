@@ -16,7 +16,7 @@ namespace ProSnap.Uploading
 
         bool isActive { get; set; }
 
-        event EventHandler UploadStarted;
+        event EventHandler<UploaderProgressEventArgs> UploadStarted;
         event EventHandler<UploaderProgressEventArgs> UploadProgress;
         event EventHandler<UploaderEndedEventArgs> UploadEnded;
 

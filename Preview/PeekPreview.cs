@@ -861,7 +861,7 @@ namespace ProSnap
                 pnHeart.BackgroundImage = hover ? Resources.heart_stroke_white_32x28 : Resources.heart_stroke_black_32x28;
         }
 
-        internal void UploadStarted(object sender, EventArgs e)
+        internal void UploadStarted(object sender, UploaderProgressEventArgs e)
         {
             if (this.InvokeRequired)
             {
@@ -870,6 +870,9 @@ namespace ProSnap
                 this.BeginInvoke(new MethodInvoker(() => UploadStarted(sender, e)));
                 return;
             }
+
+            if (e.Screenshot != this.CurrentScreenshot)
+                return;
 
             UploadAnimationIndex = 0;
             pnUpload.BackgroundImage = pnUpload.isMouseOver() ? ilUploadAnimationWhite.Images[UploadAnimationIndex] : ilUploadAnimationBlack.Images[UploadAnimationIndex];
@@ -884,6 +887,9 @@ namespace ProSnap
                 this.BeginInvoke(new MethodInvoker(() => UploadProgress(sender, e)));
                 return;
             }
+
+            if (e.Screenshot != this.CurrentScreenshot)
+                return;
 
             var i = ((int)e.Percent) / (ilUploadAnimationBlack.Images.Count - 1);
             if (i != UploadAnimationIndex)
@@ -907,6 +913,9 @@ namespace ProSnap
                 this.BeginInvoke(new MethodInvoker(() => UploadEnded(sender, e)));
                 return;
             }
+            
+            if (e.Screenshot != this.CurrentScreenshot)
+                return;
 
             UploadAnimationIndex = -1;
             pnUpload.BackgroundImage = pnUpload.isMouseOver() ? Resources.cloud_upload_link_white_32x32 : Resources.cloud_upload_link_black_32x32;

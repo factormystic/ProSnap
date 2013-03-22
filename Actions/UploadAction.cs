@@ -43,12 +43,6 @@ namespace ProSnap.ActionItems
 
             Task.WaitAll(ActiveService.Upload(LatestScreenshot).ContinueWith(t =>
             {
-                if (t.Result.IsSuccess)
-                {
-                    LatestScreenshot.Remote.ImageLink = t.Result.ImageLinkUrl;
-                    LatestScreenshot.Remote.DeleteLink = t.Result.DeleteLinkUrl;
-                }
-
                 ActiveService.UploadStarted -= Program.Preview.UploadStarted;
                 ActiveService.UploadProgress -= Program.Preview.UploadProgress;
                 ActiveService.UploadEnded -= Program.Preview.UploadEnded;

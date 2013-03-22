@@ -4,10 +4,12 @@ namespace ProSnap.Uploading
 {
     public class UploaderProgressEventArgs : EventArgs
     {
+        public ExtendedScreenshot Screenshot { get; private set; }
         public long Percent { get; private set; }
 
-        public UploaderProgressEventArgs(long percent)
+        public UploaderProgressEventArgs(ExtendedScreenshot screenshot, long percent)
         {
+            this.Screenshot = screenshot;
             this.Percent = percent;
         }
     }

@@ -4,9 +4,7 @@ namespace ProSnap.Uploading
 {
     public class UploaderEndedEventArgs : EventArgs
     {
-        public string ImageLinkUrl { get; private set; }
-        public string DeleteLinkUrl { get; private set; }
-
+        public ExtendedScreenshot Screenshot { get; private set; }
         public Exception exception { get; private set; }
 
         public bool IsSuccess
@@ -17,10 +15,9 @@ namespace ProSnap.Uploading
             }
         }
 
-        public UploaderEndedEventArgs(string imageLinkUrl, string deleteLinkUrl)
+        public UploaderEndedEventArgs(ExtendedScreenshot screenshot)
         {
-            this.ImageLinkUrl = imageLinkUrl;
-            this.DeleteLinkUrl = deleteLinkUrl;
+            this.Screenshot = screenshot;
         }
 
         public UploaderEndedEventArgs(Exception exception)

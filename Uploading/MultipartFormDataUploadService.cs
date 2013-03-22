@@ -21,7 +21,7 @@ namespace ProSnap.Uploading
 
         public bool isActive { get; set; }
 
-        public event EventHandler UploadStarted = delegate { };
+        public event EventHandler<UploaderProgressEventArgs> UploadStarted = delegate { };
         public event EventHandler<UploaderProgressEventArgs> UploadProgress = delegate { };
         public event EventHandler<UploaderEndedEventArgs> UploadEnded = delegate { };
 
@@ -51,7 +51,7 @@ namespace ProSnap.Uploading
                 {
                     wc.UploadProgressChanged += (s, e) =>
                     {
-                        this.UploadProgress(this, new UploaderProgressEventArgs((e.BytesSent * 100) / e.TotalBytesToSend));
+                        this.UploadProgress(this, new UploaderProgressEventArgs(screenshot, (e.BytesSent * 100) / e.TotalBytesToSend));
                     };
 
                     wc.UploadValuesCompleted += (s, e) =>
@@ -63,9 +63,12 @@ namespace ProSnap.Uploading
                         ResponseDoc.Save(Configuration.LocalPath + @"\response.txt");
 
                         XmlNodeList ImageLink = ResponseDoc.SelectNodes(this.ImageLinkXPath);
-                        XmlNodeList DeleteLink = ResponseDoc.SelectNodes(this.DeleteLinkXPath);
+                        screenshot.Remote.ImageLink = ImageLink.Count > 0 ? ImageLink[0].InnerText : null;
 
-                        var result = new UploaderEndedEventArgs(ImageLink.Count > 0 ? ImageLink[0].InnerText : null, DeleteLink.Count > 0 ? DeleteLink[0].InnerText : null);
+                        XmlNodeList DeleteLink = ResponseDoc.SelectNodes(this.DeleteLinkXPath);
+                        screenshot.Remote.DeleteLink = DeleteLink.Count > 0 ? DeleteLink[0].InnerText : null;
+
+                        var result = new UploaderEndedEventArgs(screenshot);
                         this.UploadEnded(this, result);
                         t.SetResult(result);
                     };
@@ -85,7 +88,7 @@ namespace ProSnap.Uploading
 
                     wc.UploadValuesAsync(new Uri(this.EndpointUrl), CurrentUploadValues);
 
-                    this.UploadStarted(this, new EventArgs());
+                    this.UploadStarted(this, new UploaderProgressEventArgs(screenshot, 0));
                 }
             }
             catch (Exception ex)
