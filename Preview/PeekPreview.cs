@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using FMUtils;
 using FMUtils.WinApi;
@@ -433,25 +434,21 @@ namespace ProSnap
                         return;
                     }
 
-                    var ActiveService = Configuration.UploadServices.FirstOrDefault(P => P.isActive);
-                    if (ActiveService == null)
-                    {
-                        Trace.WriteLine("Could not find any active upload service", string.Format("PeekPreview.UploadLatestScreenshot [{0}]", System.Threading.Thread.CurrentThread.Name));
+                    Task.Factory.StartNew(() => new UploadAction().Invoke(this.CurrentScreenshot))
+                        .ContinueWith(t =>
+                        {
+                            if (t.Result != null)
+                            {
+                                GroomUploadMenuItemStyles();
 
-                        MessageBox.Show(this, "You must configure an upload service before uploading any screenshots.", "Upload a screenshot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-
-                    ActiveService.UploadStarted += Uploader_UploadStarted;
-                    ActiveService.UploadProgress += Uploader_UploadProgress;
-                    ActiveService.UploadEnded += Uploader_UploadEnded;
-
-                    ActiveService.Upload(this.CurrentScreenshot).ContinueWith(t =>
-                    {
-                        ActiveService.UploadStarted -= Uploader_UploadStarted;
-                        ActiveService.UploadProgress -= Uploader_UploadProgress;
-                        ActiveService.UploadEnded -= Uploader_UploadEnded;
-                    });
+                                //todo: Action Item
+                                Clipboard.SetText(CurrentScreenshot.Remote.ImageLink);
+                            }
+                            else
+                            {
+                                MessageBox.Show(this, string.Format("An error occurred while uploading this screenshot:\n{0}", t.Exception.GetBaseException()), "Upload Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
                     break;
             }
         }
@@ -533,50 +530,6 @@ namespace ProSnap
                 tsmiCopyImageLink.Font = new Font(tsmiCopyImageLink.Font, FontStyle.Regular);
                 tsmiUploadImage.Font = new Font(tsmiUploadImage.Font, FontStyle.Bold);
             }
-        }
-
-        private void Uploader_UploadEnded(object sender, UploaderEndedEventArgs e)
-        {
-            if (e.IsSuccess)
-            {
-                CurrentScreenshot.Remote.ImageLink = e.ImageLinkUrl;
-                CurrentScreenshot.Remote.DeleteLink = e.DeleteLinkUrl;
-
-                GroomUploadMenuItemStyles();
-
-                //todo: Action Item
-                Clipboard.SetText(CurrentScreenshot.Remote.ImageLink);
-            }
-            else
-            {
-                MessageBox.Show(this, string.Format("An error occurred while uploading this screenshot:\n{0}", e.exception), "Upload Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            UploadAnimationIndex = -1;
-            pnUpload.BackgroundImage = pnUpload.isMouseOver() ? Resources.cloud_upload_link_white_32x32 : Resources.cloud_upload_link_black_32x32;
-
-            ResetFadeCloseCountdown();
-        }
-
-        private void Uploader_UploadProgress(object sender, UploaderProgressEventArgs e)
-        {
-            var i = ((int)e.Percent) / (ilUploadAnimationBlack.Images.Count - 1);
-            if (i != UploadAnimationIndex)
-            {
-                if (i >= 0 && i < ilUploadAnimationBlack.Images.Count)
-                {
-                    Trace.WriteLine(string.Format("Uploading: '{0}'", i), string.Format("PeekPreview.UploadLatestScreenshot.UploadProgressChanged [{0}]", System.Threading.Thread.CurrentThread.Name));
-
-                    UploadAnimationIndex = i;
-                    pnUpload.BackgroundImage = pnUpload.isMouseOver() ? ilUploadAnimationWhite.Images[UploadAnimationIndex] : ilUploadAnimationBlack.Images[UploadAnimationIndex];
-                }
-            }
-        }
-
-        private void Uploader_UploadStarted(object sender, EventArgs e)
-        {
-            UploadAnimationIndex = 0;
-            pnUpload.BackgroundImage = pnUpload.isMouseOver() ? ilUploadAnimationWhite.Images[UploadAnimationIndex] : ilUploadAnimationBlack.Images[UploadAnimationIndex];
         }
         #endregion
 
@@ -890,6 +843,14 @@ namespace ProSnap
         #region External actions
         internal void GroomHeartIcon()
         {
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.GroomHeartIcon [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => GroomHeartIcon()));
+                return;
+            }
+            
             var flag = CurrentScreenshot != null && CurrentScreenshot.isFlagged;
             var p = Cursor.Position;
             var hover = this.Visible && pnHeart.Bounds.Contains(pnHeart.PointToClient(p));
@@ -898,6 +859,59 @@ namespace ProSnap
                 pnHeart.BackgroundImage = hover ? Resources.heart_fill_white_32x38 : Resources.heart_fill_black_32x38;
             else
                 pnHeart.BackgroundImage = hover ? Resources.heart_stroke_white_32x28 : Resources.heart_stroke_black_32x28;
+        }
+
+        internal void UploadStarted(object sender, EventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.UploadStarted [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => UploadStarted(sender, e)));
+                return;
+            }
+
+            UploadAnimationIndex = 0;
+            pnUpload.BackgroundImage = pnUpload.isMouseOver() ? ilUploadAnimationWhite.Images[UploadAnimationIndex] : ilUploadAnimationBlack.Images[UploadAnimationIndex];
+        }
+
+        internal void UploadProgress(object sender, UploaderProgressEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.UploadProgress [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => UploadProgress(sender, e)));
+                return;
+            }
+
+            var i = ((int)e.Percent) / (ilUploadAnimationBlack.Images.Count - 1);
+            if (i != UploadAnimationIndex)
+            {
+                if (i >= 0 && i < ilUploadAnimationBlack.Images.Count)
+                {
+                    Trace.WriteLine(string.Format("Uploading: '{0}'", i), string.Format("PeekPreview.UploadProgress [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                    UploadAnimationIndex = i;
+                    pnUpload.BackgroundImage = pnUpload.isMouseOver() ? ilUploadAnimationWhite.Images[UploadAnimationIndex] : ilUploadAnimationBlack.Images[UploadAnimationIndex];
+                }
+            }
+        }
+
+        internal void UploadEnded(object sender, UploaderEndedEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.UploadEnded [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => UploadEnded(sender, e)));
+                return;
+            }
+
+            UploadAnimationIndex = -1;
+            pnUpload.BackgroundImage = pnUpload.isMouseOver() ? Resources.cloud_upload_link_white_32x32 : Resources.cloud_upload_link_black_32x32;
+
+            ResetFadeCloseCountdown();
         }
         #endregion
     }
