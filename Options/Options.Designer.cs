@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Global Shortcuts", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Preview Window Shortcuts", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Save", 0);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Upload", 1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Edit", 2);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Global Shortcuts", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Preview Window Shortcuts", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Save", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Upload", 1);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Edit", 2);
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "Delete"}, 3, System.Drawing.Color.Empty, System.Drawing.SystemColors.Window, null);
             this.btClose = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -43,6 +43,7 @@
             this.flpTabContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.btGeneralTab = new System.Windows.Forms.Button();
             this.btShortcutsTab = new System.Windows.Forms.Button();
+            this.btPreviewTab = new System.Windows.Forms.Button();
             this.btUploadingTab = new System.Windows.Forms.Button();
             this.btRegisterTab = new System.Windows.Forms.Button();
             this.pnWindowButtons = new System.Windows.Forms.Panel();
@@ -136,10 +137,11 @@
             this.btClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btClose.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btClose.Location = new System.Drawing.Point(399, 7);
+            this.btClose.Location = new System.Drawing.Point(501, 10);
+            this.btClose.Margin = new System.Windows.Forms.Padding(4);
             this.btClose.Name = "btClose";
-            this.btClose.Padding = new System.Windows.Forms.Padding(12, 0, 12, 0);
-            this.btClose.Size = new System.Drawing.Size(70, 25);
+            this.btClose.Padding = new System.Windows.Forms.Padding(15, 0, 15, 0);
+            this.btClose.Size = new System.Drawing.Size(85, 30);
             this.btClose.TabIndex = 0;
             this.btClose.Text = "Close";
             this.btClose.UseVisualStyleBackColor = true;
@@ -171,11 +173,12 @@
             this.flpTabContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flpTabContainer.Controls.Add(this.btGeneralTab);
             this.flpTabContainer.Controls.Add(this.btShortcutsTab);
+            this.flpTabContainer.Controls.Add(this.btPreviewTab);
             this.flpTabContainer.Controls.Add(this.btUploadingTab);
             this.flpTabContainer.Controls.Add(this.btRegisterTab);
             this.flpTabContainer.Location = new System.Drawing.Point(-1, -2);
             this.flpTabContainer.Name = "flpTabContainer";
-            this.flpTabContainer.Size = new System.Drawing.Size(480, 60);
+            this.flpTabContainer.Size = new System.Drawing.Size(600, 65);
             this.flpTabContainer.TabIndex = 2;
             // 
             // btGeneralTab
@@ -187,10 +190,10 @@
             this.btGeneralTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
             this.btGeneralTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btGeneralTab.Image = global::ProSnap.Properties.Resources.cog_alt_32x32;
-            this.btGeneralTab.Location = new System.Drawing.Point(5, 0);
-            this.btGeneralTab.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.btGeneralTab.Location = new System.Drawing.Point(6, 0);
+            this.btGeneralTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
             this.btGeneralTab.Name = "btGeneralTab";
-            this.btGeneralTab.Size = new System.Drawing.Size(60, 60);
+            this.btGeneralTab.Size = new System.Drawing.Size(75, 65);
             this.btGeneralTab.TabIndex = 3;
             this.btGeneralTab.Text = "\r\nGeneral";
             this.btGeneralTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -206,15 +209,35 @@
             this.btShortcutsTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
             this.btShortcutsTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btShortcutsTab.Image = global::ProSnap.Properties.Resources.at_32x32;
-            this.btShortcutsTab.Location = new System.Drawing.Point(70, 0);
-            this.btShortcutsTab.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.btShortcutsTab.Location = new System.Drawing.Point(87, 0);
+            this.btShortcutsTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
             this.btShortcutsTab.Name = "btShortcutsTab";
-            this.btShortcutsTab.Size = new System.Drawing.Size(67, 60);
+            this.btShortcutsTab.Size = new System.Drawing.Size(80, 65);
             this.btShortcutsTab.TabIndex = 3;
             this.btShortcutsTab.Text = "\r\nShortcuts";
             this.btShortcutsTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btShortcutsTab.UseVisualStyleBackColor = false;
             this.btShortcutsTab.Click += new System.EventHandler(this.btShortcutsTab_Click);
+            // 
+            // btPreviewTab
+            // 
+            this.btPreviewTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btPreviewTab.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btPreviewTab.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btPreviewTab.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
+            this.btPreviewTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
+            this.btPreviewTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btPreviewTab.Image = global::ProSnap.Properties.Resources.image_32x32_black;
+            this.btPreviewTab.Location = new System.Drawing.Point(173, 0);
+            this.btPreviewTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
+            this.btPreviewTab.Name = "btPreviewTab";
+            this.btPreviewTab.Size = new System.Drawing.Size(75, 65);
+            this.btPreviewTab.TabIndex = 4;
+            this.btPreviewTab.Text = "\r\nPreview";
+            this.btPreviewTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btPreviewTab.UseVisualStyleBackColor = false;
+            this.btPreviewTab.Visible = false;
+            this.btPreviewTab.Click += new System.EventHandler(this.btPreviewTab_Click);
             // 
             // btUploadingTab
             // 
@@ -225,10 +248,10 @@
             this.btUploadingTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
             this.btUploadingTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btUploadingTab.Image = global::ProSnap.Properties.Resources.cloud_upload_32x32_black;
-            this.btUploadingTab.Location = new System.Drawing.Point(142, 0);
-            this.btUploadingTab.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.btUploadingTab.Location = new System.Drawing.Point(254, 0);
+            this.btUploadingTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
             this.btUploadingTab.Name = "btUploadingTab";
-            this.btUploadingTab.Size = new System.Drawing.Size(60, 60);
+            this.btUploadingTab.Size = new System.Drawing.Size(75, 65);
             this.btUploadingTab.TabIndex = 3;
             this.btUploadingTab.Text = "\r\nUpload";
             this.btUploadingTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -244,14 +267,15 @@
             this.btRegisterTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
             this.btRegisterTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btRegisterTab.Image = global::ProSnap.Properties.Resources.check_32x26;
-            this.btRegisterTab.Location = new System.Drawing.Point(207, 0);
-            this.btRegisterTab.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.btRegisterTab.Location = new System.Drawing.Point(335, 0);
+            this.btRegisterTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
             this.btRegisterTab.Name = "btRegisterTab";
-            this.btRegisterTab.Size = new System.Drawing.Size(60, 60);
+            this.btRegisterTab.Size = new System.Drawing.Size(75, 65);
             this.btRegisterTab.TabIndex = 3;
             this.btRegisterTab.Text = "\r\nRegister";
             this.btRegisterTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btRegisterTab.UseVisualStyleBackColor = false;
+            this.btRegisterTab.Visible = false;
             this.btRegisterTab.Click += new System.EventHandler(this.btRegisterTab_Click);
             // 
             // pnWindowButtons
@@ -262,18 +286,20 @@
             this.pnWindowButtons.Controls.Add(this.llResetOptions);
             this.pnWindowButtons.Controls.Add(this.btClose);
             this.pnWindowButtons.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnWindowButtons.Location = new System.Drawing.Point(-1, 638);
+            this.pnWindowButtons.Location = new System.Drawing.Point(-1, 768);
+            this.pnWindowButtons.Margin = new System.Windows.Forms.Padding(4);
             this.pnWindowButtons.Name = "pnWindowButtons";
-            this.pnWindowButtons.Size = new System.Drawing.Size(480, 40);
+            this.pnWindowButtons.Size = new System.Drawing.Size(600, 50);
             this.pnWindowButtons.TabIndex = 3;
             // 
             // llResetOptions
             // 
             this.llResetOptions.AutoSize = true;
             this.llResetOptions.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(69)))), ((int)(((byte)(173)))));
-            this.llResetOptions.Location = new System.Drawing.Point(3, 12);
+            this.llResetOptions.Location = new System.Drawing.Point(4, 15);
+            this.llResetOptions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.llResetOptions.Name = "llResetOptions";
-            this.llResetOptions.Size = new System.Drawing.Size(102, 15);
+            this.llResetOptions.Size = new System.Drawing.Size(128, 20);
             this.llResetOptions.TabIndex = 36;
             this.llResetOptions.TabStop = true;
             this.llResetOptions.Text = "Reset all options...";
@@ -291,11 +317,11 @@
             this.tcOptions.Controls.Add(this.tpRegistration);
             this.tcOptions.ImageList = this.ilTabIcons;
             this.tcOptions.ItemSize = new System.Drawing.Size(100, 20);
-            this.tcOptions.Location = new System.Drawing.Point(1, 60);
+            this.tcOptions.Location = new System.Drawing.Point(1, 65);
             this.tcOptions.Margin = new System.Windows.Forms.Padding(0);
             this.tcOptions.Name = "tcOptions";
             this.tcOptions.SelectedIndex = 0;
-            this.tcOptions.Size = new System.Drawing.Size(477, 576);
+            this.tcOptions.Size = new System.Drawing.Size(596, 690);
             this.tcOptions.TabIndex = 1;
             this.tcOptions.SelectedIndexChanged += new System.EventHandler(this.tcOptions_SelectedIndexChanged);
             // 
@@ -322,7 +348,7 @@
             this.tpPreviewWindow.Location = new System.Drawing.Point(0, 0);
             this.tpPreviewWindow.Name = "tpPreviewWindow";
             this.tpPreviewWindow.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPreviewWindow.Size = new System.Drawing.Size(477, 576);
+            this.tpPreviewWindow.Size = new System.Drawing.Size(596, 690);
             this.tpPreviewWindow.TabIndex = 1;
             this.tpPreviewWindow.Tag = "general";
             this.tpPreviewWindow.Text = "General";
@@ -333,10 +359,11 @@
             this.btCrash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btCrash.AutoSize = true;
             this.btCrash.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btCrash.Location = new System.Drawing.Point(380, 493);
+            this.btCrash.Location = new System.Drawing.Point(461, 592);
+            this.btCrash.Margin = new System.Windows.Forms.Padding(4);
             this.btCrash.Name = "btCrash";
-            this.btCrash.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btCrash.Size = new System.Drawing.Size(91, 25);
+            this.btCrash.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.btCrash.Size = new System.Drawing.Size(107, 30);
             this.btCrash.TabIndex = 31;
             this.btCrash.Text = "Test Crash...";
             this.btCrash.UseVisualStyleBackColor = true;
@@ -347,10 +374,11 @@
             this.btManualUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btManualUpdate.AutoSize = true;
             this.btManualUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btManualUpdate.Location = new System.Drawing.Point(344, 527);
+            this.btManualUpdate.Location = new System.Drawing.Point(416, 634);
+            this.btManualUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.btManualUpdate.Name = "btManualUpdate";
-            this.btManualUpdate.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btManualUpdate.Size = new System.Drawing.Size(127, 25);
+            this.btManualUpdate.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.btManualUpdate.Size = new System.Drawing.Size(153, 30);
             this.btManualUpdate.TabIndex = 30;
             this.btManualUpdate.Text = "Check for update...";
             this.btManualUpdate.UseVisualStyleBackColor = true;
@@ -359,9 +387,10 @@
             // 
             this.llOpenLogFolder.AutoSize = true;
             this.llOpenLogFolder.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(69)))), ((int)(((byte)(173)))));
-            this.llOpenLogFolder.Location = new System.Drawing.Point(8, 493);
+            this.llOpenLogFolder.Location = new System.Drawing.Point(9, 615);
+            this.llOpenLogFolder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.llOpenLogFolder.Name = "llOpenLogFolder";
-            this.llOpenLogFolder.Size = new System.Drawing.Size(187, 15);
+            this.llOpenLogFolder.Size = new System.Drawing.Size(235, 20);
             this.llOpenLogFolder.TabIndex = 27;
             this.llOpenLogFolder.TabStop = true;
             this.llOpenLogFolder.Text = "Open application folder location...";
@@ -370,9 +399,10 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(8, 522);
+            this.label13.Location = new System.Drawing.Point(9, 651);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(247, 15);
+            this.label13.Size = new System.Drawing.Size(310, 20);
             this.label13.TabIndex = 26;
             this.label13.Text = "Have feedback, a comment, or a suggestion? ";
             // 
@@ -380,9 +410,10 @@
             // 
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(69)))), ((int)(((byte)(173)))));
-            this.linkLabel2.Location = new System.Drawing.Point(21, 537);
+            this.linkLabel2.Location = new System.Drawing.Point(25, 670);
+            this.linkLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(163, 15);
+            this.linkLabel2.Size = new System.Drawing.Size(205, 20);
             this.linkLabel2.TabIndex = 25;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "Visit the application website...";
@@ -396,9 +427,10 @@
             "Bitmap (*.bmp)",
             "Jpeg (*.jpg)",
             "Gif (*.gif)"});
-            this.cbDefaultFileType.Location = new System.Drawing.Point(28, 455);
+            this.cbDefaultFileType.Location = new System.Drawing.Point(35, 569);
+            this.cbDefaultFileType.Margin = new System.Windows.Forms.Padding(4);
             this.cbDefaultFileType.Name = "cbDefaultFileType";
-            this.cbDefaultFileType.Size = new System.Drawing.Size(180, 23);
+            this.cbDefaultFileType.Size = new System.Drawing.Size(224, 28);
             this.cbDefaultFileType.TabIndex = 23;
             this.cbDefaultFileType.SelectedIndexChanged += new System.EventHandler(this.cbDefaultFileType_SelectedIndexChanged);
             // 
@@ -406,29 +438,30 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(24, 437);
+            this.label8.Location = new System.Drawing.Point(29, 545);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(306, 15);
+            this.label8.Size = new System.Drawing.Size(376, 20);
             this.label8.TabIndex = 22;
             this.label8.Text = "(This will also set the file type for screenshot drag && drop)";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(8, 421);
-            this.label10.Margin = new System.Windows.Forms.Padding(5);
+            this.label10.Location = new System.Drawing.Point(9, 525);
+            this.label10.Margin = new System.Windows.Forms.Padding(6);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(136, 15);
+            this.label10.Size = new System.Drawing.Size(174, 20);
             this.label10.TabIndex = 21;
             this.label10.Text = "Default Save-as file type:";
             // 
             // rbPreviewTakeFocus
             // 
             this.rbPreviewTakeFocus.AutoSize = true;
-            this.rbPreviewTakeFocus.Location = new System.Drawing.Point(27, 394);
-            this.rbPreviewTakeFocus.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.rbPreviewTakeFocus.Location = new System.Drawing.Point(33, 491);
+            this.rbPreviewTakeFocus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 4);
             this.rbPreviewTakeFocus.Name = "rbPreviewTakeFocus";
-            this.rbPreviewTakeFocus.Size = new System.Drawing.Size(137, 19);
+            this.rbPreviewTakeFocus.Size = new System.Drawing.Size(166, 24);
             this.rbPreviewTakeFocus.TabIndex = 2;
             this.rbPreviewTakeFocus.Text = "Show, and take focus";
             this.rbPreviewTakeFocus.UseVisualStyleBackColor = true;
@@ -438,10 +471,10 @@
             // 
             this.rbPreviewLeaveFocus.AutoSize = true;
             this.rbPreviewLeaveFocus.Checked = true;
-            this.rbPreviewLeaveFocus.Location = new System.Drawing.Point(27, 375);
-            this.rbPreviewLeaveFocus.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.rbPreviewLeaveFocus.Location = new System.Drawing.Point(33, 468);
+            this.rbPreviewLeaveFocus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.rbPreviewLeaveFocus.Name = "rbPreviewLeaveFocus";
-            this.rbPreviewLeaveFocus.Size = new System.Drawing.Size(166, 19);
+            this.rbPreviewLeaveFocus.Size = new System.Drawing.Size(201, 24);
             this.rbPreviewLeaveFocus.TabIndex = 1;
             this.rbPreviewLeaveFocus.TabStop = true;
             this.rbPreviewLeaveFocus.Text = "Show, but don\'t take focus";
@@ -452,25 +485,27 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(24, 310);
+            this.label9.Location = new System.Drawing.Point(29, 387);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(265, 15);
+            this.label9.Size = new System.Drawing.Size(322, 20);
             this.label9.TabIndex = 20;
             this.label9.Text = "(Setting 0 will keep the window open indefinitely)";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 359);
-            this.label7.Margin = new System.Windows.Forms.Padding(5);
+            this.label7.Location = new System.Drawing.Point(9, 448);
+            this.label7.Margin = new System.Windows.Forms.Padding(6);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(140, 15);
+            this.label7.Size = new System.Drawing.Size(175, 20);
             this.label7.TabIndex = 17;
             this.label7.Text = "Preview activation mode:";
             // 
             // nudDelayTime
             // 
-            this.nudDelayTime.Location = new System.Drawing.Point(27, 328);
+            this.nudDelayTime.Location = new System.Drawing.Point(34, 410);
+            this.nudDelayTime.Margin = new System.Windows.Forms.Padding(4);
             this.nudDelayTime.Maximum = new decimal(new int[] {
             60,
             0,
@@ -482,16 +517,17 @@
             0,
             -2147483648});
             this.nudDelayTime.Name = "nudDelayTime";
-            this.nudDelayTime.Size = new System.Drawing.Size(49, 23);
+            this.nudDelayTime.Size = new System.Drawing.Size(61, 27);
             this.nudDelayTime.TabIndex = 0;
             this.nudDelayTime.ValueChanged += new System.EventHandler(this.nudDelayTime_ValueChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(78, 330);
+            this.label5.Location = new System.Drawing.Point(97, 411);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(50, 15);
+            this.label5.Size = new System.Drawing.Size(62, 20);
             this.label5.TabIndex = 9;
             this.label5.Text = "seconds";
             // 
@@ -505,19 +541,20 @@
             this.pnPreviewLocationChooser.Controls.Add(this.cbPreviewLowerLeft);
             this.pnPreviewLocationChooser.Controls.Add(this.cbPreviewUpperLeft);
             this.pnPreviewLocationChooser.Controls.Add(this.pbDesktopPreview);
-            this.pnPreviewLocationChooser.Location = new System.Drawing.Point(28, 31);
+            this.pnPreviewLocationChooser.Location = new System.Drawing.Point(24, 38);
+            this.pnPreviewLocationChooser.Margin = new System.Windows.Forms.Padding(4);
             this.pnPreviewLocationChooser.Name = "pnPreviewLocationChooser";
-            this.pnPreviewLocationChooser.Size = new System.Drawing.Size(280, 246);
+            this.pnPreviewLocationChooser.Size = new System.Drawing.Size(350, 307);
             this.pnPreviewLocationChooser.TabIndex = 15;
             // 
             // cbPreviewCenter
             // 
             this.cbPreviewCenter.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cbPreviewCenter.AutoCheck = false;
-            this.cbPreviewCenter.Location = new System.Drawing.Point(132, 116);
+            this.cbPreviewCenter.Location = new System.Drawing.Point(165, 145);
             this.cbPreviewCenter.Margin = new System.Windows.Forms.Padding(0);
             this.cbPreviewCenter.Name = "cbPreviewCenter";
-            this.cbPreviewCenter.Size = new System.Drawing.Size(13, 13);
+            this.cbPreviewCenter.Size = new System.Drawing.Size(16, 16);
             this.cbPreviewCenter.TabIndex = 2;
             this.cbPreviewCenter.UseVisualStyleBackColor = true;
             this.cbPreviewCenter.CheckedChanged += new System.EventHandler(this.cbPreview_CheckedChanged);
@@ -529,10 +566,10 @@
             this.cbPreviewLowerRight.AutoCheck = false;
             this.cbPreviewLowerRight.Checked = true;
             this.cbPreviewLowerRight.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbPreviewLowerRight.Location = new System.Drawing.Point(255, 221);
-            this.cbPreviewLowerRight.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
+            this.cbPreviewLowerRight.Location = new System.Drawing.Point(319, 276);
+            this.cbPreviewLowerRight.Margin = new System.Windows.Forms.Padding(0, 0, 12, 12);
             this.cbPreviewLowerRight.Name = "cbPreviewLowerRight";
-            this.cbPreviewLowerRight.Size = new System.Drawing.Size(13, 13);
+            this.cbPreviewLowerRight.Size = new System.Drawing.Size(16, 16);
             this.cbPreviewLowerRight.TabIndex = 0;
             this.cbPreviewLowerRight.UseVisualStyleBackColor = true;
             this.cbPreviewLowerRight.CheckedChanged += new System.EventHandler(this.cbPreview_CheckedChanged);
@@ -542,10 +579,10 @@
             // 
             this.cbPreviewUpperRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbPreviewUpperRight.AutoCheck = false;
-            this.cbPreviewUpperRight.Location = new System.Drawing.Point(255, 10);
-            this.cbPreviewUpperRight.Margin = new System.Windows.Forms.Padding(0, 10, 10, 0);
+            this.cbPreviewUpperRight.Location = new System.Drawing.Point(319, 12);
+            this.cbPreviewUpperRight.Margin = new System.Windows.Forms.Padding(0, 12, 12, 0);
             this.cbPreviewUpperRight.Name = "cbPreviewUpperRight";
-            this.cbPreviewUpperRight.Size = new System.Drawing.Size(13, 13);
+            this.cbPreviewUpperRight.Size = new System.Drawing.Size(16, 16);
             this.cbPreviewUpperRight.TabIndex = 1;
             this.cbPreviewUpperRight.UseVisualStyleBackColor = true;
             this.cbPreviewUpperRight.CheckedChanged += new System.EventHandler(this.cbPreview_CheckedChanged);
@@ -555,10 +592,10 @@
             // 
             this.cbPreviewLowerLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbPreviewLowerLeft.AutoCheck = false;
-            this.cbPreviewLowerLeft.Location = new System.Drawing.Point(10, 221);
-            this.cbPreviewLowerLeft.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
+            this.cbPreviewLowerLeft.Location = new System.Drawing.Point(12, 276);
+            this.cbPreviewLowerLeft.Margin = new System.Windows.Forms.Padding(12, 0, 0, 12);
             this.cbPreviewLowerLeft.Name = "cbPreviewLowerLeft";
-            this.cbPreviewLowerLeft.Size = new System.Drawing.Size(13, 13);
+            this.cbPreviewLowerLeft.Size = new System.Drawing.Size(16, 16);
             this.cbPreviewLowerLeft.TabIndex = 5;
             this.cbPreviewLowerLeft.UseVisualStyleBackColor = true;
             this.cbPreviewLowerLeft.CheckedChanged += new System.EventHandler(this.cbPreview_CheckedChanged);
@@ -568,10 +605,10 @@
             // 
             this.cbPreviewUpperLeft.AutoCheck = false;
             this.cbPreviewUpperLeft.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cbPreviewUpperLeft.Location = new System.Drawing.Point(10, 10);
-            this.cbPreviewUpperLeft.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.cbPreviewUpperLeft.Location = new System.Drawing.Point(12, 12);
+            this.cbPreviewUpperLeft.Margin = new System.Windows.Forms.Padding(12, 12, 0, 0);
             this.cbPreviewUpperLeft.Name = "cbPreviewUpperLeft";
-            this.cbPreviewUpperLeft.Size = new System.Drawing.Size(13, 13);
+            this.cbPreviewUpperLeft.Size = new System.Drawing.Size(16, 16);
             this.cbPreviewUpperLeft.TabIndex = 3;
             this.cbPreviewUpperLeft.UseVisualStyleBackColor = true;
             this.cbPreviewUpperLeft.CheckedChanged += new System.EventHandler(this.cbPreview_CheckedChanged);
@@ -581,8 +618,9 @@
             // 
             this.pbDesktopPreview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbDesktopPreview.Location = new System.Drawing.Point(0, 0);
+            this.pbDesktopPreview.Margin = new System.Windows.Forms.Padding(4);
             this.pbDesktopPreview.Name = "pbDesktopPreview";
-            this.pbDesktopPreview.Size = new System.Drawing.Size(278, 244);
+            this.pbDesktopPreview.Size = new System.Drawing.Size(348, 305);
             this.pbDesktopPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbDesktopPreview.TabIndex = 15;
             this.pbDesktopPreview.TabStop = false;
@@ -590,20 +628,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 8);
-            this.label3.Margin = new System.Windows.Forms.Padding(5);
+            this.label3.Location = new System.Drawing.Point(9, 9);
+            this.label3.Margin = new System.Windows.Forms.Padding(6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(140, 15);
+            this.label3.Size = new System.Drawing.Size(175, 20);
             this.label3.TabIndex = 1;
             this.label3.Text = "Preview pop-up location:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 294);
-            this.label4.Margin = new System.Windows.Forms.Padding(5);
+            this.label4.Location = new System.Drawing.Point(9, 367);
+            this.label4.Margin = new System.Windows.Forms.Padding(6);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(141, 15);
+            this.label4.Size = new System.Drawing.Size(177, 20);
             this.label4.TabIndex = 7;
             this.label4.Text = "Preview auto-close delay:";
             // 
@@ -614,9 +652,10 @@
             this.tpShortcuts.Controls.Add(this.groupBox2);
             this.tpShortcuts.Controls.Add(this.flpShortcutActions);
             this.tpShortcuts.Location = new System.Drawing.Point(0, 0);
+            this.tpShortcuts.Margin = new System.Windows.Forms.Padding(4);
             this.tpShortcuts.Name = "tpShortcuts";
-            this.tpShortcuts.Padding = new System.Windows.Forms.Padding(3);
-            this.tpShortcuts.Size = new System.Drawing.Size(477, 576);
+            this.tpShortcuts.Padding = new System.Windows.Forms.Padding(4);
+            this.tpShortcuts.Size = new System.Drawing.Size(596, 690);
             this.tpShortcuts.TabIndex = 3;
             this.tpShortcuts.Tag = "shortcuts";
             this.tpShortcuts.Text = "Shortcut Keys";
@@ -624,24 +663,27 @@
             // 
             // lvShortcuts
             // 
+            this.lvShortcuts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvShortcuts.CheckBoxes = true;
             this.lvShortcuts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chKeyCombo,
             this.chActions});
-            this.lvShortcuts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvShortcuts.FullRowSelect = true;
-            listViewGroup3.Header = "Global Shortcuts";
-            listViewGroup3.Name = "lvgGlobal";
-            listViewGroup4.Header = "Preview Window Shortcuts";
-            listViewGroup4.Name = "lvgPreview";
+            listViewGroup1.Header = "Global Shortcuts";
+            listViewGroup1.Name = "lvgGlobal";
+            listViewGroup2.Header = "Preview Window Shortcuts";
+            listViewGroup2.Name = "lvgPreview";
             this.lvShortcuts.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup3,
-            listViewGroup4});
+            listViewGroup1,
+            listViewGroup2});
             this.lvShortcuts.HideSelection = false;
-            this.lvShortcuts.Location = new System.Drawing.Point(3, 59);
+            this.lvShortcuts.Location = new System.Drawing.Point(4, 74);
+            this.lvShortcuts.Margin = new System.Windows.Forms.Padding(4);
             this.lvShortcuts.MultiSelect = false;
             this.lvShortcuts.Name = "lvShortcuts";
-            this.lvShortcuts.Size = new System.Drawing.Size(471, 488);
+            this.lvShortcuts.Size = new System.Drawing.Size(588, 578);
             this.lvShortcuts.TabIndex = 0;
             this.lvShortcuts.UseCompatibleStateImageBehavior = false;
             this.lvShortcuts.View = System.Windows.Forms.View.Details;
@@ -651,31 +693,32 @@
             // chKeyCombo
             // 
             this.chKeyCombo.Text = "Key Combo";
-            this.chKeyCombo.Width = 118;
+            this.chKeyCombo.Width = 225;
             // 
             // chActions
             // 
             this.chActions.Text = "Actions";
-            this.chActions.Width = 292;
+            this.chActions.Width = 337;
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(3, 3);
+            this.groupBox2.Location = new System.Drawing.Point(4, -5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.groupBox2.Size = new System.Drawing.Size(471, 56);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.groupBox2.Size = new System.Drawing.Size(588, 72);
             this.groupBox2.TabIndex = 26;
             this.groupBox2.TabStop = false;
             // 
             // label11
             // 
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Location = new System.Drawing.Point(3, 16);
-            this.label11.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.label11.Location = new System.Drawing.Point(4, 20);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 4);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(465, 37);
+            this.label11.Size = new System.Drawing.Size(580, 52);
             this.label11.TabIndex = 25;
             this.label11.Text = "These are the keyboard shortcuts ProSnap is configured to respond to. Un-checking" +
     " a shortcut will temporarily disable it.";
@@ -688,21 +731,22 @@
             this.flpShortcutActions.Controls.Add(this.btEditShortcut);
             this.flpShortcutActions.Controls.Add(this.btRemoveShortcut);
             this.flpShortcutActions.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flpShortcutActions.Location = new System.Drawing.Point(3, 547);
+            this.flpShortcutActions.Location = new System.Drawing.Point(4, 652);
+            this.flpShortcutActions.Margin = new System.Windows.Forms.Padding(4);
             this.flpShortcutActions.Name = "flpShortcutActions";
-            this.flpShortcutActions.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.flpShortcutActions.Size = new System.Drawing.Size(471, 26);
+            this.flpShortcutActions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
+            this.flpShortcutActions.Size = new System.Drawing.Size(588, 34);
             this.flpShortcutActions.TabIndex = 24;
             // 
             // btAddShortcut
             // 
             this.btAddShortcut.AutoSize = true;
             this.btAddShortcut.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btAddShortcut.Location = new System.Drawing.Point(3, 3);
-            this.btAddShortcut.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.btAddShortcut.Location = new System.Drawing.Point(4, 4);
+            this.btAddShortcut.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.btAddShortcut.Name = "btAddShortcut";
-            this.btAddShortcut.Padding = new System.Windows.Forms.Padding(14, 0, 14, 0);
-            this.btAddShortcut.Size = new System.Drawing.Size(114, 23);
+            this.btAddShortcut.Padding = new System.Windows.Forms.Padding(18, 0, 18, 0);
+            this.btAddShortcut.Size = new System.Drawing.Size(149, 30);
             this.btAddShortcut.TabIndex = 0;
             this.btAddShortcut.Text = "Add shortcut...";
             this.btAddShortcut.UseVisualStyleBackColor = true;
@@ -712,11 +756,11 @@
             // 
             this.btEditShortcut.AutoSize = true;
             this.btEditShortcut.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btEditShortcut.Location = new System.Drawing.Point(120, 3);
-            this.btEditShortcut.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.btEditShortcut.Location = new System.Drawing.Point(157, 4);
+            this.btEditShortcut.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.btEditShortcut.Name = "btEditShortcut";
-            this.btEditShortcut.Padding = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.btEditShortcut.Size = new System.Drawing.Size(103, 23);
+            this.btEditShortcut.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btEditShortcut.Size = new System.Drawing.Size(133, 30);
             this.btEditShortcut.TabIndex = 1;
             this.btEditShortcut.Text = "Edit selected...";
             this.btEditShortcut.UseVisualStyleBackColor = true;
@@ -726,11 +770,11 @@
             // 
             this.btRemoveShortcut.AutoSize = true;
             this.btRemoveShortcut.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btRemoveShortcut.Location = new System.Drawing.Point(226, 3);
-            this.btRemoveShortcut.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.btRemoveShortcut.Location = new System.Drawing.Point(294, 4);
+            this.btRemoveShortcut.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.btRemoveShortcut.Name = "btRemoveShortcut";
-            this.btRemoveShortcut.Padding = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.btRemoveShortcut.Size = new System.Drawing.Size(116, 23);
+            this.btRemoveShortcut.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btRemoveShortcut.Size = new System.Drawing.Size(152, 30);
             this.btRemoveShortcut.TabIndex = 2;
             this.btRemoveShortcut.Text = "Remove selected";
             this.btRemoveShortcut.UseVisualStyleBackColor = true;
@@ -742,9 +786,10 @@
             this.tpButtons.Controls.Add(this.groupBox1);
             this.tpButtons.Controls.Add(this.listView1);
             this.tpButtons.Location = new System.Drawing.Point(0, 0);
+            this.tpButtons.Margin = new System.Windows.Forms.Padding(4);
             this.tpButtons.Name = "tpButtons";
-            this.tpButtons.Padding = new System.Windows.Forms.Padding(3);
-            this.tpButtons.Size = new System.Drawing.Size(477, 576);
+            this.tpButtons.Padding = new System.Windows.Forms.Padding(4);
+            this.tpButtons.Size = new System.Drawing.Size(596, 690);
             this.tpButtons.TabIndex = 0;
             this.tpButtons.Tag = "buttons";
             this.tpButtons.Text = "Button Options";
@@ -764,9 +809,11 @@
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 62);
+            this.groupBox1.Location = new System.Drawing.Point(8, 78);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(537, 505);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(671, 601);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selected Button Properties";
@@ -774,35 +821,39 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(11, 101);
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(14, 126);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(170, 229);
+            this.listBox1.Size = new System.Drawing.Size(212, 284);
             this.listBox1.TabIndex = 12;
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 15;
-            this.listBox2.Location = new System.Drawing.Point(256, 101);
+            this.listBox2.ItemHeight = 20;
+            this.listBox2.Location = new System.Drawing.Point(320, 126);
+            this.listBox2.Margin = new System.Windows.Forms.Padding(4);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(170, 229);
+            this.listBox2.Size = new System.Drawing.Size(212, 284);
             this.listBox2.TabIndex = 11;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(211, 213);
+            this.button3.Location = new System.Drawing.Point(264, 266);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(25, 23);
+            this.button3.Size = new System.Drawing.Size(31, 29);
             this.button3.TabIndex = 10;
             this.button3.Text = ">";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(211, 184);
+            this.button2.Location = new System.Drawing.Point(264, 230);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(25, 23);
+            this.button2.Size = new System.Drawing.Size(31, 29);
             this.button2.TabIndex = 9;
             this.button2.Text = "<";
             this.button2.UseVisualStyleBackColor = true;
@@ -810,46 +861,48 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 78);
-            this.label2.Margin = new System.Windows.Forms.Padding(5);
+            this.label2.Location = new System.Drawing.Point(10, 98);
+            this.label2.Margin = new System.Windows.Forms.Padding(6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 15);
+            this.label2.Size = new System.Drawing.Size(94, 20);
             this.label2.TabIndex = 7;
             this.label2.Text = "Click actions:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 24);
-            this.label6.Margin = new System.Windows.Forms.Padding(5);
+            this.label6.Location = new System.Drawing.Point(10, 30);
+            this.label6.Margin = new System.Windows.Forms.Padding(6);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 15);
+            this.label6.Size = new System.Drawing.Size(52, 20);
             this.label6.TabIndex = 4;
             this.label6.Text = "Name:";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(275, 47);
+            this.button1.Location = new System.Drawing.Point(344, 59);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 23);
+            this.button1.Size = new System.Drawing.Size(149, 29);
             this.button1.TabIndex = 6;
             this.button1.Text = "Choose icon...";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(11, 47);
+            this.textBox1.Location = new System.Drawing.Point(14, 59);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(170, 23);
+            this.textBox1.Size = new System.Drawing.Size(212, 27);
             this.textBox1.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(272, 24);
-            this.label1.Margin = new System.Windows.Forms.Padding(5);
+            this.label1.Location = new System.Drawing.Point(340, 30);
+            this.label1.Margin = new System.Windows.Forms.Padding(6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 15);
+            this.label1.Size = new System.Drawing.Size(40, 20);
             this.label1.TabIndex = 5;
             this.label1.Text = "Icon:";
             // 
@@ -859,19 +912,20 @@
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
-            listViewItem5.StateImageIndex = 0;
-            listViewItem8.StateImageIndex = 0;
+            listViewItem1.StateImageIndex = 0;
+            listViewItem4.StateImageIndex = 0;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4});
             this.listView1.LargeImageList = this.imageList1;
-            this.listView1.Location = new System.Drawing.Point(121, 3);
+            this.listView1.Location = new System.Drawing.Point(151, 4);
+            this.listView1.Margin = new System.Windows.Forms.Padding(4);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
             this.listView1.Scrollable = false;
-            this.listView1.Size = new System.Drawing.Size(274, 50);
+            this.listView1.Size = new System.Drawing.Size(342, 62);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -883,8 +937,8 @@
             this.tpUploading.Controls.Add(this.flpUploadServiceButtons);
             this.tpUploading.Location = new System.Drawing.Point(0, 0);
             this.tpUploading.Name = "tpUploading";
-            this.tpUploading.Padding = new System.Windows.Forms.Padding(3);
-            this.tpUploading.Size = new System.Drawing.Size(477, 576);
+            this.tpUploading.Padding = new System.Windows.Forms.Padding(4);
+            this.tpUploading.Size = new System.Drawing.Size(596, 690);
             this.tpUploading.TabIndex = 4;
             this.tpUploading.Tag = "uploading";
             this.tpUploading.Text = "Upload Services";
@@ -895,27 +949,31 @@
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button4.AutoSize = true;
             this.button4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button4.Location = new System.Drawing.Point(6, 656);
+            this.button4.Location = new System.Drawing.Point(8, 819);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
-            this.button4.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.button4.Size = new System.Drawing.Size(188, 23);
+            this.button4.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.button4.Size = new System.Drawing.Size(251, 30);
             this.button4.TabIndex = 37;
             this.button4.Text = "Reset upload services to default...";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // lvUploadProfiles
             // 
+            this.lvUploadProfiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvUploadProfiles.CheckBoxes = true;
             this.lvUploadProfiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chUploadService});
-            this.lvUploadProfiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvUploadProfiles.FullRowSelect = true;
             this.lvUploadProfiles.HideSelection = false;
             this.lvUploadProfiles.LabelEdit = true;
-            this.lvUploadProfiles.Location = new System.Drawing.Point(3, 59);
+            this.lvUploadProfiles.Location = new System.Drawing.Point(4, 74);
+            this.lvUploadProfiles.Margin = new System.Windows.Forms.Padding(4);
             this.lvUploadProfiles.MultiSelect = false;
             this.lvUploadProfiles.Name = "lvUploadProfiles";
-            this.lvUploadProfiles.Size = new System.Drawing.Size(471, 488);
+            this.lvUploadProfiles.Size = new System.Drawing.Size(588, 578);
             this.lvUploadProfiles.TabIndex = 0;
             this.lvUploadProfiles.UseCompatibleStateImageBehavior = false;
             this.lvUploadProfiles.View = System.Windows.Forms.View.Details;
@@ -929,21 +987,24 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox3.Location = new System.Drawing.Point(3, 3);
+            this.groupBox3.Location = new System.Drawing.Point(4, -5);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.groupBox3.Size = new System.Drawing.Size(471, 56);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 0, 4, 4);
+            this.groupBox3.Size = new System.Drawing.Size(588, 70);
             this.groupBox3.TabIndex = 38;
             this.groupBox3.TabStop = false;
             // 
             // label12
             // 
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Location = new System.Drawing.Point(3, 16);
+            this.label12.Location = new System.Drawing.Point(4, 20);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(465, 37);
+            this.label12.Size = new System.Drawing.Size(580, 46);
             this.label12.TabIndex = 25;
             this.label12.Text = "These are the upload services ProSnap can send screenshots to. The checked servic" +
     "e is the default one that will be used when the upload button is clicked.";
@@ -956,21 +1017,22 @@
             this.flpUploadServiceButtons.Controls.Add(this.btEditUploadService);
             this.flpUploadServiceButtons.Controls.Add(this.btRemoveUploadService);
             this.flpUploadServiceButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flpUploadServiceButtons.Location = new System.Drawing.Point(3, 547);
+            this.flpUploadServiceButtons.Location = new System.Drawing.Point(4, 652);
+            this.flpUploadServiceButtons.Margin = new System.Windows.Forms.Padding(4);
             this.flpUploadServiceButtons.Name = "flpUploadServiceButtons";
-            this.flpUploadServiceButtons.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.flpUploadServiceButtons.Size = new System.Drawing.Size(471, 26);
+            this.flpUploadServiceButtons.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
+            this.flpUploadServiceButtons.Size = new System.Drawing.Size(588, 34);
             this.flpUploadServiceButtons.TabIndex = 27;
             // 
             // btAddUploadService
             // 
             this.btAddUploadService.AutoSize = true;
             this.btAddUploadService.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btAddUploadService.Location = new System.Drawing.Point(3, 3);
-            this.btAddUploadService.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.btAddUploadService.Location = new System.Drawing.Point(4, 4);
+            this.btAddUploadService.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.btAddUploadService.Name = "btAddUploadService";
-            this.btAddUploadService.Padding = new System.Windows.Forms.Padding(14, 0, 14, 0);
-            this.btAddUploadService.Size = new System.Drawing.Size(145, 23);
+            this.btAddUploadService.Padding = new System.Windows.Forms.Padding(18, 0, 18, 0);
+            this.btAddUploadService.Size = new System.Drawing.Size(192, 30);
             this.btAddUploadService.TabIndex = 0;
             this.btAddUploadService.Text = "Add upload service...";
             this.btAddUploadService.UseVisualStyleBackColor = true;
@@ -980,11 +1042,11 @@
             // 
             this.btEditUploadService.AutoSize = true;
             this.btEditUploadService.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btEditUploadService.Location = new System.Drawing.Point(151, 3);
-            this.btEditUploadService.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.btEditUploadService.Location = new System.Drawing.Point(200, 4);
+            this.btEditUploadService.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.btEditUploadService.Name = "btEditUploadService";
-            this.btEditUploadService.Padding = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.btEditUploadService.Size = new System.Drawing.Size(103, 23);
+            this.btEditUploadService.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btEditUploadService.Size = new System.Drawing.Size(133, 30);
             this.btEditUploadService.TabIndex = 1;
             this.btEditUploadService.Text = "Edit selected...";
             this.btEditUploadService.UseVisualStyleBackColor = true;
@@ -994,11 +1056,11 @@
             // 
             this.btRemoveUploadService.AutoSize = true;
             this.btRemoveUploadService.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btRemoveUploadService.Location = new System.Drawing.Point(257, 3);
-            this.btRemoveUploadService.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.btRemoveUploadService.Location = new System.Drawing.Point(337, 4);
+            this.btRemoveUploadService.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.btRemoveUploadService.Name = "btRemoveUploadService";
-            this.btRemoveUploadService.Padding = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.btRemoveUploadService.Size = new System.Drawing.Size(116, 23);
+            this.btRemoveUploadService.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btRemoveUploadService.Size = new System.Drawing.Size(152, 30);
             this.btRemoveUploadService.TabIndex = 2;
             this.btRemoveUploadService.Text = "Remove selected";
             this.btRemoveUploadService.UseVisualStyleBackColor = true;
@@ -1014,8 +1076,9 @@
             this.tpRegistration.Controls.Add(this.label15);
             this.tpRegistration.Controls.Add(this.label14);
             this.tpRegistration.Location = new System.Drawing.Point(0, 0);
+            this.tpRegistration.Margin = new System.Windows.Forms.Padding(4);
             this.tpRegistration.Name = "tpRegistration";
-            this.tpRegistration.Size = new System.Drawing.Size(477, 576);
+            this.tpRegistration.Size = new System.Drawing.Size(596, 690);
             this.tpRegistration.TabIndex = 2;
             this.tpRegistration.Tag = "registration";
             this.tpRegistration.Text = "Registration";
@@ -1024,9 +1087,10 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(24, 55);
+            this.label17.Location = new System.Drawing.Point(30, 69);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(263, 15);
+            this.label17.Size = new System.Drawing.Size(334, 20);
             this.label17.TabIndex = 6;
             this.label17.Text = "● Feel good about supporting app development!";
             // 
@@ -1034,19 +1098,21 @@
             // 
             this.tbRegistrationKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbRegistrationKey.Location = new System.Drawing.Point(27, 119);
+            this.tbRegistrationKey.Location = new System.Drawing.Point(34, 149);
+            this.tbRegistrationKey.Margin = new System.Windows.Forms.Padding(4);
             this.tbRegistrationKey.Multiline = true;
             this.tbRegistrationKey.Name = "tbRegistrationKey";
-            this.tbRegistrationKey.Size = new System.Drawing.Size(383, 133);
+            this.tbRegistrationKey.Size = new System.Drawing.Size(478, 165);
             this.tbRegistrationKey.TabIndex = 0;
             // 
             // llRegistrationKey
             // 
             this.llRegistrationKey.AutoSize = true;
             this.llRegistrationKey.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(69)))), ((int)(((byte)(173)))));
-            this.llRegistrationKey.Location = new System.Drawing.Point(24, 101);
+            this.llRegistrationKey.Location = new System.Drawing.Point(30, 126);
+            this.llRegistrationKey.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.llRegistrationKey.Name = "llRegistrationKey";
-            this.llRegistrationKey.Size = new System.Drawing.Size(284, 15);
+            this.llRegistrationKey.Size = new System.Drawing.Size(360, 20);
             this.llRegistrationKey.TabIndex = 4;
             this.llRegistrationKey.TabStop = true;
             this.llRegistrationKey.Text = "Go here to get a registration key, then paste it below:";
@@ -1054,18 +1120,20 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(24, 40);
+            this.label16.Location = new System.Drawing.Point(30, 50);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(378, 15);
+            this.label16.Size = new System.Drawing.Size(472, 20);
             this.label16.TabIndex = 3;
             this.label16.Text = "● Upload images to OAuth-enabled services (such as Imgur accounts)!";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(24, 70);
+            this.label15.Location = new System.Drawing.Point(30, 88);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(255, 15);
+            this.label15.Size = new System.Drawing.Size(318, 20);
             this.label15.TabIndex = 2;
             this.label15.Text = "● Register however many computers you want!";
             // 
@@ -1073,24 +1141,26 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(8, 3);
+            this.label14.Location = new System.Drawing.Point(10, 4);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(364, 25);
+            this.label14.Size = new System.Drawing.Size(466, 32);
             this.label14.TabIndex = 1;
             this.label14.Text = "Buy a registration key, get bonus features!";
             // 
             // Options
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btClose;
-            this.ClientSize = new System.Drawing.Size(478, 677);
+            this.ClientSize = new System.Drawing.Size(598, 816);
             this.Controls.Add(this.pnWindowButtons);
             this.Controls.Add(this.tcOptions);
             this.Controls.Add(this.flpTabContainer);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Options";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1199,5 +1269,6 @@
         private System.Windows.Forms.LinkLabel llOpenLogFolder;
         private System.Windows.Forms.Button btCrash;
         private System.Windows.Forms.Button btManualUpdate;
+        private System.Windows.Forms.Button btPreviewTab;
     }
 }

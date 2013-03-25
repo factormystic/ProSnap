@@ -4,11 +4,11 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using FMUtils.Screenshot;
+using FMUtils.WinApi;
 using Microsoft.Win32;
 using ProSnap.ActionItems;
 using ProSnap.Uploading;
-using FMUtils.Screenshot;
-using FMUtils.WinApi;
 
 namespace ProSnap.Options
 {
@@ -22,7 +22,7 @@ namespace ProSnap.Options
 
             InitializeComponent();
 
-            tcOptions.TabPages.Remove(tpButtons);
+            //tcOptions.TabPages.Remove(tpButtons);
             LoadDesktopThumb();
             LoadFromConfiguration();
 
@@ -438,6 +438,9 @@ namespace ProSnap.Options
             btShortcutsTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
             btShortcutsTab.BackColor = flpTabContainer.BackColor;
 
+            btPreviewTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
+            btPreviewTab.BackColor = flpTabContainer.BackColor;
+
             btUploadingTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
             btUploadingTab.BackColor = flpTabContainer.BackColor;
 
@@ -456,6 +459,31 @@ namespace ProSnap.Options
 
             btShortcutsTab.FlatAppearance.BorderColor = SystemColors.Highlight;
             btShortcutsTab.BackColor = Color.FromArgb(185, 209, 234);
+
+            btPreviewTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
+            btPreviewTab.BackColor = flpTabContainer.BackColor;
+
+            btUploadingTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
+            btUploadingTab.BackColor = flpTabContainer.BackColor;
+
+            btRegisterTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
+            btRegisterTab.BackColor = flpTabContainer.BackColor;
+        }
+
+        private void btPreviewTab_Click(object sender, EventArgs e)
+        {
+            Trace.WriteLine("Switching to preview tab...", string.Format("Options.btPreviewTab_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+            tcOptions.SelectedTab = tpButtons;
+
+            btGeneralTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
+            btGeneralTab.BackColor = flpTabContainer.BackColor;
+
+            btShortcutsTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
+            btShortcutsTab.BackColor = flpTabContainer.BackColor;
+
+            btPreviewTab.FlatAppearance.BorderColor = SystemColors.Highlight;
+            btPreviewTab.BackColor = Color.FromArgb(185, 209, 234);
 
             btUploadingTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
             btUploadingTab.BackColor = flpTabContainer.BackColor;
@@ -476,6 +504,9 @@ namespace ProSnap.Options
             btShortcutsTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
             btShortcutsTab.BackColor = flpTabContainer.BackColor;
 
+            btPreviewTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
+            btPreviewTab.BackColor = flpTabContainer.BackColor;
+
             btUploadingTab.FlatAppearance.BorderColor = SystemColors.Highlight;
             btUploadingTab.BackColor = Color.FromArgb(185, 209, 234); ;
 
@@ -494,6 +525,9 @@ namespace ProSnap.Options
 
             btShortcutsTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
             btShortcutsTab.BackColor = flpTabContainer.BackColor;
+
+            btPreviewTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
+            btPreviewTab.BackColor = flpTabContainer.BackColor;
 
             btUploadingTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
             btUploadingTab.BackColor = flpTabContainer.BackColor;
