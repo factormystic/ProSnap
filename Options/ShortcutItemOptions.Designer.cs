@@ -61,9 +61,11 @@
             this.gbActions.Controls.Add(this.btMoveActionUp);
             this.gbActions.Controls.Add(this.flowLayoutPanel3);
             this.gbActions.Controls.Add(this.lvActions);
-            this.gbActions.Location = new System.Drawing.Point(12, 107);
+            this.gbActions.Location = new System.Drawing.Point(15, 134);
+            this.gbActions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbActions.Name = "gbActions";
-            this.gbActions.Size = new System.Drawing.Size(291, 250);
+            this.gbActions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbActions.Size = new System.Drawing.Size(364, 312);
             this.gbActions.TabIndex = 37;
             this.gbActions.TabStop = false;
             this.gbActions.Text = "Action Chain";
@@ -72,9 +74,10 @@
             // 
             this.btMoveActionDown.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btMoveActionDown.Image = global::ProSnap.Properties.Resources.arrow_down;
-            this.btMoveActionDown.Location = new System.Drawing.Point(263, 120);
+            this.btMoveActionDown.Location = new System.Drawing.Point(329, 150);
+            this.btMoveActionDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btMoveActionDown.Name = "btMoveActionDown";
-            this.btMoveActionDown.Size = new System.Drawing.Size(22, 25);
+            this.btMoveActionDown.Size = new System.Drawing.Size(28, 31);
             this.btMoveActionDown.TabIndex = 45;
             this.btMoveActionDown.UseVisualStyleBackColor = true;
             this.btMoveActionDown.Click += new System.EventHandler(this.btMoveActionDown_Click);
@@ -83,9 +86,10 @@
             // 
             this.btMoveActionUp.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btMoveActionUp.Image = global::ProSnap.Properties.Resources.arrow_up;
-            this.btMoveActionUp.Location = new System.Drawing.Point(263, 89);
+            this.btMoveActionUp.Location = new System.Drawing.Point(329, 111);
+            this.btMoveActionUp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btMoveActionUp.Name = "btMoveActionUp";
-            this.btMoveActionUp.Size = new System.Drawing.Size(22, 25);
+            this.btMoveActionUp.Size = new System.Drawing.Size(28, 31);
             this.btMoveActionUp.TabIndex = 44;
             this.btMoveActionUp.UseVisualStyleBackColor = true;
             this.btMoveActionUp.Click += new System.EventHandler(this.btMoveActionUp_Click);
@@ -98,19 +102,21 @@
             this.flowLayoutPanel3.Controls.Add(this.btEditAction);
             this.flowLayoutPanel3.Controls.Add(this.btRemoveAction);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 216);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(4, 270);
+            this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(285, 31);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(356, 38);
             this.flowLayoutPanel3.TabIndex = 31;
             // 
             // btAddAction
             // 
             this.btAddAction.AutoSize = true;
             this.btAddAction.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btAddAction.Location = new System.Drawing.Point(3, 3);
+            this.btAddAction.Location = new System.Drawing.Point(4, 4);
+            this.btAddAction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btAddAction.Name = "btAddAction";
-            this.btAddAction.Padding = new System.Windows.Forms.Padding(16, 0, 16, 0);
-            this.btAddAction.Size = new System.Drawing.Size(80, 25);
+            this.btAddAction.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.btAddAction.Size = new System.Drawing.Size(96, 30);
             this.btAddAction.TabIndex = 29;
             this.btAddAction.Text = "Add...";
             this.btAddAction.UseVisualStyleBackColor = true;
@@ -120,10 +126,11 @@
             // 
             this.btEditAction.AutoSize = true;
             this.btEditAction.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btEditAction.Location = new System.Drawing.Point(89, 3);
+            this.btEditAction.Location = new System.Drawing.Point(108, 4);
+            this.btEditAction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btEditAction.Name = "btEditAction";
-            this.btEditAction.Padding = new System.Windows.Forms.Padding(17, 0, 17, 0);
-            this.btEditAction.Size = new System.Drawing.Size(80, 25);
+            this.btEditAction.Padding = new System.Windows.Forms.Padding(21, 0, 21, 0);
+            this.btEditAction.Size = new System.Drawing.Size(96, 30);
             this.btEditAction.TabIndex = 31;
             this.btEditAction.Text = "Edit...";
             this.btEditAction.UseVisualStyleBackColor = true;
@@ -133,10 +140,11 @@
             // 
             this.btRemoveAction.AutoSize = true;
             this.btRemoveAction.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btRemoveAction.Location = new System.Drawing.Point(175, 3);
+            this.btRemoveAction.Location = new System.Drawing.Point(212, 4);
+            this.btRemoveAction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btRemoveAction.Name = "btRemoveAction";
-            this.btRemoveAction.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.btRemoveAction.Size = new System.Drawing.Size(80, 25);
+            this.btRemoveAction.Padding = new System.Windows.Forms.Padding(12, 0, 12, 0);
+            this.btRemoveAction.Size = new System.Drawing.Size(97, 30);
             this.btRemoveAction.TabIndex = 30;
             this.btRemoveAction.Text = "Remove";
             this.btRemoveAction.UseVisualStyleBackColor = true;
@@ -152,10 +160,11 @@
             this.chActionName});
             this.lvActions.FullRowSelect = true;
             this.lvActions.HideSelection = false;
-            this.lvActions.Location = new System.Drawing.Point(7, 25);
+            this.lvActions.Location = new System.Drawing.Point(9, 31);
+            this.lvActions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lvActions.MultiSelect = false;
             this.lvActions.Name = "lvActions";
-            this.lvActions.Size = new System.Drawing.Size(250, 185);
+            this.lvActions.Size = new System.Drawing.Size(312, 230);
             this.lvActions.TabIndex = 28;
             this.lvActions.UseCompatibleStateImageBehavior = false;
             this.lvActions.View = System.Windows.Forms.View.Details;
@@ -168,17 +177,18 @@
             // chActionName
             // 
             this.chActionName.Text = "Action";
-            this.chActionName.Width = 173;
+            this.chActionName.Width = 256;
             // 
             // btCancel
             // 
             this.btCancel.AutoSize = true;
             this.btCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btCancel.Location = new System.Drawing.Point(222, 8);
+            this.btCancel.Location = new System.Drawing.Point(281, 10);
+            this.btCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btCancel.Name = "btCancel";
-            this.btCancel.Padding = new System.Windows.Forms.Padding(13, 0, 14, 0);
-            this.btCancel.Size = new System.Drawing.Size(80, 25);
+            this.btCancel.Padding = new System.Windows.Forms.Padding(16, 0, 18, 0);
+            this.btCancel.Size = new System.Drawing.Size(97, 30);
             this.btCancel.TabIndex = 1;
             this.btCancel.Text = "Cancel";
             this.btCancel.UseVisualStyleBackColor = true;
@@ -188,10 +198,11 @@
             this.btSave.AutoSize = true;
             this.btSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btSave.Location = new System.Drawing.Point(136, 8);
+            this.btSave.Location = new System.Drawing.Point(174, 10);
+            this.btSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btSave.Name = "btSave";
-            this.btSave.Padding = new System.Windows.Forms.Padding(20, 0, 19, 0);
-            this.btSave.Size = new System.Drawing.Size(80, 25);
+            this.btSave.Padding = new System.Windows.Forms.Padding(25, 0, 24, 0);
+            this.btSave.Size = new System.Drawing.Size(99, 30);
             this.btSave.TabIndex = 0;
             this.btSave.Text = "Save";
             this.btSave.UseVisualStyleBackColor = true;
@@ -200,9 +211,10 @@
             // 
             this.tbShortcut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbShortcut.Location = new System.Drawing.Point(9, 22);
+            this.tbShortcut.Location = new System.Drawing.Point(11, 28);
+            this.tbShortcut.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbShortcut.Name = "tbShortcut";
-            this.tbShortcut.Size = new System.Drawing.Size(107, 23);
+            this.tbShortcut.Size = new System.Drawing.Size(133, 27);
             this.tbShortcut.TabIndex = 5;
             this.tbShortcut.Enter += new System.EventHandler(this.tbShortcut_Enter);
             this.tbShortcut.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbShortcut_KeyDown);
@@ -215,9 +227,11 @@
             this.gbKeyCombo.Controls.Add(this.cbRequirePreview);
             this.gbKeyCombo.Controls.Add(this.label1);
             this.gbKeyCombo.Controls.Add(this.tbShortcut);
-            this.gbKeyCombo.Location = new System.Drawing.Point(12, 12);
+            this.gbKeyCombo.Location = new System.Drawing.Point(15, 15);
+            this.gbKeyCombo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbKeyCombo.Name = "gbKeyCombo";
-            this.gbKeyCombo.Size = new System.Drawing.Size(291, 89);
+            this.gbKeyCombo.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbKeyCombo.Size = new System.Drawing.Size(364, 111);
             this.gbKeyCombo.TabIndex = 40;
             this.gbKeyCombo.TabStop = false;
             this.gbKeyCombo.Text = "Key Combo";
@@ -226,9 +240,10 @@
             // 
             this.cbRequirePreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbRequirePreview.AutoSize = true;
-            this.cbRequirePreview.Location = new System.Drawing.Point(9, 66);
+            this.cbRequirePreview.Location = new System.Drawing.Point(11, 80);
+            this.cbRequirePreview.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbRequirePreview.Name = "cbRequirePreview";
-            this.cbRequirePreview.Size = new System.Drawing.Size(197, 17);
+            this.cbRequirePreview.Size = new System.Drawing.Size(261, 24);
             this.cbRequirePreview.TabIndex = 7;
             this.cbRequirePreview.Text = "Only active when preview has focus";
             this.cbRequirePreview.UseVisualStyleBackColor = true;
@@ -238,9 +253,10 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Enabled = false;
-            this.label1.Location = new System.Drawing.Point(122, 19);
+            this.label1.Location = new System.Drawing.Point(152, 24);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(161, 30);
+            this.label1.Size = new System.Drawing.Size(201, 40);
             this.label1.TabIndex = 6;
             this.label1.Text = "Press the key combo that will\r\nbegin this action chain.";
             // 
@@ -252,24 +268,26 @@
             this.flowLayoutPanel1.Controls.Add(this.btCancel);
             this.flowLayoutPanel1.Controls.Add(this.btSave);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(-1, 364);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(-1, 455);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(317, 41);
+            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(396, 51);
             this.flowLayoutPanel1.TabIndex = 38;
             // 
             // ShortcutItemConfiguration
             // 
             this.AcceptButton = this.btSave;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btCancel;
-            this.ClientSize = new System.Drawing.Size(315, 404);
+            this.ClientSize = new System.Drawing.Size(394, 505);
             this.Controls.Add(this.gbKeyCombo);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.gbActions);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ShortcutItemConfiguration";
