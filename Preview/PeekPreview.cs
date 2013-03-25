@@ -5,9 +5,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using FMUtils;
 using FMUtils.WinApi;
+using ProSnap.ActionItems;
 using ProSnap.Properties;
 using ProSnap.Uploading;
 
@@ -15,12 +17,10 @@ namespace ProSnap
 {
     public partial class PeekPreview : Form
     {
-        #region Properties and Fields
-        SaveFileDialog SaveDialog = new SaveFileDialog();
-        bool isSaveDialogOpen = false;
+        internal ExtendedScreenshot CurrentScreenshot { get; private set; }
+        internal bool isSaveDialogOpen { get; set; }
 
-        ExtendedScreenshot LatestScreenshot;
-
+        #region Fields
         Timer FadeCloseCountdown = new Timer();
         Timer MousePositionCheck = new Timer();
 
@@ -34,11 +34,6 @@ namespace ProSnap
 
         bool BackwardsEnd, ForwardsEnd;
         int UploadAnimationIndex = -1;
-
-        public event EventHandler UploadComplete = delegate { };
-        public event EventHandler SaveComplete = delegate { };
-
-        ImageUploader Uploader;
         #endregion
 
         protected override bool ShowWithoutActivation
@@ -65,11 +60,6 @@ namespace ProSnap
             Trace.WriteLine("Creating preview window...", string.Format("PeekPreview.ctor [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             InitializeComponent();
-
-            Uploader = new FormsUploader();
-            Uploader.UploadStarted += Uploader_UploadStarted;
-            Uploader.UploadProgress += Uploader_UploadProgress;
-            Uploader.UploadEnded += Uploader_UploadEnded;
 
             FadeCloseCountdown.Tick += (s, e) =>
             {
@@ -101,28 +91,24 @@ namespace ProSnap
             Trace.WriteLine("Done.", string.Format("PeekPreview.ctor [{0}]", System.Threading.Thread.CurrentThread.Name));
         }
 
-
-
-        public void LoadScreenshot(ExtendedScreenshot targetWindow)
+        private void LoadScreenshot(ExtendedScreenshot targetWindow)
         {
             Trace.WriteLine("Loading image...", string.Format("PeekPreview.LoadScreenshot [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-            Program.CurrentHistoryItem = targetWindow;
             pbPreview.Image = null;
 
             tsmiRoundCorners.Checked = targetWindow.withBorderRounding;
             tsmiWindowShadow.Checked = targetWindow.withBorderShadow;
             tsmiMouseCursor.Checked = targetWindow.withCursor;
 
-            pnHeart.BackgroundImage = targetWindow.isFlagged ? Resources.heart_fill_black_32x38 : Resources.heart_stroke_black_32x28;
-
-            LatestScreenshot = targetWindow;
+            CurrentScreenshot = targetWindow;
             ReloadPreviewImage();
 
             ResetFadeCloseCountdown();
             GroomBackForwardIcons();
+            GroomHeartIcon();
 
-            pnUpload.BackgroundImage = LatestScreenshot == null || string.IsNullOrEmpty(LatestScreenshot.Remote.ImageLink) ? Resources.cloud_upload_32x32_black : Resources.cloud_upload_link_black_32x32;
+            pnUpload.BackgroundImage = CurrentScreenshot == null || string.IsNullOrEmpty(CurrentScreenshot.Remote.ImageLink) ? Resources.cloud_upload_32x32_black : Resources.cloud_upload_link_black_32x32;
 
             if (Configuration.PreviewDelayTime > 0)
                 FadeCloseCountdown.Interval = Configuration.PreviewDelayTime * 1000;
@@ -141,7 +127,7 @@ namespace ProSnap
             pbPreview.SizeMode = PictureBoxSizeMode.Zoom;
 
             //using (MemoryStream stream = LatestScreenshot.GetEditedScreenshotPNGImageThumbnailStream())
-            using (MemoryStream stream = LatestScreenshot.EditedScreenshotPNGImageStream())
+            using (MemoryStream stream = CurrentScreenshot.EditedScreenshotPNGImageStream())
                 pbPreview.Image = Bitmap.FromStream(stream);
 
             ImageAspectRatio = (float)pbPreview.Image.Width / (float)pbPreview.Image.Height;
@@ -171,11 +157,43 @@ namespace ProSnap
             Trace.WriteLine("Done.", string.Format("PeekPreview.ReloadPreviewImage [{0}]", System.Threading.Thread.CurrentThread.Name));
         }
 
-        internal void FadeClose()
+        public void Show(ExtendedScreenshot targetWindow = null)
+        {
+            Trace.WriteLine("Showing preview...", string.Format("PeekPreview.Show [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.Show [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => this.Show(targetWindow)));
+                return;
+            }
+
+            targetWindow = targetWindow ?? this.CurrentScreenshot ?? Program.History.LastOrDefault();
+            if (targetWindow == null)
+            {
+                Trace.WriteLine("No screenshot to show", string.Format("PeekPreview.Show [{0}]", System.Threading.Thread.CurrentThread.Name));
+                return;
+            }
+
+            this.LoadScreenshot(targetWindow);
+            base.Show();
+        }
+
+        public void FadeClose()
         {
             Trace.WriteLine("Close attempt...", string.Format("PeekPreview.FadeClose [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-            if ((Uploader.InProgress || isSaveDialogOpen || Configuration.PreviewDelayTime == 0) && this.Opacity == 1)
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.FadeClose [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => FadeClose()));
+                return;
+            }
+            
+            //Program.Uploader.InProgress ||
+            if ((isSaveDialogOpen || Configuration.PreviewDelayTime == 0) && this.Opacity == 1)
             {
                 Trace.WriteLine("Close attempt blocked", string.Format("PeekPreview.FadeClose [{0}]", System.Threading.Thread.CurrentThread.Name));
                 return;
@@ -300,16 +318,14 @@ namespace ProSnap
             }
         }
 
-
-
         #region Preview
         private void pbPreview_Click(object sender, EventArgs e)
         {
             var mea = e as MouseEventArgs;
-            if (mea != null && mea.Button == MouseButtons.Right && File.Exists(LatestScreenshot.SavedFileName))
+            if (mea != null && mea.Button == MouseButtons.Right && File.Exists(CurrentScreenshot.SavedFileName))
             {
                 Trace.WriteLine("Right clicked preview...", string.Format("PeekPreview.pbPreview_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
-                new GongSolutions.Shell.ShellContextMenu(new GongSolutions.Shell.ShellItem(LatestScreenshot.SavedFileName)).ShowContextMenu(pbPreview, mea.Location, FMUtils.WinApi.Helper.isShiftKeyDown() ? GongSolutions.Shell.Interop.CMF.EXTENDEDVERBS : GongSolutions.Shell.Interop.CMF.EXPLORE);
+                new GongSolutions.Shell.ShellContextMenu(new GongSolutions.Shell.ShellItem(CurrentScreenshot.SavedFileName)).ShowContextMenu(pbPreview, mea.Location, FMUtils.WinApi.Helper.isShiftKeyDown() ? GongSolutions.Shell.Interop.CMF.EXTENDEDVERBS : GongSolutions.Shell.Interop.CMF.EXPLORE);
             }
         }
 
@@ -322,14 +338,14 @@ namespace ProSnap
                 DragThumb = new DragDropThumb(pbPreview.Image);
                 DragThumb.Show();
 
-                string TargetDirectory = Path.GetDirectoryName(LatestScreenshot.InternalFileName);
+                string TargetDirectory = Path.GetDirectoryName(CurrentScreenshot.InternalFileName);
                 if (!Directory.Exists(TargetDirectory))
                     Directory.CreateDirectory(TargetDirectory);
 
                 var DropFileType = new[] { ImageFormat.Png, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Gif }[Configuration.DefaultFilterIndex];
-                var DropFileName = LatestScreenshot.InternalFileName.Substring(0, LatestScreenshot.InternalFileName.LastIndexOf('.')) + "." + DropFileType.ToString().ToLower();
+                var DropFileName = CurrentScreenshot.InternalFileName.Substring(0, CurrentScreenshot.InternalFileName.LastIndexOf('.')) + "." + DropFileType.ToString().ToLower();
 
-                LatestScreenshot.ComposedScreenshotImage.Save(DropFileName, DropFileType);
+                CurrentScreenshot.ComposedScreenshotImage.Save(DropFileName, DropFileType);
 
                 var r = pbPreview.DoDragDrop(new DataObject(DataFormats.FileDrop, new string[] { DropFileName }), DragDropEffects.Copy);
 
@@ -358,64 +374,38 @@ namespace ProSnap
         {
             if ((e as MouseEventArgs).Button == MouseButtons.Left)
             {
-                LatestScreenshot.isFlagged = !LatestScreenshot.isFlagged;
-                pnHeart.BackgroundImage = LatestScreenshot.isFlagged ? Resources.heart_fill_white_32x38 : Resources.heart_stroke_white_32x28;
+                CurrentScreenshot.isFlagged = !CurrentScreenshot.isFlagged;
+                GroomHeartIcon();
             }
         }
 
         private void pnHeart_MouseEnter(object sender, EventArgs e)
         {
-            pnHeart.BackgroundImage = LatestScreenshot != null && LatestScreenshot.isFlagged ? Resources.heart_fill_white_32x38 : Resources.heart_stroke_white_32x28;
+            pnHeart.BackgroundImage = CurrentScreenshot != null && CurrentScreenshot.isFlagged ? Resources.heart_fill_white_32x38 : Resources.heart_stroke_white_32x28;
         }
 
         private void pnHeart_MouseLeave(object sender, EventArgs e)
         {
-            pnHeart.BackgroundImage = LatestScreenshot != null && LatestScreenshot.isFlagged ? Resources.heart_fill_black_32x38 : Resources.heart_stroke_black_32x28;
+            pnHeart.BackgroundImage = CurrentScreenshot != null && CurrentScreenshot.isFlagged ? Resources.heart_fill_black_32x38 : Resources.heart_stroke_black_32x28;
         }
         #endregion
 
         #region Save
         private void pnSave_Click(object sender, EventArgs e)
         {
-            var mea = e as MouseEventArgs;
-            switch (mea.Button)
+            switch ((e as MouseEventArgs).Button)
             {
                 case MouseButtons.Left:
-                    {
-                        Trace.WriteLine("Opening save dialog...", string.Format("PeekPreview.btSave_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
+                    new SaveAction() { Prompt = true }.Invoke(this.CurrentScreenshot);
+                    break;
 
-                        isSaveDialogOpen = true;
-
-                        SaveDialog.Filter = Configuration.FileDialogFilter;
-                        SaveDialog.FilterIndex = Configuration.DefaultFilterIndex + 1;
-
-                        if (!string.IsNullOrEmpty(LatestScreenshot.SavedFileName))
-                        {
-                            SaveDialog.FileName = Path.GetFileName(LatestScreenshot.SavedFileName);
-                            SaveDialog.InitialDirectory = Path.GetDirectoryName(LatestScreenshot.SavedFileName);
-                        }
-                        else
-                        {
-                            SaveDialog.FileName = Environment.ExpandEnvironmentVariables(Helper.ExpandParameters(Configuration.DefaultFileName, LatestScreenshot));
-                        }
-
-                        if (SaveDialog.ShowDialog(this) == DialogResult.OK)
-                        {
-                            LatestScreenshot.ComposedScreenshotImage.Save(SaveDialog.FileName, Helper.ExtToImageFormat(Path.GetExtension(SaveDialog.FileName)));
-                            LatestScreenshot.SavedFileName = SaveDialog.FileName;
-                        }
-
-                        isSaveDialogOpen = false;
-                        SaveComplete(sender, e);
-                    } break;
                 case MouseButtons.Right:
+                    if (File.Exists(CurrentScreenshot.SavedFileName))
                     {
-                        if (File.Exists(LatestScreenshot.SavedFileName))
-                        {
-                            Trace.WriteLine("Opening file context menu...", string.Format("PeekPreview.btSave_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
-                            new GongSolutions.Shell.ShellContextMenu(new GongSolutions.Shell.ShellItem(LatestScreenshot.SavedFileName)).ShowContextMenu(pnSave, mea.Location, FMUtils.WinApi.Helper.isShiftKeyDown() ? GongSolutions.Shell.Interop.CMF.EXTENDEDVERBS : GongSolutions.Shell.Interop.CMF.EXPLORE);
-                        }
-                    } break;
+                        Trace.WriteLine("Opening file context menu...", string.Format("PeekPreview.btSave_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
+                        new GongSolutions.Shell.ShellContextMenu(new GongSolutions.Shell.ShellItem(CurrentScreenshot.SavedFileName)).ShowContextMenu(pnSave, (e as MouseEventArgs).Location, FMUtils.WinApi.Helper.isShiftKeyDown() ? GongSolutions.Shell.Interop.CMF.EXTENDEDVERBS : GongSolutions.Shell.Interop.CMF.EXPLORE);
+                    }
+                    break;
             }
         }
 
@@ -433,38 +423,44 @@ namespace ProSnap
         #region Upload
         public void pnUpload_Click(object sender, EventArgs e)
         {
-            if ((e as MouseEventArgs).Button == MouseButtons.Left)
+            switch ((e as MouseEventArgs).Button)
             {
-                if (!string.IsNullOrEmpty(LatestScreenshot.Remote.ImageLink))
-                {
-                    Trace.WriteLine("Already have a link for this screenshot, copying to clipboard", string.Format("PeekPreview.UploadLatestScreenshot [{0}]", System.Threading.Thread.CurrentThread.Name));
+                case MouseButtons.Left:
+                    if (!string.IsNullOrEmpty(CurrentScreenshot.Remote.ImageLink))
+                    {
+                        Trace.WriteLine("Already have a link for this screenshot, copying to clipboard", string.Format("PeekPreview.UploadLatestScreenshot [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-                    Clipboard.SetText(LatestScreenshot.Remote.ImageLink);
-                    return;
-                }
+                        Clipboard.SetText(CurrentScreenshot.Remote.ImageLink);
+                        return;
+                    }
 
+                    Task.Factory.StartNew(() => new UploadAction().Invoke(this.CurrentScreenshot))
+                        .ContinueWith(t =>
+                        {
+                            if (t.Result != null)
+                            {
+                                GroomUploadMenuItemStyles();
 
-                var ActiveService = Configuration.UploadServices.FirstOrDefault(P => P.isActive);
-                if (ActiveService == null)
-                {
-                    Trace.WriteLine("Could not find any active upload service", string.Format("PeekPreview.UploadLatestScreenshot [{0}]", System.Threading.Thread.CurrentThread.Name));
-
-                    MessageBox.Show(this, "You must configure an upload service before uploading any screenshots.", "Upload a screenshot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                Uploader.Upload(ActiveService, this.LatestScreenshot);
+                                //todo: Action Item
+                                Clipboard.SetText(CurrentScreenshot.Remote.ImageLink);
+                            }
+                            else
+                            {
+                                MessageBox.Show(this, string.Format("An error occurred while uploading this screenshot:\n{0}", t.Exception.GetBaseException()), "Upload Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
+                    break;
             }
         }
 
         private void pnUpload_MouseEnter(object sender, EventArgs e)
         {
-            pnUpload.BackgroundImage = UploadAnimationIndex == -1 ? (LatestScreenshot != null && !string.IsNullOrEmpty(LatestScreenshot.Remote.ImageLink) ? Resources.cloud_upload_link_white_32x32 : Resources.cloud_upload_32x32_white) : ilUploadAnimationWhite.Images[UploadAnimationIndex];
+            pnUpload.BackgroundImage = UploadAnimationIndex == -1 ? (CurrentScreenshot != null && !string.IsNullOrEmpty(CurrentScreenshot.Remote.ImageLink) ? Resources.cloud_upload_link_white_32x32 : Resources.cloud_upload_32x32_white) : ilUploadAnimationWhite.Images[UploadAnimationIndex];
         }
 
         private void pnUpload_MouseLeave(object sender, EventArgs e)
         {
-            pnUpload.BackgroundImage = UploadAnimationIndex == -1 ? (LatestScreenshot != null && !string.IsNullOrEmpty(LatestScreenshot.Remote.ImageLink) ? Resources.cloud_upload_link_black_32x32 : Resources.cloud_upload_32x32_black) : ilUploadAnimationBlack.Images[UploadAnimationIndex];
+            pnUpload.BackgroundImage = UploadAnimationIndex == -1 ? (CurrentScreenshot != null && !string.IsNullOrEmpty(CurrentScreenshot.Remote.ImageLink) ? Resources.cloud_upload_link_black_32x32 : Resources.cloud_upload_32x32_black) : ilUploadAnimationBlack.Images[UploadAnimationIndex];
 
             var bounds = cmsUpload.Bounds;
             bounds.Inflate(10, 10);
@@ -483,8 +479,8 @@ namespace ProSnap
                 return;
             }
 
-            if (!this.Focused) this.Focus();
-
+            if (!this.Focused)
+                this.Focus();
 
             GroomUploadMenuItemStyles();
 
@@ -503,17 +499,17 @@ namespace ProSnap
 
         private void tsmiCopyImageLink_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(LatestScreenshot.Remote.ImageLink);
+            Clipboard.SetText(CurrentScreenshot.Remote.ImageLink);
         }
 
         private void tsmiCopyDeleteLink_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(LatestScreenshot.Remote.DeleteLink);
+            Clipboard.SetText(CurrentScreenshot.Remote.DeleteLink);
         }
 
         private void tsmiUploadImage_Click(object sender, EventArgs e)
         {
-            Uploader.Upload(Configuration.UploadServices.FirstOrDefault(P => P.isActive), this.LatestScreenshot);
+            Configuration.UploadServices.FirstOrDefault(P => P.isActive).Upload(this.CurrentScreenshot);
         }
 
         private void GroomUploadMenuItemStyles()
@@ -521,8 +517,8 @@ namespace ProSnap
             var ActiveService = Configuration.UploadServices.FirstOrDefault(us => us.isActive);
             tsmiUploadImage.Text = ActiveService == null ? "Upload screenshot" : "Upload to " + ActiveService.Name;
 
-            tsmiCopyImageLink.Enabled = !string.IsNullOrEmpty(LatestScreenshot.Remote.ImageLink);
-            tsmiCopyDeleteLink.Enabled = !string.IsNullOrEmpty(LatestScreenshot.Remote.DeleteLink);
+            tsmiCopyImageLink.Enabled = !string.IsNullOrEmpty(CurrentScreenshot.Remote.ImageLink);
+            tsmiCopyDeleteLink.Enabled = !string.IsNullOrEmpty(CurrentScreenshot.Remote.DeleteLink);
 
             if (tsmiCopyImageLink.Enabled)
             {
@@ -534,52 +530,6 @@ namespace ProSnap
                 tsmiCopyImageLink.Font = new Font(tsmiCopyImageLink.Font, FontStyle.Regular);
                 tsmiUploadImage.Font = new Font(tsmiUploadImage.Font, FontStyle.Bold);
             }
-        }
-
-        private void Uploader_UploadEnded(object sender, UploaderEndedEventArgs e)
-        {
-            if (e.IsSuccess)
-            {
-                LatestScreenshot.Remote.ImageLink = e.ImageLinkUrl;
-                LatestScreenshot.Remote.DeleteLink = e.DeleteLinkUrl;
-
-                GroomUploadMenuItemStyles();
-
-                //todo: Action Item
-                Clipboard.SetText(LatestScreenshot.Remote.ImageLink);
-            }
-            else
-            {
-                MessageBox.Show(this, string.Format("An error occurred while uploading this screenshot:\n{0}", e.exception), "Upload Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            UploadAnimationIndex = -1;
-            pnUpload.BackgroundImage = pnUpload.isMouseOver() ? Resources.cloud_upload_link_white_32x32 : Resources.cloud_upload_link_black_32x32;
-
-            ResetFadeCloseCountdown();
-
-            UploadComplete(sender, new EventArgs());
-        }
-
-        private void Uploader_UploadProgress(object sender, UploaderProgressEventArgs e)
-        {
-            var i = ((int)e.Percent) / (ilUploadAnimationBlack.Images.Count - 1);
-            if (i != UploadAnimationIndex)
-            {
-                if (i >= 0 && i < ilUploadAnimationBlack.Images.Count)
-                {
-                    Trace.WriteLine(string.Format("Uploading: '{0}'", i), string.Format("PeekPreview.UploadLatestScreenshot.UploadProgressChanged [{0}]", System.Threading.Thread.CurrentThread.Name));
-
-                    UploadAnimationIndex = i;
-                    pnUpload.BackgroundImage = pnUpload.isMouseOver() ? ilUploadAnimationWhite.Images[UploadAnimationIndex] : ilUploadAnimationBlack.Images[UploadAnimationIndex];
-                }
-            }
-        }
-
-        private void Uploader_UploadStarted(object sender, EventArgs e)
-        {
-            UploadAnimationIndex = 0;
-            pnUpload.BackgroundImage = pnUpload.isMouseOver() ? ilUploadAnimationWhite.Images[UploadAnimationIndex] : ilUploadAnimationBlack.Images[UploadAnimationIndex];
         }
         #endregion
 
@@ -643,7 +593,7 @@ namespace ProSnap
         {
             if (pbPreview.Image != null)
             {
-                LatestScreenshot.withBorderShadow = tsmiWindowShadow.Checked;
+                CurrentScreenshot.withBorderShadow = tsmiWindowShadow.Checked;
                 ReloadPreviewImage();
             }
         }
@@ -652,7 +602,7 @@ namespace ProSnap
         {
             if (pbPreview.Image != null)
             {
-                LatestScreenshot.withBorderRounding = tsmiRoundCorners.Checked;
+                CurrentScreenshot.withBorderRounding = tsmiRoundCorners.Checked;
                 ReloadPreviewImage();
             }
         }
@@ -661,7 +611,7 @@ namespace ProSnap
         {
             if (pbPreview.Image != null)
             {
-                LatestScreenshot.withCursor = tsmiMouseCursor.Checked;
+                CurrentScreenshot.withCursor = tsmiMouseCursor.Checked;
                 ReloadPreviewImage();
             }
         }
@@ -670,15 +620,15 @@ namespace ProSnap
         {
             isEditing = true;
 
-            if (!File.Exists(LatestScreenshot.InternalFileName))
+            if (!File.Exists(CurrentScreenshot.InternalFileName))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(LatestScreenshot.InternalFileName));
-                LatestScreenshot.ComposedScreenshotImage.Save(LatestScreenshot.InternalFileName, ImageFormat.Png);
+                Directory.CreateDirectory(Path.GetDirectoryName(CurrentScreenshot.InternalFileName));
+                CurrentScreenshot.ComposedScreenshotImage.Save(CurrentScreenshot.InternalFileName, ImageFormat.Png);
             }
 
-            Windowing.ShellExecute(IntPtr.Zero, "edit", LatestScreenshot.InternalFileName, string.Empty, string.Empty, Windowing.ShowCommands.SW_NORMAL);
+            Windowing.ShellExecute(IntPtr.Zero, "edit", CurrentScreenshot.InternalFileName, string.Empty, string.Empty, Windowing.ShowCommands.SW_NORMAL);
 
-            var fsw = new FileSystemWatcher(Path.GetDirectoryName(LatestScreenshot.InternalFileName), "*" + Path.GetExtension(LatestScreenshot.InternalFileName));
+            var fsw = new FileSystemWatcher(Path.GetDirectoryName(CurrentScreenshot.InternalFileName), "*" + Path.GetExtension(CurrentScreenshot.InternalFileName));
             fsw.Changed += (s_fsw, e_args) => this.BeginInvoke(new Action(() => WriteCompleteCheck.Enabled = true));
 
             var async = new BackgroundWorker();
@@ -688,7 +638,7 @@ namespace ProSnap
 
         private void WriteCompleteCheck_Tick(object sender, EventArgs e)
         {
-            using (FileStream fs = new FileStream(LatestScreenshot.InternalFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (FileStream fs = new FileStream(CurrentScreenshot.InternalFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 Trace.WriteLine("Checking written file size...", string.Format("PeekPreview.WriteCompleteCheck_Tick [{0}]", System.Threading.Thread.CurrentThread.Name));
 
@@ -700,7 +650,7 @@ namespace ProSnap
                     using (var LatestScreenshotImageData = new MemoryStream())
                     {
                         fs.CopyTo(LatestScreenshotImageData);
-                        LatestScreenshot.SetOverrideImageData(new Bitmap(LatestScreenshotImageData));
+                        CurrentScreenshot.SetOverrideImageData(new Bitmap(LatestScreenshotImageData));
                     }
 
                     ReloadPreviewImage();
@@ -720,27 +670,11 @@ namespace ProSnap
         #region Delete
         private void pnDelete_Click(object sender, EventArgs e)
         {
-            if ((e as MouseEventArgs).Button == MouseButtons.Left)
+            switch ((e as MouseEventArgs).Button)
             {
-                Trace.WriteLine("Deleting current image...", string.Format("PeekPreview.pnDelete_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
-
-                var i = Program.History.IndexOf(LatestScreenshot);
-                Program.History.Remove(LatestScreenshot);
-                Program.CurrentHistoryItem = null;
-
-                if (File.Exists(LatestScreenshot.InternalFileName))
-                    File.Delete(LatestScreenshot.InternalFileName);
-
-                if (Program.History.Count == 0)
-                {
-                    Trace.WriteLine("This image was the last image, closing preview...", string.Format("PeekPreview.pnDelete_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
-                    FadeClose();
-                }
-                else
-                {
-                    i += i < Program.History.Count ? 0 : -1;
-                    LoadScreenshot(Program.History[i]);
-                }
+                case MouseButtons.Left:
+                    this.CurrentScreenshot = ActionTypes.Delete.ToInstance().Invoke(CurrentScreenshot);
+                    break;
             }
         }
 
@@ -758,7 +692,7 @@ namespace ProSnap
         #region Backward/Forward
         private void pnBackward_Click(object sender, EventArgs e)
         {
-            var prev = Program.History.IndexOf(LatestScreenshot) - 1;
+            var prev = Program.History.IndexOf(CurrentScreenshot) - 1;
             if (prev >= 0)
                 LoadScreenshot(Program.History[prev]);
 
@@ -777,7 +711,7 @@ namespace ProSnap
 
         private void pnForward_Click(object sender, EventArgs e)
         {
-            var next = Program.History.IndexOf(LatestScreenshot) + 1;
+            var next = Program.History.IndexOf(CurrentScreenshot) + 1;
             if (next < Program.History.Count)
                 LoadScreenshot(Program.History[next]);
 
@@ -792,16 +726,6 @@ namespace ProSnap
         private void pnForward_MouseLeave(object sender, EventArgs e)
         {
             pnForward.BackgroundImage = ForwardsEnd ? Resources.forward_empty_18x32_black : Resources.forward_18x32_black;
-        }
-
-        private void GroomBackForwardIcons()
-        {
-            var i = Program.History.IndexOf(LatestScreenshot);
-            BackwardsEnd = i == 0;
-            ForwardsEnd = Program.History.Count - 1 == i;
-
-            pnForward.BackgroundImage = pnForward.isMouseOver() ? (ForwardsEnd ? Resources.forward_empty_18x32_white : Resources.forward_18x32_white) : (ForwardsEnd ? Resources.forward_empty_18x32_black : Resources.forward_18x32_black);
-            pnBackward.BackgroundImage = pnBackward.isMouseOver() ? (BackwardsEnd ? Resources.backward_empty_18x32_white : Resources.backward_18x32_white) : (BackwardsEnd ? Resources.backward_empty_18x32_black : Resources.backward_18x32_backward);
         }
         #endregion
 
@@ -891,34 +815,53 @@ namespace ProSnap
 
         private void PeekPreview_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+            //todo: Migrate to actions as well?
+
             switch (e.KeyCode)
             {
-                //Moved to global shortcut actions
-                //case Keys.Enter: pnHeart_Click(sender, new MouseEventArgs(System.Windows.Forms.MouseButtons.Left, 1, 0, 0, 0)); break;
+                case Keys.Left:
+                    pnBackward_Click(sender, new MouseEventArgs(System.Windows.Forms.MouseButtons.Left, 1, 0, 0, 0));
+                    break;
 
-                //case Keys.S: if (e.Control) pnSave_Click(sender, new MouseEventArgs(System.Windows.Forms.MouseButtons.Left, 1, 0, 0, 0)); break;
-                //case Keys.Up: if (e.Control) pnUpload_Click(sender, new MouseEventArgs(System.Windows.Forms.MouseButtons.Left, 1, 0, 0, 0)); break;
-                //case Keys.Down: if (e.Control) pnEdit_Click(sender, new MouseEventArgs(System.Windows.Forms.MouseButtons.Left, 1, 0, 0, 0)); break;
-                //case Keys.Delete: pnDelete_Click(sender, new MouseEventArgs(System.Windows.Forms.MouseButtons.Left, 1, 0, 0, 0)); break;
-
-                case Keys.Left: pnBackward_Click(sender, new MouseEventArgs(System.Windows.Forms.MouseButtons.Left, 1, 0, 0, 0)); break;
-                case Keys.Right: pnForward_Click(sender, new MouseEventArgs(System.Windows.Forms.MouseButtons.Left, 1, 0, 0, 0)); break;
-
-                //case Keys.Escape:
-                //    {
-                //        isClosingBlocked = false;
-                //        FadeClose();
-                //    }
-                //    break;
+                case Keys.Right:
+                    pnForward_Click(sender, new MouseEventArgs(System.Windows.Forms.MouseButtons.Left, 1, 0, 0, 0));
+                    break;
             }
         }
         #endregion
 
         #region External actions
-        internal void UpdateHeart()
+        internal void GroomBackForwardIcons()
         {
-            var flag = LatestScreenshot.isFlagged;
-            var hover = this.Visible && pnHeart.Bounds.Contains(Cursor.Position);
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.GroomBackForwardIcons [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => GroomBackForwardIcons()));
+                return;
+            }
+
+            var i = Program.History.IndexOf(CurrentScreenshot);
+            BackwardsEnd = i == 0;
+            ForwardsEnd = Program.History.Count - 1 == i;
+
+            pnForward.BackgroundImage = pnForward.isMouseOver() ? (ForwardsEnd ? Resources.forward_empty_18x32_white : Resources.forward_18x32_white) : (ForwardsEnd ? Resources.forward_empty_18x32_black : Resources.forward_18x32_black);
+            pnBackward.BackgroundImage = pnBackward.isMouseOver() ? (BackwardsEnd ? Resources.backward_empty_18x32_white : Resources.backward_18x32_white) : (BackwardsEnd ? Resources.backward_empty_18x32_black : Resources.backward_18x32_backward);
+        }
+
+        internal void GroomHeartIcon()
+        {
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.GroomHeartIcon [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => GroomHeartIcon()));
+                return;
+            }
+            
+            var flag = CurrentScreenshot != null && CurrentScreenshot.isFlagged;
+            var p = Cursor.Position;
+            var hover = this.Visible && pnHeart.Bounds.Contains(pnHeart.PointToClient(p));
 
             if (flag)
                 pnHeart.BackgroundImage = hover ? Resources.heart_fill_white_32x38 : Resources.heart_fill_black_32x38;
@@ -926,19 +869,66 @@ namespace ProSnap
                 pnHeart.BackgroundImage = hover ? Resources.heart_stroke_white_32x28 : Resources.heart_stroke_black_32x28;
         }
 
-        internal void Save()
+        internal void UploadStarted(object sender, UploaderProgressEventArgs e)
         {
-            pnSave_Click(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.UploadStarted [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => UploadStarted(sender, e)));
+                return;
+            }
+
+            if (e.Screenshot != this.CurrentScreenshot)
+                return;
+
+            UploadAnimationIndex = 0;
+            pnUpload.BackgroundImage = pnUpload.isMouseOver() ? ilUploadAnimationWhite.Images[UploadAnimationIndex] : ilUploadAnimationBlack.Images[UploadAnimationIndex];
         }
 
-        internal void Upload()
+        internal void UploadProgress(object sender, UploaderProgressEventArgs e)
         {
-            pnUpload_Click(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.UploadProgress [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => UploadProgress(sender, e)));
+                return;
+            }
+
+            if (e.Screenshot != this.CurrentScreenshot)
+                return;
+
+            var i = ((int)e.Percent) / (ilUploadAnimationBlack.Images.Count - 1);
+            if (i != UploadAnimationIndex)
+            {
+                if (i >= 0 && i < ilUploadAnimationBlack.Images.Count)
+                {
+                    Trace.WriteLine(string.Format("Uploading: '{0}'", i), string.Format("PeekPreview.UploadProgress [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                    UploadAnimationIndex = i;
+                    pnUpload.BackgroundImage = pnUpload.isMouseOver() ? ilUploadAnimationWhite.Images[UploadAnimationIndex] : ilUploadAnimationBlack.Images[UploadAnimationIndex];
+                }
+            }
         }
 
-        internal void Delete()
+        internal void UploadEnded(object sender, UploaderEndedEventArgs e)
         {
-            pnDelete_Click(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+            if (this.InvokeRequired)
+            {
+                Trace.WriteLine("Self invoking...", string.Format("PeekPreview.UploadEnded [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                this.BeginInvoke(new MethodInvoker(() => UploadEnded(sender, e)));
+                return;
+            }
+            
+            if (e.Screenshot != this.CurrentScreenshot)
+                return;
+
+            UploadAnimationIndex = -1;
+            pnUpload.BackgroundImage = pnUpload.isMouseOver() ? Resources.cloud_upload_link_white_32x32 : Resources.cloud_upload_link_black_32x32;
+
+            ResetFadeCloseCountdown();
         }
         #endregion
     }

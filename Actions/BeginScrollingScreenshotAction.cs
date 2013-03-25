@@ -19,5 +19,15 @@ namespace ProSnap.ActionItems
         }
 
         #endregion
+
+        public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
+        {
+            Program.isTakingScrollingScreenshot = true;
+
+            Program.timelapse.Clear();
+            Program.timelapse.Add(new ExtendedScreenshot());
+
+            return LatestScreenshot;
+        }
     }
 }

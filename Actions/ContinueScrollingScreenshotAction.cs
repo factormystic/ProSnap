@@ -7,7 +7,7 @@ namespace ProSnap.ActionItems
         #region IActionItem Members
 
         [Browsable(false)]
-		public ActionTypes ActionType
+        public ActionTypes ActionType
         {
             get { return ActionTypes.ContinueScrollingScreenshot; }
         }
@@ -19,5 +19,13 @@ namespace ProSnap.ActionItems
         }
 
         #endregion
+
+        public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
+        {
+            if (Program.isTakingScrollingScreenshot)
+                Program.timelapse.Add(new ExtendedScreenshot());
+
+            return LatestScreenshot;
+        }
     }
 }

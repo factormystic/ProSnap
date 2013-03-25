@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
 
 namespace ProSnap.ActionItems
 {
@@ -19,5 +21,15 @@ namespace ProSnap.ActionItems
         }
 
         #endregion
+
+        public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
+        {
+            Trace.WriteLine("Applying HidePreviewAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+            //todo: if LatestScreenshot == Preview Active Screenshot?
+            Program.Preview.FadeClose();
+
+            return LatestScreenshot;
+        }
     }
 }

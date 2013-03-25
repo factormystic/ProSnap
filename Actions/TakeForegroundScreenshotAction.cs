@@ -1,4 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using FMUtils.Screenshot;
 
 namespace ProSnap.ActionItems
@@ -49,6 +53,25 @@ namespace ProSnap.ActionItems
         {
             Method = ScreenshotMethod.Auto;
             SolidGlass = true;
+        }
+
+        public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
+        {
+            try
+            {
+                LatestScreenshot = new ExtendedScreenshot(this.Method, this.SolidGlass);
+                Program.History.Add(LatestScreenshot);
+                Program.Preview.GroomBackForwardIcons();
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(string.Format("Exception in TakeForegroundScreenshot: {0}", e.GetBaseException()), string.Format("Program.DoActionItem [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+                ReportListener reporter = Trace.Listeners.Cast<TraceListener>().Where(tl => tl is ReportListener).FirstOrDefault() as ReportListener;
+                File.WriteAllText(Path.Combine(Configuration.LocalPath, "report.txt"), string.Join("\n", reporter.Messages.Select(m => string.Format("{0} {1}: {2}", m.Timestamp, m.Category, m.Message)).ToArray()));
+            }
+
+            return LatestScreenshot;
         }
     }
 }

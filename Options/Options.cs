@@ -333,7 +333,7 @@ namespace ProSnap.Options
             if (IgnoreChanges)
                 return;
 
-            var CurrentUploadService = e.Item.Tag as UploadService;
+            var CurrentUploadService = e.Item.Tag as IUploadService;
             if (e.Item.Checked)
             {
                 CurrentUploadService.isActive = true;
@@ -349,7 +349,7 @@ namespace ProSnap.Options
 
         private void btAddUploadService_Click(object sender, EventArgs e)
         {
-            var usp = new UploadServiceProperties(UploadService.Create());
+            var usp = new UploadServiceProperties(MultipartFormDataUploadService.Create());
             if (usp.ShowDialog() == DialogResult.OK)
             {
                 var NewUploadService = usp.GetResultUploadService();
@@ -362,7 +362,7 @@ namespace ProSnap.Options
         {
             if (lvUploadProfiles.SelectedItems.Count > 0)
             {
-                var up = new UploadServiceProperties(lvUploadProfiles.SelectedItems[0].Tag as UploadService);
+                var up = new UploadServiceProperties(lvUploadProfiles.SelectedItems[0].Tag as IUploadService);
                 if (up.ShowDialog(this) == DialogResult.OK)
                 {
                     var UpdatedUploadService = up.GetResultUploadService();
@@ -376,7 +376,7 @@ namespace ProSnap.Options
         {
             if (lvUploadProfiles.SelectedItems.Count > 0)
             {
-                var RemovingUploadService = lvUploadProfiles.SelectedItems[0].Tag as UploadService;
+                var RemovingUploadService = lvUploadProfiles.SelectedItems[0].Tag as IUploadService;
                 Configuration.UploadServices.Remove(RemovingUploadService);
                 lvUploadProfiles.Items.Remove(lvUploadProfiles.SelectedItems[0]);
             }

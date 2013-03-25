@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
 
 namespace ProSnap.ActionItems
 {
@@ -32,6 +34,22 @@ namespace ProSnap.ActionItems
         public HeartAction()
         {
             this.HeartMode = Modes.Toggle;
+        }
+
+        public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
+        {
+            Trace.WriteLine("Applying HeartAction...", string.Format("Program.Program_ShowPreviewEvent [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+            switch (this.HeartMode)
+            {
+                case HeartAction.Modes.Toggle: LatestScreenshot.isFlagged = !LatestScreenshot.isFlagged; break;
+                case HeartAction.Modes.On: LatestScreenshot.isFlagged = true; break;
+                case HeartAction.Modes.Off: LatestScreenshot.isFlagged = false; break;
+            }
+
+            Program.Preview.GroomHeartIcon();
+            
+            return LatestScreenshot;
         }
     }
 }
