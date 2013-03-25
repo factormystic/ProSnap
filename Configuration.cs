@@ -92,7 +92,8 @@ namespace ProSnap
                                 Directory.CreateDirectory(TempProductPath);
 
                             var Destination = Path.Combine(Environment.ExpandEnvironmentVariables("%temp%"), Application.ProductName, dir.Name);
-                            Directory.Move(dir.FullName, Destination);
+                            if (!Directory.Exists(Destination))
+                                Directory.Move(dir.FullName, Destination);
                         }
                     }
                 }
