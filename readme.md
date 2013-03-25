@@ -29,7 +29,7 @@ While funtional and useful in its current form, ProSnap is currently deficient i
 - [[#2] (https://github.com/factormystic/ProSnap/issues/2)] The region screenshot chooser UI is too minimalist, and needs some UI love
 - [[#12] (https://github.com/factormystic/ProSnap/issues/12)] I need to figure out how to implement OAuth consumption in a desktop app, which would allow uploading to Tumblr, and private Imgur accounts
 - [[#13] (https://github.com/factormystic/ProSnap/issues/13)] FTP upload support, and [[#14] (https://github.com/factormystic/ProSnap/issues/14)] a general revamp of the upload config UI
-- [[branch: action-devolvement] (https://github.com/factormystic/ProSnap/tree/action-devolvement)] The `IActionItem` structure is functional but less than ideal. It'd be cool to devolve the logic that lives in `DoActionItem` into each separate `IActionItem` implementation. Then that would open the potential to load in `IActionItem`s at runtime, possibly via a plugin architecture.
+- Figure out how to kill off the ActionItems enum and possibly load additional `IActionItem`s via a plugin architecture.
 - [[#15] (https://github.com/factormystic/ProSnap/issues/15)] Scrolling screenshot implementation is weak and needs to be rewritten with a less dumb (faster/more successful) algorithm
 
 Feel free to fork this repository and start cracking on any of these issues
