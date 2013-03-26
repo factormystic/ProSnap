@@ -168,6 +168,7 @@
     <Compile Include="Actions\BeginScrollingScreenshotAction.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Actions\ClipboardAction.cs" />
     <Compile Include="Actions\ContinueScrollingScreenshotAction.cs">
       <SubType>Code</SubType>
     </Compile>

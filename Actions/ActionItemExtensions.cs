@@ -19,8 +19,10 @@ namespace ProSnap.ActionItems
         Save,
         Upload,
         ApplyEdits,
-        Run,
         Delete,
+
+        Run,
+        Clipboard,
     };
 
     public static class ActionItemExtensions
@@ -51,6 +53,7 @@ namespace ProSnap.ActionItems
                 case ActionTypes.Delete: return new DeleteAction();
 
                 case ActionTypes.Run: return new RunAction();
+                case ActionTypes.Clipboard: return new ClipboardAction();
                 default: return new NoneAction();
             }
         }

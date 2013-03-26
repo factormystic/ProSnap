@@ -22,6 +22,7 @@ namespace ProSnap
                         case ":url": return ss.Remote.ImageLink;
                         case ":delete": return ss.Remote.DeleteLink;
                         case ":file": return string.IsNullOrEmpty(ss.SavedFileName) ? ss.InternalFileName : ss.SavedFileName;
+                        case ":image": return "";
                         default: return ss.Date.ToString(m.Value.TrimStart(':'));
                     }
                 }

@@ -430,24 +430,20 @@ namespace ProSnap
                     {
                         Trace.WriteLine("Already have a link for this screenshot, copying to clipboard", string.Format("PeekPreview.UploadLatestScreenshot [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-                        Clipboard.SetText(CurrentScreenshot.Remote.ImageLink);
+                        new ClipboardAction(":url").Invoke(CurrentScreenshot);
                         return;
                     }
 
                     Task.Factory.StartNew(() => new UploadAction().Invoke(this.CurrentScreenshot))
                         .ContinueWith(t =>
                         {
-                            if (t.Result != null)
-                            {
-                                GroomUploadMenuItemStyles();
-
-                                //todo: Action Item
-                                Clipboard.SetText(CurrentScreenshot.Remote.ImageLink);
-                            }
-                            else
+                            if (t.Result == null)
                             {
                                 MessageBox.Show(this, string.Format("An error occurred while uploading this screenshot:\n{0}", t.Exception.GetBaseException()), "Upload Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
                             }
+
+                            GroomUploadMenuItemStyles();
                         }, TaskScheduler.FromCurrentSynchronizationContext());
                     break;
             }
@@ -499,12 +495,12 @@ namespace ProSnap
 
         private void tsmiCopyImageLink_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(CurrentScreenshot.Remote.ImageLink);
+            new ClipboardAction(":url").Invoke(CurrentScreenshot);
         }
 
         private void tsmiCopyDeleteLink_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(CurrentScreenshot.Remote.DeleteLink);
+            new ClipboardAction(":delete").Invoke(CurrentScreenshot);
         }
 
         private void tsmiUploadImage_Click(object sender, EventArgs e)
