@@ -8,6 +8,12 @@ namespace ProSnap.ActionItems
 {
     class UploadAction : IActionItem
     {
+        public enum Modes { UseSelectedDefault };
+
+        [DescriptionAttribute("Determines which upload provider should be used to upload the screenshot.")]
+        [DefaultValueAttribute(Modes.UseSelectedDefault)]
+        public Modes UploadMode { get; set; }
+
         #region IActionItem Members
 
         [Browsable(false)]
