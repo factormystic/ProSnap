@@ -49,8 +49,7 @@ namespace ProSnap.ActionItems
             {
                 Trace.WriteLine(string.Format("Prompting for save: {0}", this.Prompt), string.Format("SaveAction.Invoke Save [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-                var t = new TaskCompletionSource<object>();
-                Program.Preview.BeginInvoke(new MethodInvoker(() =>
+                var save = new Action(() =>
                 {
                     Program.Preview.isSaveDialogOpen = true;
 
@@ -77,11 +76,24 @@ namespace ProSnap.ActionItems
                     }
 
                     Program.Preview.isSaveDialogOpen = false;
+                });
 
-                    t.SetResult(null);
-                }));
+                if (Program.Preview.InvokeRequired)
+                {
+                    var t = new TaskCompletionSource<object>();
+                    Program.Preview.BeginInvoke(new MethodInvoker(() =>
+                    {
+                        save();
+                        t.SetResult(null);
+                    }));
 
-                Task.WaitAll(t.Task);
+                    Task.WaitAll(t.Task);
+                }
+                else
+                {
+                    save();
+                }
+
                 return LatestScreenshot;
             }
 

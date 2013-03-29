@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -41,8 +42,7 @@ namespace ProSnap.ActionItems
             if (LatestScreenshot == null)
                 return null;
 
-            var tcs = new TaskCompletionSource<object>();
-            Program.Preview.BeginInvoke(new MethodInvoker(() =>
+            var set = new Action(() =>
             {
                 switch (this.ClipboardMode)
                 {
@@ -53,15 +53,31 @@ namespace ProSnap.ActionItems
                         }
                         else if (!string.IsNullOrEmpty(this.Content))
                         {
-                            Clipboard.SetText(Helper.ExpandParameters(this.Content, LatestScreenshot), TextDataFormat.UnicodeText);
+                            var text = Helper.ExpandParameters(this.Content, LatestScreenshot);
+                            if (!string.IsNullOrEmpty(text))
+                            {
+                                Clipboard.SetText(text, TextDataFormat.UnicodeText);
+                            }
                         }
                         break;
                 }
+            });
 
-                tcs.SetResult(null);
-            }));
+            if (Program.Preview.InvokeRequired)
+            {
+                var tcs = new TaskCompletionSource<object>();
+                Program.Preview.BeginInvoke(new MethodInvoker(() =>
+                {
+                    set();
+                    tcs.SetResult(null);
+                }));
 
-            Task.WaitAll(tcs.Task);
+                Task.WaitAll(tcs.Task);
+            }
+            else
+            {
+                set();
+            }
 
             return LatestScreenshot;
         }
