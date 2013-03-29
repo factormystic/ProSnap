@@ -232,9 +232,15 @@ namespace ProSnap
                 return;
             }
 
+            IActionItem CurrentActionItem = ActiveShortcutItem.ActionChain.ActionItems[itemIndex];
+
+            //don't try and invoke the scrolling screenshot actions if they're the first type in the action chain (eg, solo items for their shortcuts) and there's no active scrolling screenshot happening
+            //at least this solves flashing the icon whenever 'End' key is pressed during normal computer use
+            if (!Program.isTakingScrollingScreenshot && (CurrentActionItem.ActionType == ActionTypes.ContinueScrollingScreenshot || CurrentActionItem.ActionType == ActionTypes.EndScrollingScreenshot) && itemIndex == 0)
+                return;
+
             KeyboardHook.isPaused = true;
 
-            IActionItem CurrentActionItem = ActiveShortcutItem.ActionChain.ActionItems[itemIndex];
             Trace.WriteLine(CurrentActionItem.ActionType, string.Format("Program.DoActionItem [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             //todo: figure out a better way to do these exclusions rather than harcoding behavior for scrolling screenshots

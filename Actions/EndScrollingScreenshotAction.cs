@@ -172,7 +172,7 @@ namespace ProSnap.ActionItems
         {
             int score = 0;
 
-            for (int i = 0; i < current_bytes.Length; i++)
+            for (int i = 0; i < Math.Min(current_bytes.Length, previous_bytes.Length); i++)
             {
                 score += current_bytes[i] != previous_bytes[i] ? 1 : 0;
             }
