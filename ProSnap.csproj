@@ -30,7 +30,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>86</ApplicationRevision>
+    <ApplicationRevision>93</ApplicationRevision>
     <ApplicationVersion>1.0.265.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -125,10 +125,10 @@
     <ApplicationIcon>Resources\camera_36x36_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>473F5F781B87A4C5A431474F8AB9CB1B26A4B84A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>9DF3680C0EEC463B99E7255BE38A6974779BE526</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ProSnap_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>factormystic.net.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -329,6 +329,7 @@
     <EmbeddedResource Include="RegionSelector.resx">
       <DependentUpon>RegionSelector.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="factormystic.net.pfx" />
     <None Include="Properties\HighDPIAware.manifest" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
@@ -364,6 +365,7 @@
   <ItemGroup>
     <Content Include="notes.txt" />
     <None Include="Resources\licences.txt" />
+    <None Include="ProSnap_1_TemporaryKey.pfx" />
     <None Include="Resources\check_green_32x26.png" />
     <None Include="Resources\home_32x32.png" />
     <None Include="ProSnap_TemporaryKey.pfx" />
