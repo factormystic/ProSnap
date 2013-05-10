@@ -45,16 +45,14 @@
             this.btShortcutsTab = new System.Windows.Forms.Button();
             this.btPreviewTab = new System.Windows.Forms.Button();
             this.btUploadingTab = new System.Windows.Forms.Button();
+            this.btInstallTab = new System.Windows.Forms.Button();
             this.btRegisterTab = new System.Windows.Forms.Button();
+            this.btAboutTab = new System.Windows.Forms.Button();
             this.pnWindowButtons = new System.Windows.Forms.Panel();
             this.llResetOptions = new System.Windows.Forms.LinkLabel();
             this.tcOptions = new ProSnap.TablessControl();
             this.tpPreviewWindow = new System.Windows.Forms.TabPage();
             this.btCrash = new System.Windows.Forms.Button();
-            this.btManualUpdate = new System.Windows.Forms.Button();
-            this.llOpenLogFolder = new System.Windows.Forms.LinkLabel();
-            this.label13 = new System.Windows.Forms.Label();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.cbDefaultFileType = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -112,6 +110,22 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.tpInstallation = new System.Windows.Forms.TabPage();
+            this.llOpenLogFolder = new System.Windows.Forms.LinkLabel();
+            this.btToggleStartupTask = new System.Windows.Forms.Button();
+            this.btToggleInstallation = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tpAbout = new System.Windows.Forms.TabPage();
+            this.gbLicenseDeclarations = new System.Windows.Forms.GroupBox();
+            this.tbLicenseDeclarations = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lbVersion = new System.Windows.Forms.Label();
+            this.btManualUpdate = new System.Windows.Forms.Button();
             this.flpTabContainer.SuspendLayout();
             this.pnWindowButtons.SuspendLayout();
             this.tcOptions.SuspendLayout();
@@ -128,6 +142,12 @@
             this.groupBox3.SuspendLayout();
             this.flpUploadServiceButtons.SuspendLayout();
             this.tpRegistration.SuspendLayout();
+            this.tpInstallation.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.tpAbout.SuspendLayout();
+            this.gbLicenseDeclarations.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // btClose
@@ -137,7 +157,7 @@
             this.btClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btClose.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btClose.Location = new System.Drawing.Point(501, 10);
+            this.btClose.Location = new System.Drawing.Point(548, 10);
             this.btClose.Margin = new System.Windows.Forms.Padding(4);
             this.btClose.Name = "btClose";
             this.btClose.Padding = new System.Windows.Forms.Padding(15, 0, 15, 0);
@@ -175,10 +195,12 @@
             this.flpTabContainer.Controls.Add(this.btShortcutsTab);
             this.flpTabContainer.Controls.Add(this.btPreviewTab);
             this.flpTabContainer.Controls.Add(this.btUploadingTab);
+            this.flpTabContainer.Controls.Add(this.btInstallTab);
             this.flpTabContainer.Controls.Add(this.btRegisterTab);
+            this.flpTabContainer.Controls.Add(this.btAboutTab);
             this.flpTabContainer.Location = new System.Drawing.Point(-1, -2);
             this.flpTabContainer.Name = "flpTabContainer";
-            this.flpTabContainer.Size = new System.Drawing.Size(600, 65);
+            this.flpTabContainer.Size = new System.Drawing.Size(647, 65);
             this.flpTabContainer.TabIndex = 2;
             // 
             // btGeneralTab
@@ -198,7 +220,7 @@
             this.btGeneralTab.Text = "\r\nGeneral";
             this.btGeneralTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btGeneralTab.UseVisualStyleBackColor = false;
-            this.btGeneralTab.Click += new System.EventHandler(this.btGeneralTab_Click);
+            this.btGeneralTab.Click += new System.EventHandler(this.TabButton_Click);
             // 
             // btShortcutsTab
             // 
@@ -217,7 +239,7 @@
             this.btShortcutsTab.Text = "\r\nShortcuts";
             this.btShortcutsTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btShortcutsTab.UseVisualStyleBackColor = false;
-            this.btShortcutsTab.Click += new System.EventHandler(this.btShortcutsTab_Click);
+            this.btShortcutsTab.Click += new System.EventHandler(this.TabButton_Click);
             // 
             // btPreviewTab
             // 
@@ -237,7 +259,7 @@
             this.btPreviewTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btPreviewTab.UseVisualStyleBackColor = false;
             this.btPreviewTab.Visible = false;
-            this.btPreviewTab.Click += new System.EventHandler(this.btPreviewTab_Click);
+            this.btPreviewTab.Click += new System.EventHandler(this.TabButton_Click);
             // 
             // btUploadingTab
             // 
@@ -256,7 +278,27 @@
             this.btUploadingTab.Text = "\r\nUpload";
             this.btUploadingTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btUploadingTab.UseVisualStyleBackColor = false;
-            this.btUploadingTab.Click += new System.EventHandler(this.btUploadingTab_Click);
+            this.btUploadingTab.Click += new System.EventHandler(this.TabButton_Click);
+            // 
+            // btInstallTab
+            // 
+            this.btInstallTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btInstallTab.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btInstallTab.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btInstallTab.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
+            this.btInstallTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
+            this.btInstallTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btInstallTab.Image = global::ProSnap.Properties.Resources.home_32x32;
+            this.btInstallTab.Location = new System.Drawing.Point(335, 0);
+            this.btInstallTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
+            this.btInstallTab.Name = "btInstallTab";
+            this.btInstallTab.Size = new System.Drawing.Size(75, 65);
+            this.btInstallTab.TabIndex = 5;
+            this.btInstallTab.Text = "\r\n Install";
+            this.btInstallTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btInstallTab.UseVisualStyleBackColor = false;
+            this.btInstallTab.Visible = false;
+            this.btInstallTab.Click += new System.EventHandler(this.TabButton_Click);
             // 
             // btRegisterTab
             // 
@@ -267,7 +309,7 @@
             this.btRegisterTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
             this.btRegisterTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btRegisterTab.Image = global::ProSnap.Properties.Resources.check_32x26;
-            this.btRegisterTab.Location = new System.Drawing.Point(335, 0);
+            this.btRegisterTab.Location = new System.Drawing.Point(416, 0);
             this.btRegisterTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
             this.btRegisterTab.Name = "btRegisterTab";
             this.btRegisterTab.Size = new System.Drawing.Size(75, 65);
@@ -276,7 +318,26 @@
             this.btRegisterTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btRegisterTab.UseVisualStyleBackColor = false;
             this.btRegisterTab.Visible = false;
-            this.btRegisterTab.Click += new System.EventHandler(this.btRegisterTab_Click);
+            this.btRegisterTab.Click += new System.EventHandler(this.TabButton_Click);
+            // 
+            // btAboutTab
+            // 
+            this.btAboutTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btAboutTab.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btAboutTab.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btAboutTab.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
+            this.btAboutTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
+            this.btAboutTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btAboutTab.Image = global::ProSnap.Properties.Resources.camera_36x36;
+            this.btAboutTab.Location = new System.Drawing.Point(497, 0);
+            this.btAboutTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
+            this.btAboutTab.Name = "btAboutTab";
+            this.btAboutTab.Size = new System.Drawing.Size(75, 65);
+            this.btAboutTab.TabIndex = 6;
+            this.btAboutTab.Text = "\r\n About";
+            this.btAboutTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btAboutTab.UseVisualStyleBackColor = false;
+            this.btAboutTab.Click += new System.EventHandler(this.TabButton_Click);
             // 
             // pnWindowButtons
             // 
@@ -286,10 +347,10 @@
             this.pnWindowButtons.Controls.Add(this.llResetOptions);
             this.pnWindowButtons.Controls.Add(this.btClose);
             this.pnWindowButtons.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnWindowButtons.Location = new System.Drawing.Point(-1, 768);
+            this.pnWindowButtons.Location = new System.Drawing.Point(-1, 780);
             this.pnWindowButtons.Margin = new System.Windows.Forms.Padding(4);
             this.pnWindowButtons.Name = "pnWindowButtons";
-            this.pnWindowButtons.Size = new System.Drawing.Size(600, 50);
+            this.pnWindowButtons.Size = new System.Drawing.Size(647, 50);
             this.pnWindowButtons.TabIndex = 3;
             // 
             // llResetOptions
@@ -315,13 +376,15 @@
             this.tcOptions.Controls.Add(this.tpButtons);
             this.tcOptions.Controls.Add(this.tpUploading);
             this.tcOptions.Controls.Add(this.tpRegistration);
+            this.tcOptions.Controls.Add(this.tpInstallation);
+            this.tcOptions.Controls.Add(this.tpAbout);
             this.tcOptions.ImageList = this.ilTabIcons;
             this.tcOptions.ItemSize = new System.Drawing.Size(100, 20);
             this.tcOptions.Location = new System.Drawing.Point(1, 65);
             this.tcOptions.Margin = new System.Windows.Forms.Padding(0);
             this.tcOptions.Name = "tcOptions";
             this.tcOptions.SelectedIndex = 0;
-            this.tcOptions.Size = new System.Drawing.Size(596, 690);
+            this.tcOptions.Size = new System.Drawing.Size(643, 714);
             this.tcOptions.TabIndex = 1;
             this.tcOptions.SelectedIndexChanged += new System.EventHandler(this.tcOptions_SelectedIndexChanged);
             // 
@@ -329,10 +392,6 @@
             // 
             this.tpPreviewWindow.AutoScroll = true;
             this.tpPreviewWindow.Controls.Add(this.btCrash);
-            this.tpPreviewWindow.Controls.Add(this.btManualUpdate);
-            this.tpPreviewWindow.Controls.Add(this.llOpenLogFolder);
-            this.tpPreviewWindow.Controls.Add(this.label13);
-            this.tpPreviewWindow.Controls.Add(this.linkLabel2);
             this.tpPreviewWindow.Controls.Add(this.cbDefaultFileType);
             this.tpPreviewWindow.Controls.Add(this.label8);
             this.tpPreviewWindow.Controls.Add(this.label10);
@@ -348,9 +407,8 @@
             this.tpPreviewWindow.Location = new System.Drawing.Point(0, 0);
             this.tpPreviewWindow.Name = "tpPreviewWindow";
             this.tpPreviewWindow.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPreviewWindow.Size = new System.Drawing.Size(596, 690);
+            this.tpPreviewWindow.Size = new System.Drawing.Size(643, 714);
             this.tpPreviewWindow.TabIndex = 1;
-            this.tpPreviewWindow.Tag = "general";
             this.tpPreviewWindow.Text = "General";
             this.tpPreviewWindow.UseVisualStyleBackColor = true;
             // 
@@ -359,7 +417,7 @@
             this.btCrash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btCrash.AutoSize = true;
             this.btCrash.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btCrash.Location = new System.Drawing.Point(461, 592);
+            this.btCrash.Location = new System.Drawing.Point(508, 616);
             this.btCrash.Margin = new System.Windows.Forms.Padding(4);
             this.btCrash.Name = "btCrash";
             this.btCrash.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -368,55 +426,6 @@
             this.btCrash.Text = "Test Crash...";
             this.btCrash.UseVisualStyleBackColor = true;
             this.btCrash.Visible = false;
-            // 
-            // btManualUpdate
-            // 
-            this.btManualUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btManualUpdate.AutoSize = true;
-            this.btManualUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btManualUpdate.Location = new System.Drawing.Point(416, 634);
-            this.btManualUpdate.Margin = new System.Windows.Forms.Padding(4);
-            this.btManualUpdate.Name = "btManualUpdate";
-            this.btManualUpdate.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.btManualUpdate.Size = new System.Drawing.Size(153, 30);
-            this.btManualUpdate.TabIndex = 30;
-            this.btManualUpdate.Text = "Check for update...";
-            this.btManualUpdate.UseVisualStyleBackColor = true;
-            // 
-            // llOpenLogFolder
-            // 
-            this.llOpenLogFolder.AutoSize = true;
-            this.llOpenLogFolder.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(69)))), ((int)(((byte)(173)))));
-            this.llOpenLogFolder.Location = new System.Drawing.Point(9, 615);
-            this.llOpenLogFolder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.llOpenLogFolder.Name = "llOpenLogFolder";
-            this.llOpenLogFolder.Size = new System.Drawing.Size(235, 20);
-            this.llOpenLogFolder.TabIndex = 27;
-            this.llOpenLogFolder.TabStop = true;
-            this.llOpenLogFolder.Text = "Open application folder location...";
-            this.llOpenLogFolder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenLogFolder_LinkClicked);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 651);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(310, 20);
-            this.label13.TabIndex = 26;
-            this.label13.Text = "Have feedback, a comment, or a suggestion? ";
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(69)))), ((int)(((byte)(173)))));
-            this.linkLabel2.Location = new System.Drawing.Point(25, 670);
-            this.linkLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(205, 20);
-            this.linkLabel2.TabIndex = 25;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Visit the application website...";
             // 
             // cbDefaultFileType
             // 
@@ -541,7 +550,7 @@
             this.pnPreviewLocationChooser.Controls.Add(this.cbPreviewLowerLeft);
             this.pnPreviewLocationChooser.Controls.Add(this.cbPreviewUpperLeft);
             this.pnPreviewLocationChooser.Controls.Add(this.pbDesktopPreview);
-            this.pnPreviewLocationChooser.Location = new System.Drawing.Point(24, 38);
+            this.pnPreviewLocationChooser.Location = new System.Drawing.Point(47, 38);
             this.pnPreviewLocationChooser.Margin = new System.Windows.Forms.Padding(4);
             this.pnPreviewLocationChooser.Name = "pnPreviewLocationChooser";
             this.pnPreviewLocationChooser.Size = new System.Drawing.Size(350, 307);
@@ -655,9 +664,8 @@
             this.tpShortcuts.Margin = new System.Windows.Forms.Padding(4);
             this.tpShortcuts.Name = "tpShortcuts";
             this.tpShortcuts.Padding = new System.Windows.Forms.Padding(4);
-            this.tpShortcuts.Size = new System.Drawing.Size(596, 690);
+            this.tpShortcuts.Size = new System.Drawing.Size(643, 714);
             this.tpShortcuts.TabIndex = 3;
-            this.tpShortcuts.Tag = "shortcuts";
             this.tpShortcuts.Text = "Shortcut Keys";
             this.tpShortcuts.UseVisualStyleBackColor = true;
             // 
@@ -683,7 +691,7 @@
             this.lvShortcuts.Margin = new System.Windows.Forms.Padding(4);
             this.lvShortcuts.MultiSelect = false;
             this.lvShortcuts.Name = "lvShortcuts";
-            this.lvShortcuts.Size = new System.Drawing.Size(588, 578);
+            this.lvShortcuts.Size = new System.Drawing.Size(635, 602);
             this.lvShortcuts.TabIndex = 0;
             this.lvShortcuts.UseCompatibleStateImageBehavior = false;
             this.lvShortcuts.View = System.Windows.Forms.View.Details;
@@ -708,7 +716,7 @@
             this.groupBox2.Location = new System.Drawing.Point(4, -5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.groupBox2.Size = new System.Drawing.Size(588, 72);
+            this.groupBox2.Size = new System.Drawing.Size(635, 72);
             this.groupBox2.TabIndex = 26;
             this.groupBox2.TabStop = false;
             // 
@@ -718,7 +726,7 @@
             this.label11.Location = new System.Drawing.Point(4, 20);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 4);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(580, 52);
+            this.label11.Size = new System.Drawing.Size(627, 52);
             this.label11.TabIndex = 25;
             this.label11.Text = "These are the keyboard shortcuts ProSnap is configured to respond to. Un-checking" +
     " a shortcut will temporarily disable it.";
@@ -731,11 +739,11 @@
             this.flpShortcutActions.Controls.Add(this.btEditShortcut);
             this.flpShortcutActions.Controls.Add(this.btRemoveShortcut);
             this.flpShortcutActions.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flpShortcutActions.Location = new System.Drawing.Point(4, 652);
+            this.flpShortcutActions.Location = new System.Drawing.Point(4, 676);
             this.flpShortcutActions.Margin = new System.Windows.Forms.Padding(4);
             this.flpShortcutActions.Name = "flpShortcutActions";
             this.flpShortcutActions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
-            this.flpShortcutActions.Size = new System.Drawing.Size(588, 34);
+            this.flpShortcutActions.Size = new System.Drawing.Size(635, 34);
             this.flpShortcutActions.TabIndex = 24;
             // 
             // btAddShortcut
@@ -789,9 +797,8 @@
             this.tpButtons.Margin = new System.Windows.Forms.Padding(4);
             this.tpButtons.Name = "tpButtons";
             this.tpButtons.Padding = new System.Windows.Forms.Padding(4);
-            this.tpButtons.Size = new System.Drawing.Size(596, 690);
+            this.tpButtons.Size = new System.Drawing.Size(643, 714);
             this.tpButtons.TabIndex = 0;
-            this.tpButtons.Tag = "buttons";
             this.tpButtons.Text = "Button Options";
             this.tpButtons.UseVisualStyleBackColor = true;
             // 
@@ -813,7 +820,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(671, 601);
+            this.groupBox1.Size = new System.Drawing.Size(718, 625);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selected Button Properties";
@@ -920,7 +927,7 @@
             listViewItem3,
             listViewItem4});
             this.listView1.LargeImageList = this.imageList1;
-            this.listView1.Location = new System.Drawing.Point(151, 4);
+            this.listView1.Location = new System.Drawing.Point(174, 4);
             this.listView1.Margin = new System.Windows.Forms.Padding(4);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
@@ -938,9 +945,8 @@
             this.tpUploading.Location = new System.Drawing.Point(0, 0);
             this.tpUploading.Name = "tpUploading";
             this.tpUploading.Padding = new System.Windows.Forms.Padding(4);
-            this.tpUploading.Size = new System.Drawing.Size(596, 690);
+            this.tpUploading.Size = new System.Drawing.Size(643, 714);
             this.tpUploading.TabIndex = 4;
-            this.tpUploading.Tag = "uploading";
             this.tpUploading.Text = "Upload Services";
             this.tpUploading.UseVisualStyleBackColor = true;
             // 
@@ -949,7 +955,7 @@
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button4.AutoSize = true;
             this.button4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button4.Location = new System.Drawing.Point(8, 819);
+            this.button4.Location = new System.Drawing.Point(8, 843);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -973,7 +979,7 @@
             this.lvUploadProfiles.Margin = new System.Windows.Forms.Padding(4);
             this.lvUploadProfiles.MultiSelect = false;
             this.lvUploadProfiles.Name = "lvUploadProfiles";
-            this.lvUploadProfiles.Size = new System.Drawing.Size(588, 578);
+            this.lvUploadProfiles.Size = new System.Drawing.Size(635, 602);
             this.lvUploadProfiles.TabIndex = 0;
             this.lvUploadProfiles.UseCompatibleStateImageBehavior = false;
             this.lvUploadProfiles.View = System.Windows.Forms.View.Details;
@@ -994,7 +1000,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 0, 4, 4);
-            this.groupBox3.Size = new System.Drawing.Size(588, 70);
+            this.groupBox3.Size = new System.Drawing.Size(635, 70);
             this.groupBox3.TabIndex = 38;
             this.groupBox3.TabStop = false;
             // 
@@ -1004,7 +1010,7 @@
             this.label12.Location = new System.Drawing.Point(4, 20);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(580, 46);
+            this.label12.Size = new System.Drawing.Size(627, 46);
             this.label12.TabIndex = 25;
             this.label12.Text = "These are the upload services ProSnap can send screenshots to. The checked servic" +
     "e is the default one that will be used when the upload button is clicked.";
@@ -1017,11 +1023,11 @@
             this.flpUploadServiceButtons.Controls.Add(this.btEditUploadService);
             this.flpUploadServiceButtons.Controls.Add(this.btRemoveUploadService);
             this.flpUploadServiceButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flpUploadServiceButtons.Location = new System.Drawing.Point(4, 652);
+            this.flpUploadServiceButtons.Location = new System.Drawing.Point(4, 676);
             this.flpUploadServiceButtons.Margin = new System.Windows.Forms.Padding(4);
             this.flpUploadServiceButtons.Name = "flpUploadServiceButtons";
             this.flpUploadServiceButtons.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
-            this.flpUploadServiceButtons.Size = new System.Drawing.Size(588, 34);
+            this.flpUploadServiceButtons.Size = new System.Drawing.Size(635, 34);
             this.flpUploadServiceButtons.TabIndex = 27;
             // 
             // btAddUploadService
@@ -1078,9 +1084,8 @@
             this.tpRegistration.Location = new System.Drawing.Point(0, 0);
             this.tpRegistration.Margin = new System.Windows.Forms.Padding(4);
             this.tpRegistration.Name = "tpRegistration";
-            this.tpRegistration.Size = new System.Drawing.Size(596, 690);
+            this.tpRegistration.Size = new System.Drawing.Size(643, 714);
             this.tpRegistration.TabIndex = 2;
-            this.tpRegistration.Tag = "registration";
             this.tpRegistration.Text = "Registration";
             this.tpRegistration.UseVisualStyleBackColor = true;
             // 
@@ -1102,7 +1107,7 @@
             this.tbRegistrationKey.Margin = new System.Windows.Forms.Padding(4);
             this.tbRegistrationKey.Multiline = true;
             this.tbRegistrationKey.Name = "tbRegistrationKey";
-            this.tbRegistrationKey.Size = new System.Drawing.Size(478, 165);
+            this.tbRegistrationKey.Size = new System.Drawing.Size(525, 165);
             this.tbRegistrationKey.TabIndex = 0;
             // 
             // llRegistrationKey
@@ -1148,18 +1153,218 @@
             this.label14.TabIndex = 1;
             this.label14.Text = "Buy a registration key, get bonus features!";
             // 
+            // tpInstallation
+            // 
+            this.tpInstallation.Controls.Add(this.llOpenLogFolder);
+            this.tpInstallation.Controls.Add(this.btToggleStartupTask);
+            this.tpInstallation.Controls.Add(this.btToggleInstallation);
+            this.tpInstallation.Controls.Add(this.groupBox4);
+            this.tpInstallation.Location = new System.Drawing.Point(0, 0);
+            this.tpInstallation.Name = "tpInstallation";
+            this.tpInstallation.Padding = new System.Windows.Forms.Padding(3);
+            this.tpInstallation.Size = new System.Drawing.Size(643, 714);
+            this.tpInstallation.TabIndex = 5;
+            this.tpInstallation.UseVisualStyleBackColor = true;
+            // 
+            // llOpenLogFolder
+            // 
+            this.llOpenLogFolder.AutoSize = true;
+            this.llOpenLogFolder.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(69)))), ((int)(((byte)(173)))));
+            this.llOpenLogFolder.Location = new System.Drawing.Point(12, 677);
+            this.llOpenLogFolder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.llOpenLogFolder.Name = "llOpenLogFolder";
+            this.llOpenLogFolder.Size = new System.Drawing.Size(235, 20);
+            this.llOpenLogFolder.TabIndex = 30;
+            this.llOpenLogFolder.TabStop = true;
+            this.llOpenLogFolder.Text = "Open application folder location...";
+            // 
+            // btToggleStartupTask
+            // 
+            this.btToggleStartupTask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btToggleStartupTask.Image = global::ProSnap.Properties.Resources.x_28x28_red;
+            this.btToggleStartupTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btToggleStartupTask.Location = new System.Drawing.Point(116, 138);
+            this.btToggleStartupTask.Name = "btToggleStartupTask";
+            this.btToggleStartupTask.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btToggleStartupTask.Size = new System.Drawing.Size(413, 60);
+            this.btToggleStartupTask.TabIndex = 29;
+            this.btToggleStartupTask.Text = "Set ProSnap to run automatically at startup\r\nCurrent Status: Not Set";
+            this.btToggleStartupTask.UseVisualStyleBackColor = true;
+            // 
+            // btToggleInstallation
+            // 
+            this.btToggleInstallation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btToggleInstallation.Image = global::ProSnap.Properties.Resources.x_28x28_red;
+            this.btToggleInstallation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btToggleInstallation.Location = new System.Drawing.Point(116, 72);
+            this.btToggleInstallation.Name = "btToggleInstallation";
+            this.btToggleInstallation.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btToggleInstallation.Size = new System.Drawing.Size(413, 60);
+            this.btToggleInstallation.TabIndex = 28;
+            this.btToggleInstallation.Text = "Install ProSnap to its application directory\r\nCurrent Status: Not Installed";
+            this.btToggleInstallation.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.label18);
+            this.groupBox4.Location = new System.Drawing.Point(4, -6);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.groupBox4.Size = new System.Drawing.Size(635, 72);
+            this.groupBox4.TabIndex = 27;
+            this.groupBox4.TabStop = false;
+            // 
+            // label18
+            // 
+            this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label18.Location = new System.Drawing.Point(4, 20);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 4);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(627, 52);
+            this.label18.TabIndex = 25;
+            this.label18.Text = "It is not necessary to install ProSnap, but it is recommended. Manage installatio" +
+    "n options here.";
+            // 
+            // tpAbout
+            // 
+            this.tpAbout.Controls.Add(this.gbLicenseDeclarations);
+            this.tpAbout.Controls.Add(this.label13);
+            this.tpAbout.Controls.Add(this.linkLabel2);
+            this.tpAbout.Controls.Add(this.pictureBox1);
+            this.tpAbout.Controls.Add(this.label19);
+            this.tpAbout.Controls.Add(this.groupBox5);
+            this.tpAbout.Location = new System.Drawing.Point(0, 0);
+            this.tpAbout.Name = "tpAbout";
+            this.tpAbout.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAbout.Size = new System.Drawing.Size(643, 714);
+            this.tpAbout.TabIndex = 6;
+            this.tpAbout.Text = "tabPage1";
+            this.tpAbout.UseVisualStyleBackColor = true;
+            // 
+            // gbLicenseDeclarations
+            // 
+            this.gbLicenseDeclarations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbLicenseDeclarations.Controls.Add(this.tbLicenseDeclarations);
+            this.gbLicenseDeclarations.Location = new System.Drawing.Point(11, 282);
+            this.gbLicenseDeclarations.Name = "gbLicenseDeclarations";
+            this.gbLicenseDeclarations.Size = new System.Drawing.Size(621, 426);
+            this.gbLicenseDeclarations.TabIndex = 38;
+            this.gbLicenseDeclarations.TabStop = false;
+            this.gbLicenseDeclarations.Text = "Third Party License Declarations";
+            // 
+            // tbLicenseDeclarations
+            // 
+            this.tbLicenseDeclarations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLicenseDeclarations.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tbLicenseDeclarations.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbLicenseDeclarations.Location = new System.Drawing.Point(10, 26);
+            this.tbLicenseDeclarations.Multiline = true;
+            this.tbLicenseDeclarations.Name = "tbLicenseDeclarations";
+            this.tbLicenseDeclarations.ReadOnly = true;
+            this.tbLicenseDeclarations.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbLicenseDeclarations.Size = new System.Drawing.Size(605, 394);
+            this.tbLicenseDeclarations.TabIndex = 37;
+            this.tbLicenseDeclarations.WordWrap = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(14, 80);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(310, 20);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "Have feedback, a comment, or a suggestion? ";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(69)))), ((int)(((byte)(173)))));
+            this.linkLabel2.Location = new System.Drawing.Point(14, 100);
+            this.linkLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(205, 20);
+            this.linkLabel2.TabIndex = 35;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Visit the application website...";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ProSnap.Properties.Resources.camera_36x36;
+            this.pictureBox1.Location = new System.Drawing.Point(18, 20);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(36, 36);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 34;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label19
+            // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 30F);
+            this.label19.Location = new System.Drawing.Point(60, 3);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(212, 67);
+            this.label19.TabIndex = 33;
+            this.label19.Text = "ProSnap";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.lbVersion);
+            this.groupBox5.Controls.Add(this.btManualUpdate);
+            this.groupBox5.Location = new System.Drawing.Point(11, 148);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(621, 91);
+            this.groupBox5.TabIndex = 32;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Current Version";
+            // 
+            // lbVersion
+            // 
+            this.lbVersion.AutoSize = true;
+            this.lbVersion.Location = new System.Drawing.Point(6, 23);
+            this.lbVersion.Name = "lbVersion";
+            this.lbVersion.Size = new System.Drawing.Size(48, 20);
+            this.lbVersion.TabIndex = 0;
+            this.lbVersion.Text = "v1234";
+            // 
+            // btManualUpdate
+            // 
+            this.btManualUpdate.AutoSize = true;
+            this.btManualUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btManualUpdate.Location = new System.Drawing.Point(7, 47);
+            this.btManualUpdate.Margin = new System.Windows.Forms.Padding(4);
+            this.btManualUpdate.Name = "btManualUpdate";
+            this.btManualUpdate.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.btManualUpdate.Size = new System.Drawing.Size(153, 30);
+            this.btManualUpdate.TabIndex = 31;
+            this.btManualUpdate.Text = "Check for update...";
+            this.btManualUpdate.UseVisualStyleBackColor = true;
+            this.btManualUpdate.Click += new System.EventHandler(this.btManualUpdate_Click);
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btClose;
-            this.ClientSize = new System.Drawing.Size(598, 816);
+            this.ClientSize = new System.Drawing.Size(645, 828);
             this.Controls.Add(this.pnWindowButtons);
             this.Controls.Add(this.tcOptions);
             this.Controls.Add(this.flpTabContainer);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Options";
@@ -1189,6 +1394,16 @@
             this.flpUploadServiceButtons.PerformLayout();
             this.tpRegistration.ResumeLayout(false);
             this.tpRegistration.PerformLayout();
+            this.tpInstallation.ResumeLayout(false);
+            this.tpInstallation.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.tpAbout.ResumeLayout(false);
+            this.tpAbout.PerformLayout();
+            this.gbLicenseDeclarations.ResumeLayout(false);
+            this.gbLicenseDeclarations.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1263,12 +1478,26 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.LinkLabel llResetOptions;
-        private System.Windows.Forms.LinkLabel llOpenLogFolder;
         private System.Windows.Forms.Button btCrash;
-        private System.Windows.Forms.Button btManualUpdate;
         private System.Windows.Forms.Button btPreviewTab;
+        private System.Windows.Forms.Button btInstallTab;
+        private System.Windows.Forms.Button btAboutTab;
+        private System.Windows.Forms.TabPage tpInstallation;
+        private System.Windows.Forms.Button btToggleStartupTask;
+        private System.Windows.Forms.Button btToggleInstallation;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.LinkLabel llOpenLogFolder;
+        private System.Windows.Forms.TabPage tpAbout;
+        private System.Windows.Forms.Button btManualUpdate;
+        private System.Windows.Forms.Label lbVersion;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox gbLicenseDeclarations;
+        private System.Windows.Forms.TextBox tbLicenseDeclarations;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label19;
     }
 }

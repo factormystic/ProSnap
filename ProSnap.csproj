@@ -203,6 +203,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IActionItem.cs" />
+    <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="ISaveableActionConfiguration.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Crash.cs" />
@@ -363,6 +364,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="notes.txt" />
+    <None Include="Resources\licences.txt" />
+    <None Include="Resources\check_green_32x26.png" />
+    <None Include="Resources\home_32x32.png" />
     <None Include="ProSnap_TemporaryKey.pfx" />
     <None Include="Resources\works-on-my-machine-starburst.png" />
     <None Include="Resources\chart_36x36.png" />
@@ -439,9 +443,6 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

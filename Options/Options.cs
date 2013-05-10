@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -14,7 +15,12 @@ namespace ProSnap.Options
 {
     public partial class Options : Form
     {
-        private bool IgnoreChanges = false;
+        bool IgnoreChanges = false;
+
+        List<Button> TabButtons;
+        Button SelectedTabButton;
+
+        List<TabPage> TabPages;
 
         public Options()
         {
@@ -22,11 +28,58 @@ namespace ProSnap.Options
 
             InitializeComponent();
 
-            //tcOptions.TabPages.Remove(tpButtons);
+            Icon = ProSnap.Properties.Resources.camera_36x36_icon;
+
+            TabButtons = new List<Button>()
+            {
+                btGeneralTab,
+                btShortcutsTab,
+                btPreviewTab,
+                btUploadingTab,
+                btInstallTab,
+                btRegisterTab,
+                btAboutTab,
+            };
+
+            btGeneralTab.Tag = "general";
+            btShortcutsTab.Tag = "shortcuts";
+            btUploadingTab.Tag = "uploading";
+            btInstallTab.Tag = "installation";
+            btRegisterTab.Tag = "registration";
+            btAboutTab.Tag = "about";
+
+            TabPages = new List<TabPage>()
+            {
+                tpPreviewWindow,
+                tpShortcuts,
+                tpButtons,
+                tpUploading,
+                tpInstallation,
+                tpRegistration,
+                tpAbout,
+            };
+
+            tpPreviewWindow.Tag = btGeneralTab;
+            tpShortcuts.Tag = btShortcutsTab;
+            tpButtons.Tag = null;
+            tpUploading.Tag = btUploadingTab;
+            tpInstallation.Tag = btInstallTab;
+            tpRegistration.Tag = btRegisterTab;
+            tpAbout.Tag = btAboutTab;
+
+            //remove work in progress tabs
+            tcOptions.TabPages.Remove(tpButtons);
+            tcOptions.TabPages.Remove(tpInstallation);
+
+            SelectTabButton(btGeneralTab);
+
             LoadDesktopThumb();
             LoadFromConfiguration();
 
-            btManualUpdate.Visible = btCrash.Visible = Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "prosnap-debug"));
+            //btManualUpdate.Visible = btCrash.Visible = Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "prosnap-debug"));
+            lbVersion.Text = Application.ProductVersion;
+
+            tbLicenseDeclarations.Text = ProSnap.Properties.Resources.licences;
 
             Trace.WriteLine("Done.", string.Format("Options.ctor [{0}]", System.Threading.Thread.CurrentThread.Name));
         }
@@ -80,26 +133,20 @@ namespace ProSnap.Options
                 open.BeginInvoke(new MethodInvoker(() =>
                     {
                         open.Activate();
-                        open.SwitchToTab(tab);
+
+                        var TabButton = open.TabButtons.FirstOrDefault(bt => string.Equals(bt.Tag as string, tab, StringComparison.InvariantCultureIgnoreCase));
+                        if (TabButton != null)
+                            TabButton.PerformClick();
                     }));
             }
             else
             {
                 open = new Options();
                 open.Show();
-                open.SwitchToTab(tab);
-            }
-        }
 
-        private void SwitchToTab(string p)
-        {
-            switch (p.ToLower())
-            {
-                case "general": btGeneralTab.PerformClick(); break;
-                //case "buttons": break;
-                case "shortcuts": btShortcutsTab.PerformClick(); break;
-                case "uploading": btUploadingTab.PerformClick(); break;
-                case "registration": btRegisterTab.PerformClick(); break;
+                var TabButton = open.TabButtons.FirstOrDefault(bt => string.Equals(bt.Tag as string, tab, StringComparison.InvariantCultureIgnoreCase));
+                if (TabButton != null)
+                    TabButton.PerformClick();
             }
         }
 
@@ -426,120 +473,41 @@ namespace ProSnap.Options
         #endregion
 
         #region "Tabs"
-        private void btGeneralTab_Click(object sender, EventArgs e)
+        private void SelectTabButton(Button bt)
         {
-            Trace.WriteLine("Switching to general tab...", string.Format("Options.btGeneralTab_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
+            bt.FlatAppearance.BorderColor = SystemColors.Highlight;
+            bt.BackColor = Color.FromArgb(185, 209, 234);
 
-            tcOptions.SelectedTab = tpPreviewWindow;
-
-            btGeneralTab.FlatAppearance.BorderColor = SystemColors.Highlight;
-            btGeneralTab.BackColor = Color.FromArgb(185, 209, 234);
-
-            btShortcutsTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btShortcutsTab.BackColor = flpTabContainer.BackColor;
-
-            btPreviewTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btPreviewTab.BackColor = flpTabContainer.BackColor;
-
-            btUploadingTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btUploadingTab.BackColor = flpTabContainer.BackColor;
-
-            btRegisterTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btRegisterTab.BackColor = flpTabContainer.BackColor;
+            SelectedTabButton = bt;
         }
 
-        private void btShortcutsTab_Click(object sender, EventArgs e)
+        private void DeselectTabButton(Button bt)
         {
-            Trace.WriteLine("Switching to shortcuts tab...", string.Format("Options.btShortcutsTab_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
-
-            tcOptions.SelectedTab = tpShortcuts;
-
-            btGeneralTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btGeneralTab.BackColor = flpTabContainer.BackColor;
-
-            btShortcutsTab.FlatAppearance.BorderColor = SystemColors.Highlight;
-            btShortcutsTab.BackColor = Color.FromArgb(185, 209, 234);
-
-            btPreviewTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btPreviewTab.BackColor = flpTabContainer.BackColor;
-
-            btUploadingTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btUploadingTab.BackColor = flpTabContainer.BackColor;
-
-            btRegisterTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btRegisterTab.BackColor = flpTabContainer.BackColor;
+            bt.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
+            bt.BackColor = flpTabContainer.BackColor;
         }
 
-        private void btPreviewTab_Click(object sender, EventArgs e)
+        private void SwitchToTabButton(Button bt)
         {
-            Trace.WriteLine("Switching to preview tab...", string.Format("Options.btPreviewTab_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
+            SelectTabButton(bt);
+            TabButtons.Except(new[] { bt }).Realize(DeselectTabButton);
 
-            tcOptions.SelectedTab = tpButtons;
-
-            btGeneralTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btGeneralTab.BackColor = flpTabContainer.BackColor;
-
-            btShortcutsTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btShortcutsTab.BackColor = flpTabContainer.BackColor;
-
-            btPreviewTab.FlatAppearance.BorderColor = SystemColors.Highlight;
-            btPreviewTab.BackColor = Color.FromArgb(185, 209, 234);
-
-            btUploadingTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btUploadingTab.BackColor = flpTabContainer.BackColor;
-
-            btRegisterTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btRegisterTab.BackColor = flpTabContainer.BackColor;
+            //switch the button first, so SelectedTabButton gets set and tcOptions_SelectedIndexChanged doesn't trigger twice
+            tcOptions.SelectedTab = TabPages.FirstOrDefault(tp => tp.Tag == bt) ?? tpPreviewWindow;
         }
 
-        private void btUploadingTab_Click(object sender, EventArgs e)
+        private void TabButton_Click(object sender, EventArgs e)
         {
-            Trace.WriteLine("Switching to uploading tab...", string.Format("Options.btUploadingTab_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
-
-            tcOptions.SelectedTab = tpUploading;
-
-            btGeneralTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btGeneralTab.BackColor = flpTabContainer.BackColor;
-
-            btShortcutsTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btShortcutsTab.BackColor = flpTabContainer.BackColor;
-
-            btPreviewTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btPreviewTab.BackColor = flpTabContainer.BackColor;
-
-            btUploadingTab.FlatAppearance.BorderColor = SystemColors.Highlight;
-            btUploadingTab.BackColor = Color.FromArgb(185, 209, 234); ;
-
-            btRegisterTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btRegisterTab.BackColor = flpTabContainer.BackColor;
-        }
-
-        private void btRegisterTab_Click(object sender, EventArgs e)
-        {
-            Trace.WriteLine("Switching to registration tab...", string.Format("Options.btRegisterTab_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
-
-            tcOptions.SelectedTab = tpRegistration;
-
-            btGeneralTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btGeneralTab.BackColor = flpTabContainer.BackColor;
-
-            btShortcutsTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btShortcutsTab.BackColor = flpTabContainer.BackColor;
-
-            btPreviewTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btPreviewTab.BackColor = flpTabContainer.BackColor;
-
-            btUploadingTab.FlatAppearance.BorderColor = SystemColors.ControlLightLight;
-            btUploadingTab.BackColor = flpTabContainer.BackColor;
-
-            btRegisterTab.FlatAppearance.BorderColor = SystemColors.Highlight;
-            btRegisterTab.BackColor = Color.FromArgb(185, 209, 234);
+            Trace.WriteLine(string.Format("Switching to {0} tab...", (sender as Button).Tag), string.Format("Options.TabButton_Click [{0}]", System.Threading.Thread.CurrentThread.Name));
+            SwitchToTabButton(sender as Button);
         }
 
         private void tcOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
             //for ctrl+arrow navigation
-            SwitchToTab(tcOptions.SelectedTab.Tag as string);
+            var TabButton = tcOptions.SelectedTab.Tag as Button;
+            if (TabButton != null && TabButton != SelectedTabButton)
+                TabButton.PerformClick();
         }
         #endregion
     }
