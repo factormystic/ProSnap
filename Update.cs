@@ -19,6 +19,15 @@ namespace ProSnap
                 return;
             }
 
+            //remove this when debugging the updater code. but typically it's useful for this to not run when in visual studio
+            if (Debugger.IsAttached)
+            {
+                if (action != null)
+                    action();
+
+                return;
+            }
+
             var bg = new BackgroundWorker();
             bg.DoWork += (s, e) =>
                 {
