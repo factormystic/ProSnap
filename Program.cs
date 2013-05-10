@@ -60,7 +60,7 @@ namespace ProSnap
 
             TrayIcon = new NotifyIcon()
             {
-                Icon = ProSnap.Properties.Resources.camera_16x16_icon,
+                Icon = ProSnap.Properties.Resources.camera_36x36_icon,
                 Text = "ProSnap",
                 Visible = true,
                 ContextMenuStrip = new ContextMenuStrip()
