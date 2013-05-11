@@ -344,6 +344,7 @@
             this.pnWindowButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnWindowButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnWindowButtons.Controls.Add(this.btCrash);
             this.pnWindowButtons.Controls.Add(this.llResetOptions);
             this.pnWindowButtons.Controls.Add(this.btClose);
             this.pnWindowButtons.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -391,7 +392,6 @@
             // tpPreviewWindow
             // 
             this.tpPreviewWindow.AutoScroll = true;
-            this.tpPreviewWindow.Controls.Add(this.btCrash);
             this.tpPreviewWindow.Controls.Add(this.cbDefaultFileType);
             this.tpPreviewWindow.Controls.Add(this.label8);
             this.tpPreviewWindow.Controls.Add(this.label10);
@@ -417,7 +417,7 @@
             this.btCrash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btCrash.AutoSize = true;
             this.btCrash.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btCrash.Location = new System.Drawing.Point(508, 616);
+            this.btCrash.Location = new System.Drawing.Point(433, 10);
             this.btCrash.Margin = new System.Windows.Forms.Padding(4);
             this.btCrash.Name = "btCrash";
             this.btCrash.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
