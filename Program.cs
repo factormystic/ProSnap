@@ -148,7 +148,9 @@ namespace ProSnap
                 Trace.WriteLine(string.Format("Unhandled Exception at '{0}':\n{1}", InnermostException.TargetSite, InnermostException), string.Format("Program.CurrentDomain_UnhandledException [{0}]", System.Threading.Thread.CurrentThread.Name));
 
                 DumpTraceReport();
-                Crash.SubmitCrashReport();
+
+                if (!Debugger.IsAttached)
+                    Crash.SubmitCrashReport();
 
                 new CrashReportForm().ShowDialog();
                 Application.Exit();
