@@ -72,10 +72,14 @@ namespace ProSnap
 
         private static void MigrateFromPriorVersion()
         {
+
+            Version CurrentVersion = Version.Parse(Application.ProductVersion);
+            var ParentDirectory = System.IO.Directory.GetParent(Configuration.LocalPath);
+
             try
             {
-                Version CurrentVersion = Version.Parse(Application.ProductVersion);
-                foreach (var dir in System.IO.Directory.GetParent(Configuration.LocalPath).EnumerateDirectories())
+                //Try and get content out of any prior version data directory
+                foreach (var dir in ParentDirectory.EnumerateDirectories())
                 {
                     Version v;
                     if (Version.TryParse(dir.Name, out v))
@@ -83,7 +87,13 @@ namespace ProSnap
                         if (CurrentVersion.CompareTo(v) > 0)
                         {
                             foreach (var ss in dir.EnumerateDirectories("screenshots", SearchOption.TopDirectoryOnly))
-                                Directory.Move(ss.FullName, Path.Combine(Configuration.LocalPath, "screenshots"));
+                            {
+                                var From = ss.FullName;
+                                var To = Path.Combine(Configuration.LocalPath, "screenshots");
+
+                                if (From != To)
+                                    Directory.Move(From, To);
+                            }
 
                             var TempProductPath = Path.Combine(Environment.ExpandEnvironmentVariables("%temp%"), Application.ProductName);
 
@@ -98,8 +108,11 @@ namespace ProSnap
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                //Really, swallow everything here, but log it
+                Trace.WriteLine(string.Format("Failed: '{0}'", ex.GetBaseException().Message), string.Format("Configuration.MigrateFromPriorVersion (screenshots) [{0}]", System.Threading.Thread.CurrentThread.Name));
+            }
 
             }
         }
