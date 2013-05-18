@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+using System.Security.Principal;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProSnap.ActionItems;
 using ProSnap.Uploading;
@@ -31,6 +35,22 @@ namespace ProSnap
             }
         }
 
+        public static string ApplicationFilePath
+        {
+            get
+            {
+                return Assembly.GetEntryAssembly().Location;
+            }
+        }
+
+        public static string RUninstallerFilePath
+        {
+            get
+            {
+                return Path.Combine(Directory.GetParent(LocalPath).FullName, "FMUtils.TaskRUninstaller.exe");
+            }
+        }
+
         public static List<ShortcutItem> Shortcuts;
 
         public static List<IUploadService> UploadServices;
@@ -48,10 +68,18 @@ namespace ProSnap
         }
         static bool _ignoreallkeyhooks = false;
 
+        public static bool isElevated
+        {
+            get
+            {
+                return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+            }
+        }
+
         public static int PreviewDelayTime { get; set; }
 
         public static FMUtils.WinApi.Helper.WindowLocation PreviewLocation { get; set; }
-        
+
         public static DockStyle ButtonPanelLocation { get; set; }
 
         public static bool ShowPreviewWithoutActivation { get; set; }
@@ -114,6 +142,21 @@ namespace ProSnap
                 Trace.WriteLine(string.Format("Failed: '{0}'", ex.GetBaseException().Message), string.Format("Configuration.MigrateFromPriorVersion (screenshots) [{0}]", System.Threading.Thread.CurrentThread.Name));
             }
 
+            try
+            {
+                //Copy FMUtils.TaskRUninstaller.exe and its dependency to somewhere that will exist across versions and when the ClickOnce app is uninstalled
+                var From = Path.Combine(Directory.GetParent(Configuration.ApplicationFilePath).FullName, "FMUtils.TaskRUninstaller.exe");
+                var To = Path.Combine(ParentDirectory.FullName, "FMUtils.TaskRUninstaller.exe");
+                File.Copy(From, To, true);
+
+                var FromDep = Path.Combine(Directory.GetParent(Configuration.ApplicationFilePath).FullName, "Microsoft.Win32.TaskScheduler.dll");
+                var ToDep = Path.Combine(ParentDirectory.FullName, "Microsoft.Win32.TaskScheduler.dll");
+                File.Copy(FromDep, ToDep, true);
+            }
+            catch (Exception ex)
+            {
+                //Really, swallow everything here, but log it
+                Trace.WriteLine(string.Format("Failed: '{0}'", ex.GetBaseException().Message), string.Format("Configuration.MigrateFromPriorVersion (FMUtils.TaskRUninstaller) [{0}]", System.Threading.Thread.CurrentThread.Name));
             }
         }
 
@@ -273,6 +316,15 @@ namespace ProSnap
                 DeleteLinkXPath = "rsp/delete_page",
             });
         }
+
+        internal static Task<bool> ToggleStartupTask()
+        {
+            return Task.Factory.StartNew<bool>(() => FMUtils.TaskRUninstaller.Helper.Toggle(Configuration.RUninstallerFilePath, "ProSnap", Configuration.ApplicationFilePath));
+        }
+
+        internal static Task<bool> GetStartupTaskStatus()
+        {
+            return Task.Factory.StartNew<bool>(() => FMUtils.TaskRUninstaller.Helper.IsTaskInstalled("ProSnap"));
+        }
     }
 }
-

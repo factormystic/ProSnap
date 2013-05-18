@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using FMUtils.Screenshot;
 using FMUtils.WinApi;
@@ -36,7 +36,6 @@ namespace ProSnap.Options
                 btShortcutsTab,
                 btPreviewTab,
                 btUploadingTab,
-                btInstallTab,
                 btRegisterTab,
                 btAboutTab,
             };
@@ -44,7 +43,6 @@ namespace ProSnap.Options
             btGeneralTab.Tag = "general";
             btShortcutsTab.Tag = "shortcuts";
             btUploadingTab.Tag = "uploading";
-            btInstallTab.Tag = "installation";
             btRegisterTab.Tag = "registration";
             btAboutTab.Tag = "about";
 
@@ -54,7 +52,6 @@ namespace ProSnap.Options
                 tpShortcuts,
                 tpButtons,
                 tpUploading,
-                tpInstallation,
                 tpRegistration,
                 tpAbout,
             };
@@ -63,13 +60,11 @@ namespace ProSnap.Options
             tpShortcuts.Tag = btShortcutsTab;
             tpButtons.Tag = null;
             tpUploading.Tag = btUploadingTab;
-            tpInstallation.Tag = btInstallTab;
             tpRegistration.Tag = btRegisterTab;
             tpAbout.Tag = btAboutTab;
 
             //remove work in progress tabs
             tcOptions.TabPages.Remove(tpButtons);
-            tcOptions.TabPages.Remove(tpInstallation);
 
             SelectTabButton(btGeneralTab);
 
@@ -78,8 +73,15 @@ namespace ProSnap.Options
 
             //btManualUpdate.Visible = btCrash.Visible = Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "prosnap-debug"));
             lbVersion.Text = Application.ProductVersion;
-
             tbLicenseDeclarations.Text = ProSnap.Properties.Resources.licences;
+
+            btToggleStartupTask.Enabled = false;
+            btToggleStartupTask.Text = "Set ProSnap to run automatically at startup\nCurrent Status: Checking...";
+            Configuration.GetStartupTaskStatus().ContinueWith(t =>
+            {
+                Groom_btStartupTask(t.Result);
+                btToggleStartupTask.Enabled = true;
+            }, TaskScheduler.FromCurrentSynchronizationContext());
 
             Trace.WriteLine("Done.", string.Format("Options.ctor [{0}]", System.Threading.Thread.CurrentThread.Name));
         }
@@ -270,6 +272,39 @@ namespace ProSnap.Options
                 return;
 
             Configuration.DefaultFilterIndex = cbDefaultFileType.SelectedIndex;
+        }
+
+        private void btToggleStartupTask_Click(object sender, EventArgs e)
+        {
+            btToggleStartupTask.Enabled = false;
+
+            Configuration.ToggleStartupTask().ContinueWith(t =>
+            {
+                btToggleStartupTask.Enabled = true;
+
+                if (t.IsFaulted)
+                {
+                    MessageBox.Show(this, t.Exception.GetBaseException().Message, "ProSnap Scheduled Task Installation", MessageBoxButtons.OK);
+                    return;
+                }
+
+                Groom_btStartupTask(t.Result);
+
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private void Groom_btStartupTask(bool installed)
+        {
+            if (installed)
+            {
+                btToggleStartupTask.Text = "Set ProSnap to run automatically at startup\nCurrent Status: Active";
+                btToggleStartupTask.Image = ProSnap.Properties.Resources.check_green_32x26;
+            }
+            else
+            {
+                btToggleStartupTask.Text = "Set ProSnap to run automatically at startup\nCurrent Status: Not set";
+                btToggleStartupTask.Image = ProSnap.Properties.Resources.x_28x28_red;
+            }
         }
         #endregion
 

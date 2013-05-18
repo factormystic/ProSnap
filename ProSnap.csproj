@@ -353,6 +353,10 @@
       <Project>{C145E67F-C823-4A3E-AB96-F0EB49CA4AB4}</Project>
       <Name>FMUtils.Screenshot</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\FMUtils.TaskRuninstaller\FMUtils.TaskRUninstaller.csproj">
+      <Project>{F5BCF038-E6F6-4DAB-8E31-626FB0110A78}</Project>
+      <Name>FMUtils.TaskRUninstaller</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Utilities\FMUtils.WinApi\FMUtils.WinApi.csproj">
       <Project>{1F68C533-41DB-4EBC-BA13-142AAEBE5ACA}</Project>
       <Name>FMUtils.WinApi</Name>

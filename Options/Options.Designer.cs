@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Global Shortcuts", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Preview Window Shortcuts", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Save", 0);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Upload", 1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Edit", 2);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Global Shortcuts", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Preview Window Shortcuts", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Save", 0);
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Upload", 1);
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Edit", 2);
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "Delete"}, 3, System.Drawing.Color.Empty, System.Drawing.SystemColors.Window, null);
             this.btClose = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -45,7 +45,6 @@
             this.btShortcutsTab = new System.Windows.Forms.Button();
             this.btPreviewTab = new System.Windows.Forms.Button();
             this.btUploadingTab = new System.Windows.Forms.Button();
-            this.btInstallTab = new System.Windows.Forms.Button();
             this.btRegisterTab = new System.Windows.Forms.Button();
             this.btAboutTab = new System.Windows.Forms.Button();
             this.pnWindowButtons = new System.Windows.Forms.Panel();
@@ -110,12 +109,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.tpInstallation = new System.Windows.Forms.TabPage();
-            this.llOpenLogFolder = new System.Windows.Forms.LinkLabel();
-            this.btToggleStartupTask = new System.Windows.Forms.Button();
-            this.btToggleInstallation = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.tpAbout = new System.Windows.Forms.TabPage();
             this.gbLicenseDeclarations = new System.Windows.Forms.GroupBox();
             this.tbLicenseDeclarations = new System.Windows.Forms.TextBox();
@@ -126,6 +119,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lbVersion = new System.Windows.Forms.Label();
             this.btManualUpdate = new System.Windows.Forms.Button();
+            this.btToggleStartupTask = new System.Windows.Forms.Button();
             this.flpTabContainer.SuspendLayout();
             this.pnWindowButtons.SuspendLayout();
             this.tcOptions.SuspendLayout();
@@ -142,8 +136,6 @@
             this.groupBox3.SuspendLayout();
             this.flpUploadServiceButtons.SuspendLayout();
             this.tpRegistration.SuspendLayout();
-            this.tpInstallation.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.tpAbout.SuspendLayout();
             this.gbLicenseDeclarations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -195,7 +187,6 @@
             this.flpTabContainer.Controls.Add(this.btShortcutsTab);
             this.flpTabContainer.Controls.Add(this.btPreviewTab);
             this.flpTabContainer.Controls.Add(this.btUploadingTab);
-            this.flpTabContainer.Controls.Add(this.btInstallTab);
             this.flpTabContainer.Controls.Add(this.btRegisterTab);
             this.flpTabContainer.Controls.Add(this.btAboutTab);
             this.flpTabContainer.Location = new System.Drawing.Point(-1, -2);
@@ -280,26 +271,6 @@
             this.btUploadingTab.UseVisualStyleBackColor = false;
             this.btUploadingTab.Click += new System.EventHandler(this.TabButton_Click);
             // 
-            // btInstallTab
-            // 
-            this.btInstallTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btInstallTab.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btInstallTab.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btInstallTab.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
-            this.btInstallTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
-            this.btInstallTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btInstallTab.Image = global::ProSnap.Properties.Resources.home_32x32;
-            this.btInstallTab.Location = new System.Drawing.Point(335, 0);
-            this.btInstallTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
-            this.btInstallTab.Name = "btInstallTab";
-            this.btInstallTab.Size = new System.Drawing.Size(75, 65);
-            this.btInstallTab.TabIndex = 5;
-            this.btInstallTab.Text = "\r\n Install";
-            this.btInstallTab.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btInstallTab.UseVisualStyleBackColor = false;
-            this.btInstallTab.Visible = false;
-            this.btInstallTab.Click += new System.EventHandler(this.TabButton_Click);
-            // 
             // btRegisterTab
             // 
             this.btRegisterTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -309,7 +280,7 @@
             this.btRegisterTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
             this.btRegisterTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btRegisterTab.Image = global::ProSnap.Properties.Resources.check_32x26;
-            this.btRegisterTab.Location = new System.Drawing.Point(416, 0);
+            this.btRegisterTab.Location = new System.Drawing.Point(335, 0);
             this.btRegisterTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
             this.btRegisterTab.Name = "btRegisterTab";
             this.btRegisterTab.Size = new System.Drawing.Size(75, 65);
@@ -329,7 +300,7 @@
             this.btAboutTab.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(209)))), ((int)(((byte)(234)))));
             this.btAboutTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btAboutTab.Image = global::ProSnap.Properties.Resources.camera_36x36;
-            this.btAboutTab.Location = new System.Drawing.Point(497, 0);
+            this.btAboutTab.Location = new System.Drawing.Point(416, 0);
             this.btAboutTab.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
             this.btAboutTab.Name = "btAboutTab";
             this.btAboutTab.Size = new System.Drawing.Size(75, 65);
@@ -377,7 +348,6 @@
             this.tcOptions.Controls.Add(this.tpButtons);
             this.tcOptions.Controls.Add(this.tpUploading);
             this.tcOptions.Controls.Add(this.tpRegistration);
-            this.tcOptions.Controls.Add(this.tpInstallation);
             this.tcOptions.Controls.Add(this.tpAbout);
             this.tcOptions.ImageList = this.ilTabIcons;
             this.tcOptions.ItemSize = new System.Drawing.Size(100, 20);
@@ -392,6 +362,7 @@
             // tpPreviewWindow
             // 
             this.tpPreviewWindow.AutoScroll = true;
+            this.tpPreviewWindow.Controls.Add(this.btToggleStartupTask);
             this.tpPreviewWindow.Controls.Add(this.cbDefaultFileType);
             this.tpPreviewWindow.Controls.Add(this.label8);
             this.tpPreviewWindow.Controls.Add(this.label10);
@@ -679,13 +650,13 @@
             this.chKeyCombo,
             this.chActions});
             this.lvShortcuts.FullRowSelect = true;
-            listViewGroup1.Header = "Global Shortcuts";
-            listViewGroup1.Name = "lvgGlobal";
-            listViewGroup2.Header = "Preview Window Shortcuts";
-            listViewGroup2.Name = "lvgPreview";
+            listViewGroup3.Header = "Global Shortcuts";
+            listViewGroup3.Name = "lvgGlobal";
+            listViewGroup4.Header = "Preview Window Shortcuts";
+            listViewGroup4.Name = "lvgPreview";
             this.lvShortcuts.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2});
+            listViewGroup3,
+            listViewGroup4});
             this.lvShortcuts.HideSelection = false;
             this.lvShortcuts.Location = new System.Drawing.Point(4, 74);
             this.lvShortcuts.Margin = new System.Windows.Forms.Padding(4);
@@ -919,13 +890,13 @@
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
-            listViewItem1.StateImageIndex = 0;
-            listViewItem4.StateImageIndex = 0;
+            listViewItem5.StateImageIndex = 0;
+            listViewItem8.StateImageIndex = 0;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4});
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8});
             this.listView1.LargeImageList = this.imageList1;
             this.listView1.Location = new System.Drawing.Point(174, 4);
             this.listView1.Margin = new System.Windows.Forms.Padding(4);
@@ -1153,82 +1124,6 @@
             this.label14.TabIndex = 1;
             this.label14.Text = "Buy a registration key, get bonus features!";
             // 
-            // tpInstallation
-            // 
-            this.tpInstallation.Controls.Add(this.llOpenLogFolder);
-            this.tpInstallation.Controls.Add(this.btToggleStartupTask);
-            this.tpInstallation.Controls.Add(this.btToggleInstallation);
-            this.tpInstallation.Controls.Add(this.groupBox4);
-            this.tpInstallation.Location = new System.Drawing.Point(0, 0);
-            this.tpInstallation.Name = "tpInstallation";
-            this.tpInstallation.Padding = new System.Windows.Forms.Padding(3);
-            this.tpInstallation.Size = new System.Drawing.Size(643, 714);
-            this.tpInstallation.TabIndex = 5;
-            this.tpInstallation.UseVisualStyleBackColor = true;
-            // 
-            // llOpenLogFolder
-            // 
-            this.llOpenLogFolder.AutoSize = true;
-            this.llOpenLogFolder.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(69)))), ((int)(((byte)(173)))));
-            this.llOpenLogFolder.Location = new System.Drawing.Point(12, 677);
-            this.llOpenLogFolder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.llOpenLogFolder.Name = "llOpenLogFolder";
-            this.llOpenLogFolder.Size = new System.Drawing.Size(235, 20);
-            this.llOpenLogFolder.TabIndex = 30;
-            this.llOpenLogFolder.TabStop = true;
-            this.llOpenLogFolder.Text = "Open application folder location...";
-            // 
-            // btToggleStartupTask
-            // 
-            this.btToggleStartupTask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btToggleStartupTask.Image = global::ProSnap.Properties.Resources.x_28x28_red;
-            this.btToggleStartupTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btToggleStartupTask.Location = new System.Drawing.Point(116, 138);
-            this.btToggleStartupTask.Name = "btToggleStartupTask";
-            this.btToggleStartupTask.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btToggleStartupTask.Size = new System.Drawing.Size(413, 60);
-            this.btToggleStartupTask.TabIndex = 29;
-            this.btToggleStartupTask.Text = "Set ProSnap to run automatically at startup\r\nCurrent Status: Not Set";
-            this.btToggleStartupTask.UseVisualStyleBackColor = true;
-            // 
-            // btToggleInstallation
-            // 
-            this.btToggleInstallation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btToggleInstallation.Image = global::ProSnap.Properties.Resources.x_28x28_red;
-            this.btToggleInstallation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btToggleInstallation.Location = new System.Drawing.Point(116, 72);
-            this.btToggleInstallation.Name = "btToggleInstallation";
-            this.btToggleInstallation.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btToggleInstallation.Size = new System.Drawing.Size(413, 60);
-            this.btToggleInstallation.TabIndex = 28;
-            this.btToggleInstallation.Text = "Install ProSnap to its application directory\r\nCurrent Status: Not Installed";
-            this.btToggleInstallation.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.label18);
-            this.groupBox4.Location = new System.Drawing.Point(4, -6);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.groupBox4.Size = new System.Drawing.Size(635, 72);
-            this.groupBox4.TabIndex = 27;
-            this.groupBox4.TabStop = false;
-            // 
-            // label18
-            // 
-            this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label18.Location = new System.Drawing.Point(4, 20);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 4);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(627, 52);
-            this.label18.TabIndex = 25;
-            this.label18.Text = "It is not necessary to install ProSnap, but it is recommended. Manage installatio" +
-    "n options here.";
-            // 
             // tpAbout
             // 
             this.tpAbout.Controls.Add(this.gbLicenseDeclarations);
@@ -1354,6 +1249,19 @@
             this.btManualUpdate.UseVisualStyleBackColor = true;
             this.btManualUpdate.Click += new System.EventHandler(this.btManualUpdate_Click);
             // 
+            // btToggleStartupTask
+            // 
+            this.btToggleStartupTask.Image = global::ProSnap.Properties.Resources.x_28x28_red;
+            this.btToggleStartupTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btToggleStartupTask.Location = new System.Drawing.Point(13, 615);
+            this.btToggleStartupTask.Name = "btToggleStartupTask";
+            this.btToggleStartupTask.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btToggleStartupTask.Size = new System.Drawing.Size(413, 60);
+            this.btToggleStartupTask.TabIndex = 30;
+            this.btToggleStartupTask.Text = "Set ProSnap to run automatically at startup\r\nCurrent Status: Not Set";
+            this.btToggleStartupTask.UseVisualStyleBackColor = true;
+            this.btToggleStartupTask.Click += new System.EventHandler(this.btToggleStartupTask_Click);
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -1394,9 +1302,6 @@
             this.flpUploadServiceButtons.PerformLayout();
             this.tpRegistration.ResumeLayout(false);
             this.tpRegistration.PerformLayout();
-            this.tpInstallation.ResumeLayout(false);
-            this.tpInstallation.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
             this.tpAbout.ResumeLayout(false);
             this.tpAbout.PerformLayout();
             this.gbLicenseDeclarations.ResumeLayout(false);
@@ -1481,14 +1386,7 @@
         private System.Windows.Forms.LinkLabel llResetOptions;
         private System.Windows.Forms.Button btCrash;
         private System.Windows.Forms.Button btPreviewTab;
-        private System.Windows.Forms.Button btInstallTab;
         private System.Windows.Forms.Button btAboutTab;
-        private System.Windows.Forms.TabPage tpInstallation;
-        private System.Windows.Forms.Button btToggleStartupTask;
-        private System.Windows.Forms.Button btToggleInstallation;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.LinkLabel llOpenLogFolder;
         private System.Windows.Forms.TabPage tpAbout;
         private System.Windows.Forms.Button btManualUpdate;
         private System.Windows.Forms.Label lbVersion;
@@ -1499,5 +1397,6 @@
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button btToggleStartupTask;
     }
 }
