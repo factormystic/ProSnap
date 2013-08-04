@@ -64,7 +64,7 @@ namespace ProSnap.ActionItems
                 Program.Selector.Hide();
                 e.Cancel = true;
 
-                if (!Program.Selector.SnapshotRectangle.IsEmpty)
+                if (Program.Selector.DialogResult == DialogResult.OK && !Program.Selector.SnapshotRectangle.IsEmpty)
                 {
                     LatestScreenshot = new ExtendedScreenshot(Program.Selector.SnapshotRectangle);
                     Program.History.Add(LatestScreenshot);
