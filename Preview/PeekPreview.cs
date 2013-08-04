@@ -442,6 +442,10 @@ namespace ProSnap
                                 MessageBox.Show(this, string.Format("An error occurred while uploading this screenshot:\n{0}", t.Exception.GetBaseException()), "Upload Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
+                            else
+                            {
+                                new ClipboardAction(":url").Invoke(CurrentScreenshot);
+                            }
 
                             GroomUploadMenuItemStyles();
                         }, TaskScheduler.FromCurrentSynchronizationContext());
