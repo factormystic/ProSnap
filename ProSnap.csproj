@@ -368,6 +368,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="notes.txt" />
+    <None Include="Resources\camera_36x36_flash_small_icon.ico" />
+    <None Include="Resources\camera_36x36_flash_large_icon.ico" />
+    <None Include="Resources\camera_36x36_flash_xlarge_icon.ico" />
     <None Include="Resources\licences.txt" />
     <None Include="ProSnap_1_TemporaryKey.pfx" />
     <None Include="Resources\check_green_32x26.png" />
@@ -385,9 +388,6 @@
     <None Include="Resources\check_32x26.png" />
     <None Include="Resources\camera_36x36.png" />
     <None Include="Resources\camera_36x36_icon.ico" />
-    <None Include="Resources\camera_16x16_icon.ico" />
-    <None Include="Resources\camera_16x16_flash_large_icon.ico" />
-    <None Include="Resources\camera_16x16_flash_small_icon.ico" />
     <None Include="Resources\cloud_upload_32x32_white.png" />
     <None Include="Resources\forward_18x32_white.png" />
     <None Include="Resources\forward_18x32_black.png" />

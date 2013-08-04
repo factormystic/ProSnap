@@ -148,9 +148,6 @@
   <data name="heart_stroke_black_32x28" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\heart_stroke_black_32x28.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="camera_16x16_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\camera_16x16_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="x_28x28_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\x_28x28_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -163,9 +160,6 @@
   <data name="cloud_upload_link_white_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cloud_upload_link_white_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="camera_16x16_flash_large_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\camera_16x16_flash_large_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="at_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\at_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -174,9 +168,6 @@
   </data>
   <data name="cloud_upload_link_black_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cloud_upload_link_black_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Camera" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Camera.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FlashBulb" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FlashBulb.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -207,9 +198,6 @@
   </data>
   <data name="check_32x26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\check_32x26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="camera_16x16_flash_small_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\camera_16x16_flash_small_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="image_32x32_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\image_32x32_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -249,5 +237,14 @@
   </data>
   <data name="licences" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\licences.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="camera_36x36_flash_large_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\camera_36x36_flash_large_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="camera_36x36_flash_small_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\camera_36x36_flash_small_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="camera_36x36_flash_xlarge_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\camera_36x36_flash_xlarge_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

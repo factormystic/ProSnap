@@ -92,16 +92,32 @@ namespace ProSnap
             do
             {
                 CurrentIcon++;
-                if (CurrentIcon > 2)
-                    CurrentIcon = 1;
+                if (CurrentIcon > 10)
+                    CurrentIcon = 0;
 
-                TrayIcon.Icon = CurrentIcon == 1 ? ProSnap.Properties.Resources.camera_16x16_flash_small_icon : ProSnap.Properties.Resources.camera_16x16_flash_large_icon;
+                switch (CurrentIcon)
+                {
+                    case 1:
+                        TrayIcon.Icon = ProSnap.Properties.Resources.camera_36x36_flash_small_icon;
+                        break;
+                    case 2:
+                        TrayIcon.Icon = ProSnap.Properties.Resources.camera_36x36_flash_large_icon;
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                        TrayIcon.Icon = ProSnap.Properties.Resources.camera_36x36_flash_xlarge_icon;
+                        break;
+                    default:
+                        TrayIcon.Icon = ProSnap.Properties.Resources.camera_36x36_icon;
+                        break;
+                }
 
-                Thread.Sleep(500);
+                Thread.Sleep(50);
             } while (!IconAnimation.CancellationPending);
 
             CurrentIcon = 0;
-            TrayIcon.Icon = ProSnap.Properties.Resources.camera_16x16_icon;
+            TrayIcon.Icon = ProSnap.Properties.Resources.camera_36x36_icon;
         }
 
         private static void TrayIcon_MouseDown(object sender, MouseEventArgs e)
