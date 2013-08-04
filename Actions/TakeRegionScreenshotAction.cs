@@ -57,26 +57,29 @@ namespace ProSnap.ActionItems
 
             var t = new TaskCompletionSource<object>();
 
-            var fceh = new FormClosedEventHandler((s, e) =>
+            var fceh = new FormClosingEventHandler((s, e) =>
             {
                 Trace.WriteLine("Closed region selector.", string.Format("TakeRegionScreenshotAction.Invoke.FormClosed [{0}]", System.Threading.Thread.CurrentThread.Name));
 
-                if (Program.Selector.SnapshotRectangle.IsEmpty)
-                    return;
+                Program.Selector.Hide();
+                e.Cancel = true;
 
-                LatestScreenshot = new ExtendedScreenshot(Program.Selector.SnapshotRectangle);
-                Program.History.Add(LatestScreenshot);
-                Program.Preview.GroomBackForwardIcons();
+                if (!Program.Selector.SnapshotRectangle.IsEmpty)
+                {
+                    LatestScreenshot = new ExtendedScreenshot(Program.Selector.SnapshotRectangle);
+                    Program.History.Add(LatestScreenshot);
+                    Program.Preview.GroomBackForwardIcons();
+                }
 
                 t.SetResult(null);
             });
 
-            Program.Selector.FormClosed += fceh;
+            Program.Selector.FormClosing += fceh;
             Program.Selector.BeginInvoke(new MethodInvoker(() => Program.Selector.Show()));
 
             Task.WaitAll(t.Task);
 
-            Program.Selector.FormClosed -= fceh;
+            Program.Selector.FormClosing -= fceh;
 
             return LatestScreenshot;
         }
