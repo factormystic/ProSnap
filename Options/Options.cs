@@ -73,7 +73,7 @@ namespace ProSnap.Options
 
             //btManualUpdate.Visible = btCrash.Visible = Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "prosnap-debug"));
             lbVersion.Text = Application.ProductVersion;
-            tbLicenseDeclarations.Text = ProSnap.Properties.Resources.licences;
+            tbLicenseDeclarations.Text = ProSnap.Properties.Resources.licences.Replace("\n", Environment.NewLine);
 
             btToggleStartupTask.Enabled = false;
             btToggleStartupTask.Text = "Set ProSnap to run automatically at startup\nCurrent Status: Checking...";
