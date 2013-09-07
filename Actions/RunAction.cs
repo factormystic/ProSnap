@@ -63,6 +63,14 @@ namespace ProSnap.ActionItems
 
         public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
         {
+            Trace.WriteLine("Applying RunAction...", string.Format("RunAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+            if (LatestScreenshot == null)
+            {
+                Trace.WriteLine("Latest Screenshot is null, continuing...", string.Format("RunAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
+                return null;
+            }
+
             if (!File.Exists(LatestScreenshot.InternalFileName))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(LatestScreenshot.InternalFileName));

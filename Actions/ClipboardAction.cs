@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -39,8 +40,13 @@ namespace ProSnap.ActionItems
 
         public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
         {
+            Trace.WriteLine("Applying ClipboardAction...", string.Format("ClipboardAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
+
             if (LatestScreenshot == null)
+            {
+                Trace.WriteLine("Latest Screenshot is null, continuing...", string.Format("ClipboardAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
                 return null;
+            }
 
             var set = new Action(() =>
             {

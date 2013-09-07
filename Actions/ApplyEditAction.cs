@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace ProSnap.ActionItems
 {
@@ -63,6 +64,14 @@ namespace ProSnap.ActionItems
 
         public ExtendedScreenshot Invoke(ExtendedScreenshot LatestScreenshot)
         {
+            Trace.WriteLine("Applying ApplyEditAction...", string.Format("ApplyEditAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
+
+            if (LatestScreenshot == null)
+            {
+                Trace.WriteLine("Latest Screenshot is null, continuing...", string.Format("ApplyEditAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
+                return null;
+            }
+
             switch (this.DefaultBorderRounding)
             {
                 case ApplyEditsAction.ApplicationMode.Automatic: LatestScreenshot.withBorderRounding = !LatestScreenshot.isMaximized && LatestScreenshot.isRounded && !(FMUtils.WinApi.Helper.OperatingSystem == FMUtils.WinApi.Helper.OperatingSystems.Win8); break;

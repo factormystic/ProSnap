@@ -34,6 +34,12 @@ namespace ProSnap.ActionItems
         {
             Trace.WriteLine("Applying UploadAction...", string.Format("UploadAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
 
+            if (LatestScreenshot == null)
+            {
+                Trace.WriteLine("Latest Screenshot is null, continuing...", string.Format("UploadAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
+                return null;
+            }
+
             var ActiveService = Configuration.UploadServices.FirstOrDefault(u => u.isActive);
             if (ActiveService == null)
             {

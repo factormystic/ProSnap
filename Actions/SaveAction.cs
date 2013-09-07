@@ -45,6 +45,12 @@ namespace ProSnap.ActionItems
         {
             Trace.WriteLine("Applying SaveAction...", string.Format("SaveAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
 
+            if (LatestScreenshot == null)
+            {
+                Trace.WriteLine("Latest Screenshot is null, continuing...", string.Format("SaveAction.Invoke [{0}]", System.Threading.Thread.CurrentThread.Name));
+                return null;
+            }
+
             if (this.Prompt)
             {
                 Trace.WriteLine(string.Format("Prompting for save: {0}", this.Prompt), string.Format("SaveAction.Invoke Save [{0}]", System.Threading.Thread.CurrentThread.Name));
