@@ -25,7 +25,7 @@ While funtional and useful in its current form, ProSnap is currently deficient i
 - [[#8](https://github.com/factormystic/ProSnap/issues/8)] Configuration save/load is not yet implemented, so all configuration changes reset when the app is closed
 - [[#9] (https://github.com/factormystic/ProSnap/issues/9)] Screenshot metadata isn't persisted across app restarts
 - [[#10] (https://github.com/factormystic/ProSnap/issues/10)] All session screenshots are kept in memory, so memory useage only grows during use
-- [[#11] (https://github.com/factormystic/ProSnap/issues/11)] Graphics mode changes (I think) sometimes cause the preview form to be solid black instead of glassy (such as after a Remote Desktop session)
+- **Fixed** ~~[[#11] (https://github.com/factormystic/ProSnap/issues/11)] Graphics mode changes (I think) sometimes cause the preview form to be solid black instead of glassy (such as after a Remote Desktop session)~~
 - [[#2] (https://github.com/factormystic/ProSnap/issues/2)] The region screenshot chooser UI is too minimalist, and needs some UI love
 - [[#12] (https://github.com/factormystic/ProSnap/issues/12)] I need to figure out how to implement OAuth consumption in a desktop app, which would allow uploading to Tumblr, and private Imgur accounts
 - [[#13] (https://github.com/factormystic/ProSnap/issues/13)] FTP upload support, and [[#14] (https://github.com/factormystic/ProSnap/issues/14)] a general revamp of the upload config UI
