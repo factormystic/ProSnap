@@ -237,11 +237,14 @@ namespace ProSnap
 
         private void SetupWindowArea()
         {
-            Trace.WriteLine("Window frame configuration", string.Format("PeekPreview.SetupWindowArea [{0}]", System.Threading.Thread.CurrentThread.Name));
+            Trace.WriteLine(string.Format("Window frame configuration ({0})", FMUtils.WinApi.Helper.VisualStyle), string.Format("PeekPreview.SetupWindowArea [{0}]", System.Threading.Thread.CurrentThread.Name));
 
             if (FMUtils.WinApi.Helper.VisualStyle == FMUtils.WinApi.Helper.VisualStyles.Aero)
             {
                 this.BackColor = Color.Black;
+
+                //if the caption was previously set to an empty string (for Basic) but now we're back to Aero, zero it again
+                this.Text = "";
 
                 DWM.Margins GlassMargins;
                 GlassMargins.Top = -1;
@@ -255,6 +258,7 @@ namespace ProSnap
             {
                 this.BackColor = SystemColors.GradientActiveCaption;
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+
                 //need this to get correctly colored non-client area, at the cost of a top title bar margin
                 this.Text = " ";
             }
@@ -297,7 +301,14 @@ namespace ProSnap
 
         protected override void WndProc(ref Message m)
         {
-            if (Opacity == 0)
+            if (m.Msg == Windowing.WM_DESKTOPCOMPOSITIONCHANGED)
+            {
+                //RecreateHandle();
+                SetupWindowArea();
+                if (this.Visible)
+                    SetWindowPosition();
+            }
+            else if (Opacity == 0)
             {
                 //Don't respond to events if invisible, so this is faux-Hide(). We can't Hide() because then we cant invoke, which we need to do whenever we need to talk to this form from a thread
                 base.WndProc(ref m);
@@ -305,12 +316,6 @@ namespace ProSnap
             else if (m.Msg == (int)Windowing.WM_NCHITTEST)
             {
                 m.Result = (IntPtr)(-1);
-            }
-            else if (m.Msg == Windowing.WM_DESKTOPCOMPOSITIONCHANGED)
-            {
-                //RecreateHandle();
-                SetupWindowArea();
-                SetWindowPosition();
             }
             else
             {
