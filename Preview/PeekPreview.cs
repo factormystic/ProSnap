@@ -301,26 +301,28 @@ namespace ProSnap
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == Windowing.WM_DESKTOPCOMPOSITIONCHANGED)
+            switch (m.Msg)
             {
-                //RecreateHandle();
-                SetupWindowArea();
-                if (this.Visible)
-                    SetWindowPosition();
+                case Windowing.WM_DESKTOPCOMPOSITIONCHANGED:
+                    //RecreateHandle();
+                    SetupWindowArea();
+                    if (this.Visible)
+                        SetWindowPosition();
+                    break;
+
+                case Windowing.WM_NCHITTEST:
+                    //Don't respond to events if invisible, so this is faux-Hide(). We can't Hide() because then we cant invoke, which we need to do whenever we need to talk to this form from a thread
+                    if (Opacity > 0)
+                        m.Result = (IntPtr)(-1);
+                    else
+                        base.WndProc(ref m);
+                    break;
+
+                default:
+                    base.WndProc(ref m);
+                    break;
             }
-            else if (Opacity == 0)
-            {
-                //Don't respond to events if invisible, so this is faux-Hide(). We can't Hide() because then we cant invoke, which we need to do whenever we need to talk to this form from a thread
-                base.WndProc(ref m);
-            }
-            else if (m.Msg == (int)Windowing.WM_NCHITTEST)
-            {
-                m.Result = (IntPtr)(-1);
-            }
-            else
-            {
-                base.WndProc(ref m);
-            }
+
         }
 
         #region Preview
