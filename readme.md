@@ -7,7 +7,7 @@
                                       | |    
                                       |_|    
                                       
-### A minimalist screenshot application for documentation quality screenshots
+### A minimalist screenshot app for documentation quality screenshots
 **[Installer for latest version](http://factormystic.net/deploy/prosnap/setup.exe)** _(Actual website, coming soon!)_
 
 
