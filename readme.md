@@ -21,7 +21,7 @@
 - Also requires **[GongShell](http://gong-shell.sourceforge.net)**, a neat third party library I use to show the Windows context menu
 
 ### Where you can help
-While funtional and useful in its current form, ProSnap is currently deficient in several ways (no particular order):
+While functional and useful in its current form, ProSnap is currently deficient in several ways (no particular order):
 - [[#8](https://github.com/factormystic/ProSnap/issues/8)] Configuration save/load is not yet implemented, so all configuration changes reset when the app is closed
 - [[#9] (https://github.com/factormystic/ProSnap/issues/9)] Screenshot metadata isn't persisted across app restarts
 - [[#10] (https://github.com/factormystic/ProSnap/issues/10)] All session screenshots are kept in memory, so memory useage only grows during use
@@ -32,4 +32,4 @@ While funtional and useful in its current form, ProSnap is currently deficient i
 - Figure out how to kill off the ActionItems enum and possibly load additional `IActionItem`s via a plugin architecture.
 - [[#15] (https://github.com/factormystic/ProSnap/issues/15)] Scrolling screenshot implementation is weak and needs to be rewritten with a less dumb (faster/more successful) algorithm
 
-Feel free to fork this repository and start cracking on any of these issues
+Feel free to fork this repository and start cracking on any of these issues.
